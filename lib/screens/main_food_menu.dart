@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:food_management/widget/bottom_bar.dart';
-import '../widget/top_bar.dart';
+import 'package:flutter/material.dart';
 
 class MainFoodMenu extends StatefulWidget {
   const MainFoodMenu({Key? key}) : super(key: key);
@@ -17,14 +16,28 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Stack(
-          children: [
-            TopBar(),
+    return Scaffold(
+      body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: false,
+              backgroundColor: Colors.green,
+              elevation: 0,
+              centerTitle: true,
+              title: Column(
+                children: [
+                  Text(
+                    "AutoKit",
+                    style: TextStyle(
+                        fontFamily: 'RobotoSlab', fontSize: 25, color: Colors.black
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
-        )
-      ],
+
+      ),
     );
   }
 }

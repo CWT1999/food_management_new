@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:food_management/widget/bottom_bar.dart';
+import 'package:flutter/material.dart';
 import '../widget/top_bar.dart';
 
 class MainProfile extends StatefulWidget {
-  const MainProfile({Key? key}) : super(key: key);
-
   @override
   State<MainProfile> createState() => _MainProfile();
 }
@@ -20,7 +18,9 @@ class _MainProfile extends State<MainProfile> {
     return ListView(
       children: [
         Stack(
+
           children: [
+
             TopBar(),
           ],
         )

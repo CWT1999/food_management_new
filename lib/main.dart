@@ -35,7 +35,7 @@ class Splash extends StatelessWidget {
               value: JoinOrLogin(),
               child: AuthPage());
         }else{
-          return MainPage();
+          return  MainPage(email:snapshot.data.toString());
         }
       }
     );
