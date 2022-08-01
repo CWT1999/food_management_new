@@ -61,6 +61,7 @@ class _MainHomeState extends State<MainHome> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(),
                 Text("아침 식단"),
                 Container(
                   child: Text("순두부찌개"),
