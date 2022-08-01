@@ -30,7 +30,7 @@ class _MainHomeState extends State<MainHome> {
             title: Column(
               children: [
                 Text(
-                  "AutoKit",
+                  "오토키트",
                   style: TextStyle(
                     fontFamily: 'RobotoSlab', fontSize: 25, color: Colors.black
                   ),
