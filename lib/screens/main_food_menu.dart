@@ -41,7 +41,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
               title: Column(
                 children: [
                   Text(
-                    "오토키트",
+                    "오토키트오우",
                     style: TextStyle(color: Colors.black, fontFamily: 'RobotoSlab', fontSize: 25, ),
                   ),
                   Align(
