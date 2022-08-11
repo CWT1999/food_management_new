@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/text_button.dart';
 import 'package:food_management/data/food.dart';
+import 'package:food_management/data/food_model.dart';
 import 'package:food_management/widget/bottom_bar.dart';
-
-
 
 class MainFoodMenu extends StatefulWidget {
   const MainFoodMenu({Key? key}) : super(key: key);
@@ -14,6 +13,28 @@ class MainFoodMenu extends StatefulWidget {
 }
 
 class _MainFoodMenuState extends State<MainFoodMenu> {
+  static List<FoodModel> main_foods_list = [
+    FoodModel(
+      "닭가슴살",
+      15,
+      150,
+    ),
+    FoodModel(
+      "현미밥",
+      30,
+      300,
+    ),
+    FoodModel(
+      "햄버거",
+      50,
+      500,
+    ),
+  ];
+
+  static List<FoodModel> display_list = List.from(main_foods_list);
+
+  void updateList(String value) {}
+
   final TextEditingController _filter = TextEditingController();
   FocusNode focusNode = FocusNode();
   String _searchText = "";
@@ -25,60 +46,69 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
       });
     });
   }
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.green,
-              elevation: 0,
-              title: Column(
-                children: [
-                  Text(
-                    "AutoKit",
-                    style: TextStyle(color: Colors.black, fontFamily: 'RobotoSlab', fontSize: 25, ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                  )
-                ],
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          title: Column(
+            children: [
+              Text(
+                "AutoKit",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'RobotoSlab',
+                  fontSize: 25,
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                child: Column(
-                children: [
-                  Padding(padding: EdgeInsets.all(5)),
-                  Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.fromLTRB(5, 10, 5, 10,),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 6,
-                          child: TextField(
-                            focusNode: focusNode,
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                            autofocus: true,
-                            controller: _filter,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey,
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                                size: 20,
-                              ),
-                              suffixIcon: focusNode.hasFocus
-                                ? IconButton(
+              Align(
+                alignment: Alignment.center,
+              )
+            ],
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+              child: Column(
+            children: [
+              Padding(padding: EdgeInsets.all(5)),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.fromLTRB(
+                  5,
+                  10,
+                  5,
+                  10,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: TextField(
+                        focusNode: focusNode,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                        autofocus: true,
+                        controller: _filter,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey,
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          suffixIcon: focusNode.hasFocus
+                              ? IconButton(
                                   onPressed: () {
                                     setState(() {
                                       _filter.clear();
@@ -89,24 +119,27 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                                     Icons.cancel,
                                     size: 20,
                                   ),
-                              )
-                                  :Container(),
-                              hintText: "검색",
-                              labelStyle: TextStyle(color: Colors.white),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.transparent),
-                                  borderRadius: BorderRadius.all(Radius.circular(10))),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.transparent),
-                                  borderRadius: BorderRadius.all(Radius.circular(10))),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.transparent),
-                                  borderRadius: BorderRadius.all(Radius.circular(10))),
-                            ),
-                          ),
+                                )
+                              : Container(),
+                          hintText: "검색",
+                          labelStyle: TextStyle(color: Colors.white),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                         ),
-                        focusNode.hasFocus
-                            ? Expanded(
+                      ),
+                    ),
+                    focusNode.hasFocus
+                        ? Expanded(
                             child: TextButton(
                               child: Text('취소'),
                               onPressed: () {
@@ -117,18 +150,18 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                                 });
                               },
                             ),
-                        )
-                            :Expanded(child: Container(),flex: 0,)
-                      ],
-                    ),
-                  )
-                ],
-
-                    )
+                          )
+                        : Expanded(
+                            child: Container(),
+                            flex: 0,
+                          )
+                  ],
                 ),
               ),
-          ]
-      ),
+            ],
+          )),
+        ),
+      ]),
     );
   }
 }

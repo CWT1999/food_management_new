@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_management/data/food.dart';
-import 'package:food_management/widget/level.dart';
 import 'package:provider/provider.dart';
 import 'main_food_menu.dart';
 
@@ -37,7 +36,7 @@ class _MainHomeState extends State<MainHome> {
             title: Column(
               children: [
                 Text(
-                  "AutoKit",
+                  "Autokit",
                   style: TextStyle(
                       fontFamily: 'RobotoSlab',
                       fontSize: 25,
@@ -105,8 +104,8 @@ class _MainHomeState extends State<MainHome> {
           SliverPadding(
             padding: EdgeInsets.all(16.0),
             sliver: SliverToBoxAdapter(
-              child: Row(
-                children: [
+                child: Row(
+                      children: [
                   Text("My Menu",
                     style: TextStyle(
                         fontFamily: 'RobotoSlab',
