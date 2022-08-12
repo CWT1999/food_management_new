@@ -1,5 +1,3 @@
-
-
 class FoodModel{
   String? food_title;
   int? food_kcal;

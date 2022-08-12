@@ -18,7 +18,22 @@ class _MainMore extends State<MainMore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        elevation: 0,
+        centerTitle: true,
+        title: Column(
+          children: [
+            Text(
+              "Autokit",
+              style: TextStyle(
+                  fontFamily: 'RobotoSlab',
+                  fontSize: 25,
+                  color: Colors.black),
+            )
+          ],
+        ),
+      ),
     );
 }
 }

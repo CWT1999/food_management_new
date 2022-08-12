@@ -31,9 +31,16 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
     ),
   ];
 
-  static List<FoodModel> display_list = List.from(main_foods_list);
+  List<FoodModel> display_list = List.from(main_foods_list);
 
-  void updateList(String value) {}
+  void updateList(String value) {
+    setState(() {
+      display_list = main_foods_list
+          .where((element) =>
+              element.food_title!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
 
   final TextEditingController _filter = TextEditingController();
   FocusNode focusNode = FocusNode();
@@ -55,26 +62,89 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(slivers: [
-        SliverAppBar(
-          backgroundColor: Colors.green,
-          elevation: 0,
-          title: Column(
-            children: [
-              Text(
-                "AutoKit",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'RobotoSlab',
-                  fontSize: 25,
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        elevation: 0,
+        title: Column(
+          children: [
+            Text(
+              "AutoKit",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'RobotoSlab',
+                fontSize: 25,
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+            )
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Serch for a Food",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              onChanged: (value) => updateList(value),
+              style: TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  hintText: "검색",
+                  prefixIcon: Icon(Icons.search),
+                  prefixIconColor: Colors.white),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: display_list.length,
+                itemBuilder: (context, index) => ListTile(
+                    contentPadding: EdgeInsets.all(8.0),
+                    title: Text(
+                      display_list[index].food_title!,
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text("kcal "+
+                      '${display_list[index].food_kcal}',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    trailing: Text("protein "+
+                      "${display_list[index].food_protein}",
+                      style: TextStyle(color: Colors.amber),
+                    ),
+                    //leading: Image.network('')
                 ),
               ),
-              Align(
-                alignment: Alignment.center,
-              )
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+/* CustomScrollView(slivers: [ //이 아래부터는 넷플 검색창
         SliverToBoxAdapter(
           child: Container(
               child: Column(
@@ -161,7 +231,4 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
             ],
           )),
         ),
-      ]),
-    );
-  }
-}
+      ]),*/
