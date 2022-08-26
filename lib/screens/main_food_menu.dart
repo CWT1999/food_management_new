@@ -155,7 +155,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
                           subtitle: Text(
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)}kcal'),
-                          trailing: Text('Serving Size ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)}g'),
+                          trailing: Text('Serving Size ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.sERVINGSIZE).elementAt(index)}g'),
 
                         );
                       },
