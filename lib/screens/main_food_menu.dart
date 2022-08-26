@@ -155,6 +155,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
                           subtitle: Text(
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)}kcal'),
+                          trailing: Text('Serving Size ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)}g'),
 
                         );
                       },
@@ -163,6 +164,8 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
                 },
+
+                // 기존에 승훈이 코드
                 // itemBuilder: (context, index) => ListTile(
                 //   contentPadding: EdgeInsets.all(8.0),
                 //   title: Text(
