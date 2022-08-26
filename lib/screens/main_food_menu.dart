@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/text_button.dart';
-import 'package:food_management/data/food.dart';
 import 'package:food_management/data/food_model.dart';
-import 'package:food_management/widget/bottom_bar.dart';
+import '../data/providers.dart';
 
 class MainFoodMenu extends StatefulWidget {
   const MainFoodMenu({Key? key}) : super(key: key);
@@ -13,50 +10,76 @@ class MainFoodMenu extends StatefulWidget {
 }
 
 class _MainFoodMenuState extends State<MainFoodMenu> {
-  static List<FoodModel> main_foods_list = [
-    FoodModel(
-      "닭가슴살",
-      15,
-      150,
-    ),
-    FoodModel(
-      "현미밥",
-      30,
-      300,
-    ),
-    FoodModel(
-      "햄버거",
-      50,
-      500,
-    ),
-  ];
+  late Future<Food> futureFood;
 
-  List<FoodModel> display_list = List.from(main_foods_list);
+  final myController = TextEditingController();
 
-  void updateList(String value) {
-    setState(() {
-      display_list = main_foods_list
-          .where((element) =>
-              element.food_title!.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    });
-  }
+  // 기존에 승훈이 코드
+  // static List<Food> main_foods_list = [
+  //   Food(
+  //     "닭가슴살",
+  //     15,
+  //     150,
+  //   ),
+  //   Food(
+  //     "현미밥",
+  //     30,
+  //     300,
+  //   ),
+  //   Food(
+  //     "햄버거",
+  //     50,
+  //     500,
+  //   ),
+  // ];
+  //
+  // List<Food> display_list = List.from(main_foods_list);
+  //
+  // void updateList(String value) {
+  //   setState(() {
+  //     display_list = main_foods_list.where((element) => element.food_title!.toLowerCase().contains(value.toLowerCase())).toList();
+  //   });
+  // }
+  //
+  // final TextEditingController _filter = TextEditingController();
+  // FocusNode focusNode = FocusNode();
+  // String _searchText = "";
+  //
+  // _MainFoodMenuState() {
+  //   _filter.addListener(() {
+  //     setState(() {
+  //       _searchText = _filter.text;
+  //     });
+  //   });
+  // }
 
-  final TextEditingController _filter = TextEditingController();
-  FocusNode focusNode = FocusNode();
-  String _searchText = "";
-
-  _MainFoodMenuState() {
-    _filter.addListener(() {
-      setState(() {
-        _searchText = _filter.text;
-      });
-    });
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    myController.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+  }
+
+  // If you want to have the option of reloading the API in response to an InheritedWidget changing,
+  // put the call into the didChangeDependencies() method
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    futureFood = fetchFood('');
+  }
+
+  // Update Food List
+  void updateList(String foodName) {
+    print('updateList()');
+    setState(() {
+      futureFood = fetchFood(foodName);
+    });
   }
 
   @override
@@ -99,7 +122,9 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
               height: 20.0,
             ),
             TextField(
-              onChanged: (value) => updateList(value),
+              onSubmitted: (String foodName) {
+                updateList(foodName);
+              },
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                   filled: true,
@@ -116,25 +141,45 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
               height: 20.0,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: display_list.length,
-                itemBuilder: (context, index) => ListTile(
-                    contentPadding: EdgeInsets.all(8.0),
-                    title: Text(
-                      display_list[index].food_title!,
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("kcal "+
-                      '${display_list[index].food_kcal}',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    trailing: Text("protein "+
-                      "${display_list[index].food_protein}",
-                      style: TextStyle(color: Colors.amber),
-                    ),
-                    //leading: Image.network('')
-                ),
+              child: FutureBuilder<Food>(
+                future: futureFood,
+                builder: (context, snapshot){
+                  // 음식 정보 가져오는법
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data?.i2790?.row?.length,
+                      itemBuilder: (context, index) {
+                        // print(foodIterable?.elementAt(index));
+                        return ListTile(
+                          title: Text(
+                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
+                          subtitle: Text(
+                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)}kcal'),
+
+                        );
+                      },
+                    );
+                  }
+                  // By default, show a loading spinner.
+                  return const CircularProgressIndicator();
+                },
+                // itemBuilder: (context, index) => ListTile(
+                //   contentPadding: EdgeInsets.all(8.0),
+                //   title: Text(
+                //     display_list[index].food_title!,
+                //     style: TextStyle(
+                //         color: Colors.black, fontWeight: FontWeight.bold),
+                //   ),
+                //   subtitle: Text(
+                //     'kcal ${display_list[index].food_kcal}',
+                //     style: TextStyle(color: Colors.black),
+                //   ),
+                //   trailing: Text(
+                //     'protein ${display_list[index].food_protein}',
+                //     style: TextStyle(color: Colors.amber),
+                //   ),
+                //   //leading: Image.network('')
+                // ),
               ),
             ),
           ],

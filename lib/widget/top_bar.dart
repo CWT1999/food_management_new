@@ -14,10 +14,10 @@ class TopBar extends StatelessWidget {
         child: Text(
           "AutoKit",
           style: TextStyle(
-            fontFamily: 'RobotoSlab', fontSize: 25,
+            fontFamily: '맑은 고딕',
+            fontSize: 25,
           ),
           textAlign: TextAlign.center,
-
         ),
       ),
     );
