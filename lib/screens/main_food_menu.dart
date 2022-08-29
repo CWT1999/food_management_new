@@ -3,7 +3,9 @@ import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
 
 class MainFoodMenu extends StatefulWidget {
-  const MainFoodMenu({Key? key}) : super(key: key);
+  String selectedFood = '';//받아온 음식 220829 홍석준
+  MainFoodMenu({Key? key}) : super(key: key); //Const 삭제
+  MainFoodMenu.setDayMeal(this.selectedFood);
 
   @override
   State<MainFoodMenu> createState() => _MainFoodMenuState();
@@ -11,6 +13,7 @@ class MainFoodMenu extends StatefulWidget {
 
 class _MainFoodMenuState extends State<MainFoodMenu> {
   late Future<Food> futureFood;
+  String selectedFood = '';
 
   final myController = TextEditingController();
 
@@ -64,6 +67,8 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
   @override
   void initState() {
     super.initState();
+    selectedFood = widget.selectedFood; //받아온 음식 전달 220829홍석준
+
   }
 
   // If you want to have the option of reloading the API in response to an InheritedWidget changing,
@@ -91,7 +96,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
         title: Column(
           children: [
             Text(
-              "AutoKit",
+              selectedFood+" 변경",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
