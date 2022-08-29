@@ -1,11 +1,4 @@
-// 기존에 승훈이 코드
-// class Food {
-//   String? food_title;
-//   int? food_kcal;
-//   int? food_protein;
-//
-//   Food(this.food_title, this.food_protein, this.food_kcal);
-// }
+
 
 class Food {
   I2790? i2790;
