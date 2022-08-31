@@ -1,10 +1,10 @@
-import 'package:http/http.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../widget/top_bar.dart';
+
 
 class MainProfile extends StatefulWidget {
   @override
@@ -12,37 +12,68 @@ class MainProfile extends StatefulWidget {
 }
 
 class _MainProfile extends State<MainProfile> {
-  late PickedFile _imageFile;
-  final ImagePicker _picker = ImagePicker();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  XFile? _pickedFile;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
+    final _imageSize = MediaQuery.of(context).size.width / 2;
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          title: Column(
+            children: [
+              Text(
+                "Autokit",
+                style: TextStyle(
+                    fontFamily: 'RobotoSlab',
+                    fontSize: 25,
+                    color: Colors.black),
+              )
+            ],
+          ),
+        ),
+        body: Column(
           children: [
-            AppBar(
-              backgroundColor: Colors.green,
-              elevation: 0,
-              centerTitle: true,
-              title: Column(
-                children: [
-                  Text(
-                    "Autokit",
-                    style: TextStyle(
-                        fontFamily: 'RobotoSlab',
-                        fontSize: 25,
-                        color: Colors.black),
-                  )
-                ],
-              ),
+            const SizedBox(
+              height: 60,
             ),
-            imageProfile(),
+            if (_pickedFile == null)
+              Container(
+                constraints: BoxConstraints(
+                  minHeight: _imageSize,
+                  minWidth: _imageSize,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    _showBottomSheet();
+                  },
+                  child: Center(
+                    child: Icon(
+                      Icons.account_circle,
+                      size: _imageSize,
+                    ),
+                  ),
+                ),
+              )
+            else
+              Center(
+                child: Container(
+                  width: _imageSize,
+                  height: _imageSize,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        width: 2, color: Theme.of(context).colorScheme.primary),
+                    image: DecorationImage(
+                        image: FileImage(File(_pickedFile!.path)),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+              ),
             Container(
               padding: EdgeInsets.only(top: 15),
               child: Text(
@@ -59,123 +90,109 @@ class _MainProfile extends State<MainProfile> {
               height: 5,
               color: Colors.green,
             ),
-           Column(
-                children: [
-                  Container(
-                    child: ElevatedButton(onPressed: (){
-                      FirebaseAuth.instance.signOut();
-                    }, child: Text("Logout")),
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                Container(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                      },
+                      child: Text("Logout")),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget imageProfile() {
-    return Center(
-      child: Stack(
-        children: <Widget>[
-          CircleAvatar(
-            radius: 80,
-            backgroundImage: AssetImage(AutofillHints.birthday),
-          ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                    context: context, builder: ((builder) => bottomSheet()));
-              },
-              child: Icon(
-                Icons.camera_alt,
-                size: 40,
+  _showBottomSheet() {
+    return showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25),
+        ),
+      ),
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () => _getCameraImage(),
+              child: const Text('사진찍기'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(
+              thickness: 3,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () => _getPhotoLibraryImage(),
+              child: const Text('라이브러리에서 불러오기'),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _getCameraImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedFile = pickedFile;
+      });
+    } else {
+      if (kDebugMode) {
+        print('이미지 선택안함');
+      }
+    }
+  }
+
+  _getPhotoLibraryImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedFile = pickedFile;
+      });
+    } else {
+      if (kDebugMode) {
+        print('이미지 선택안함');
+      }
+    }
+
+    Widget nameTextField() {
+      return TextFormField(
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide(),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 2,
               ),
             ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget nameTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: BorderSide(),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 2,
+            prefixIcon: Icon(
+              Icons.person,
             ),
-          ),
-          prefixIcon: Icon(
-            Icons.person,
-          ),
-          labelText: 'Name',
-          hintText: 'Input your name'),
-    );
-  }
+            labelText: 'Name',
+            hintText: 'Input your name'),
+      );
+    }
 
-  Widget bottomSheet() {
-    return Container(
-      height: 100,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: ListView(
-        children: [
-          Text(
-            'Choose Profile photo',
-            style: TextStyle(
-              fontSize: 20,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  tackPhoto(ImageSource.camera);
-                },
-                icon: Icon(
-                  Icons.camera,
-                  size: 50,
-                ),
-                label: Text(
-                  'Camera',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              TextButton.icon(
-                icon: Icon(
-                  Icons.photo_library,
-                  size: 50,
-                ),
-                onPressed: () {
-                  tackPhoto(ImageSource.gallery);
-                },
-                label: Text(
-                  'Gallery',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  tackPhoto(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(source: source);
-    setState(() {
-      _imageFile = pickedFile as PickedFile;
-    });
   }
 }
