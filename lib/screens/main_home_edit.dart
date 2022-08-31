@@ -1,60 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_management/data/food.dart';
-import 'package:food_management/screens/main_home_edit.dart';
+import 'package:food_management/screens/main_home.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart';
-class MainHome extends StatefulWidget {
-  const MainHome({Key? key}) : super(key: key);
+class MainHomeEdit extends StatefulWidget {
+  List<dynamic>? news = null;
+  String? breakfast = '';
+  String? lunch = '';
+  String? dinner = '';
+  SendData? sendData;
+
+  MainHomeEdit({Key? key,this.news, this.breakfast, this.lunch,this.dinner }) : super(key: key){
+    sendData = SendData(news, breakfast, lunch, dinner);
+  }
 
   @override
-  State<MainHome> createState() => _MainHomeState();
+  State<MainHomeEdit> createState() => _MainHomeEditState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class SendData{
+  List<dynamic>? news;
+  String? breakfast;
+  String? lunch;
+  String? dinner;
+  SendData(this.news,this.breakfast,this.lunch,this.dinner){}
 
-  //220823 홍석준 아침,점심,저녁 전달을 위한 리스트화
-  String breakfast = '영양돌솥밥';
-  String lunch = '부대찌개';
-  String dinner = '생선모듬초밥';
+}
 
-  Future<void> _navigateAndDisplaySelection_breackfast(
-      BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-
-    setState(() {
-      breakfast = foodName;
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-
-    setState(() {
-      lunch = foodName;
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_dinner(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-
-    setState(() {
-      dinner = foodName;
-    });
-  }
-
-
-
+class _MainHomeEditState extends State<MainHomeEdit> {
+   List<dynamic> news = [["","","",'',''],["","","",'',''],["","","",'','']];
+   String breakfast = '';
+   String lunch = '';
+   String dinner = '';
 
 
   //final List<String> newText = ['new', '...'];
@@ -65,7 +44,9 @@ class _MainHomeState extends State<MainHome> {
   Uri uri2 = Uri.parse('');
   Uri uri3 = Uri.parse('');
   Uri uri4 = Uri.parse('');
-
+  Uri uri5 = Uri.parse('');
+  Uri uri6 = Uri.parse('');
+  Uri uri7 = Uri.parse('');
   initnewsAsynk() async {
     if (isLoading == false) {
       isLoading = true;
@@ -108,66 +89,33 @@ class _MainHomeState extends State<MainHome> {
   void loadingText(int index) {
     switch (index) {
       case 1:
-        news[0] = [
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...'
-        ];
+        news[0] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
         break;
       case 2:
-        news[1] = [
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...'
-        ];
+        news[1] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
         break;
       case 3:
-        news[2] = [
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...'
-        ];
+        news[2] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
         break;
       case 123:
-        news[0] = [
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...'
-        ];
-        news[1] = [
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...'
-        ];
-        news[2] = [
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...',
-          'loading...'
-        ];
+        news[0] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        news[1] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        news[2] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
         break;
     }
   }
 
   void initState() {
     super.initState();
+    this.news = widget.news!;
+    this.breakfast = widget.breakfast!;
+    this.lunch = widget.lunch!;
+    this.dinner = widget.dinner!;
     uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
     uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
     uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
     uri4 = Uri.parse('http://222.107.249.189:9990/api/meal');
-
-    initnewsAsynk4();
+    // initnewsAsynk4();
     isLoading = false;
     isLoading2 = false;
     isLoading3 = false;
@@ -175,7 +123,7 @@ class _MainHomeState extends State<MainHome> {
 
   }
 
-  List<dynamic> news = [["","","",'',''],["","","",'',''],["","","",'','']];
+
 
   late bool isLoading;
   late bool isLoading2;
@@ -199,6 +147,25 @@ class _MainHomeState extends State<MainHome> {
     news[2] = await newsProvider3.getNews();
   }
 
+  Future initNewsAll1() async {
+    MealProviders newsProvider4 = MealProviders(uri4);
+    List<dynamic> a  = await newsProvider4.getNews();
+    breakfast = a[0];
+    initnewsAsynk();
+    print("loading");
+  }
+  Future initNewsAll2() async {
+    MealProviders newsProvider4 = MealProviders(uri4);
+    List<dynamic> a  = await newsProvider4.getNews();
+    initnewsAsynk2();
+    lunch = a[1];
+  }
+  Future initNewsAll3() async {
+    MealProviders newsProvider4 = MealProviders(uri4);
+    List<dynamic> a  = await newsProvider4.getNews();
+    initnewsAsynk3();
+    dinner = a[2];
+  }
 
   Future initNews4() async {
     MealProviders newsProvider4 = MealProviders(uri4);
@@ -208,6 +175,8 @@ class _MainHomeState extends State<MainHome> {
     lunch = a[1];
     dinner = a[2];
 
+
+
     loadingText(123);
     initnewsAsynk();
     initnewsAsynk2();
@@ -215,12 +184,7 @@ class _MainHomeState extends State<MainHome> {
 
   }
 
-  void responseData(SendData sendData){
-    this.news = sendData.news!;
-    this.breakfast = sendData.breakfast!;
-    this.lunch = sendData.lunch!;
-    this.dinner = sendData.dinner!;
-  }
+
 
   int _daycount = 0;
 
@@ -248,98 +212,6 @@ class _MainHomeState extends State<MainHome> {
             ),
           ),
 
-          SliverToBoxAdapter(
-              child: Column(children: [
-                Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          //alignment: Alignment(-0.9, 0.0),
-
-                          //Spacer(),
-                          height: 60,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                                // bottom: BorderSide(
-                                //   color: Colors.grey,
-                                // ),
-                              )),
-                          child: Row(children: [
-                            Container(
-                              alignment: Alignment(-0.9, 0.0),
-                              width: 320,
-                              child: Text(
-                                "***님 반갑습니다",
-                                style: TextStyle(
-                                  backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ]))
-                    ]),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  alignment: Alignment(-0.9, 0.0),
-
-                  //Spacer(),
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                        // top: BorderSide(
-                        //   color: Colors.grey,
-                        // ),
-                        bottom: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      )),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Text('D-day+$_daycount'),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              // setState() 추가.
-                              _daycount++;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              minimumSize: Size(20, 20)),
-                          child: Icon(Icons.add)),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (_daycount != 0) {
-                                // setState() 추가.
-                                _daycount--;
-                              }
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              minimumSize: Size(20, 20)),
-                          child: Icon(Icons.remove)),
-                      SizedBox(
-                        width: 30,
-                      ),
-                    ],
-                  ),),
-              ])),
 
           SliverToBoxAdapter(
               child: Column(children: [
@@ -411,7 +283,24 @@ class _MainHomeState extends State<MainHome> {
                                 ),
                               ),
                             ),
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: InkWell(
+                                  child: Icon(Icons.autorenew),
+                                  onTap: () {
+                                    setState(() {
+                                      loadingText(1);
+                                    });
+                                    initNewsAll1();
 
+                                  },
+                                )
+                            )
                           ]))
                     ]),
                 Container(
@@ -444,6 +333,25 @@ class _MainHomeState extends State<MainHome> {
                             ),
                           )
                       ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                fullscreenDialog: true,
+                                builder: (BuildContext context) {
+                                  return MainFoodMenu.setDayMeal(
+                                      breakfast); //220823 홍석준 아침 전달
+                                }));
+                          },
+                        ),
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -475,6 +383,25 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                fullscreenDialog: true,
+                                builder: (BuildContext context) {
+                                  return MainFoodMenu.setDayMeal(
+                                      news[0][1]); //220823 홍석준 아침 전달
+                                }));
+                          },
+                        ),
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -504,10 +431,28 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
-
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[0][2]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
                 Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     alignment: Alignment(-0.9, 0.0),
 
                     //Spacer(),
@@ -536,7 +481,38 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   width: 2,
+                            //   color: Colors.grey,
+                            // ),
+                          ),
+                          child: InkWell(
+                            child: Icon(Icons.zoom_in),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[0][2]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      ),
+
                     ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child : ElevatedButton(
+                      child: Text("'"+"$breakfast"+"' 새로운 조합 가져오기"),
+                      onPressed: () {
+                        setState(() {
+                          loadingText(1);
+                        });
+                        initnewsAsynk();
+                      },
+                    ))
                 // Container(
                 //   child : ElevatedButton(
                 //     child: Text("전송"),
@@ -583,7 +559,23 @@ class _MainHomeState extends State<MainHome> {
                                 ),
                               ),
                             ),
-
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: InkWell(
+                                  child: Icon(Icons.autorenew),
+                                  onTap: () {
+                                    setState(() {
+                                      loadingText(2);
+                                    });
+                                    initNewsAll2();
+                                  },
+                                )
+                            )
                           ]))
                     ]),
                 Container(
@@ -616,6 +608,25 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                fullscreenDialog: true,
+                                builder: (BuildContext context) {
+                                  return MainFoodMenu.setDayMeal(
+                                      lunch); //220823 홍석준 아침 전달
+                                }));
+                          },
+                        ),
+                      )
 
                     ])),
                 Container(
@@ -648,7 +659,25 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
-
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[1][1]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -680,10 +709,28 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
-
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                fullscreenDialog: true,
+                                builder: (BuildContext context) {
+                                  return MainFoodMenu.setDayMeal(
+                                      news[1][2]); //220823 홍석준 아침 전달
+                                }));
+                          },
+                        ),
+                      )
                     ])),
                 Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     alignment: Alignment(-0.9, 0.0),
 
                     //Spacer(),
@@ -712,7 +759,37 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   width: 2,
+                            //   color: Colors.grey,
+                            // ),
+                          ),
+                          child: InkWell(
+                            child: Icon(Icons.zoom_in),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[0][2]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child : ElevatedButton(
+                      child: Text("'"+"$lunch"+"' 새로운 조합 가져오기"),
+                      onPressed: () {
+                        setState(() {
+                          loadingText(2);
+                        });
+                        initnewsAsynk2();
+                      },
+                    )),
               ])),
 
           SliverToBoxAdapter(
@@ -751,7 +828,23 @@ class _MainHomeState extends State<MainHome> {
                                 ),
                               ),
                             ),
-
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: InkWell(
+                                  child: Icon(Icons.autorenew),
+                                  onTap: () {
+                                    setState(() {
+                                      loadingText(3);
+                                    });
+                                    initNewsAll3();
+                                  },
+                                )
+                            )
                           ]))
                     ]),
                 Container(
@@ -784,6 +877,25 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        dinner); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
 
                 Container(
@@ -817,6 +929,27 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                          alignment: Alignment(0.9, 0.0),
+                          height: 20,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[2][1]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -848,9 +981,28 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[2][2]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
                 Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     alignment: Alignment(-0.9, 0.0),
 
                     //Spacer(),
@@ -879,24 +1031,46 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
-
+                      Container(
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   width: 2,
+                            //   color: Colors.grey,
+                            // ),
+                          ),
+                          child: InkWell(
+                            child: Icon(Icons.zoom_in),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute<void>(
+                                  fullscreenDialog: true,
+                                  builder: (BuildContext context) {
+                                    return MainFoodMenu.setDayMeal(
+                                        news[0][2]); //220823 홍석준 아침 전달
+                                  }));
+                            },
+                          )
+                      )
                     ])),
                 Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    child : ElevatedButton(
+                      child: Text("'"+"$dinner"+"' 새로운 조합 가져오기"),
+                      onPressed: () {
+                        setState(() {
+                          loadingText(3);
+                        });
+                        initnewsAsynk3();
+                      },
+                    )),
+                Container(
                   child : ElevatedButton(
-                    child: Text("식단 수정"),
-                    onPressed: () async{
-                      final SendData returnData = await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainHomeEdit(news: news, breakfast: breakfast, lunch: lunch, dinner: dinner,)),
-                      );
-                      if( returnData != null ){
-                        print("modified: $returnData");
-                      }
-                      setState(() {
-                        responseData(returnData);
-                      });
-                    },
-
+                    child: Text("수정완료"),
+                    onPressed: () {
+                      Navigator.pop(context, widget.sendData);
+                      //updateNewFood(FoodInfomation) 새로운 음식 업데이트
+                      //updateNewMeal(FoodMeals) 새로운 식단 업데이트
+                      print("음식과,식단 업데이트 그리고 product request");
+                      },
                   ),
                 )
               ])),
@@ -911,7 +1085,29 @@ class _MainHomeState extends State<MainHome> {
       ),
     );
   }
+
+  Future initNews5() async {
+    FoodRecommend newsProvider5 = FoodRecommend(uri5);
+  }
+
+  Future initNews6() async {
+    FoodRecommend newsProvider6 = FoodRecommend(uri6);
+  }
+
+  Future initNews7() async {
+    FoodRecommend newsProvider7 = FoodRecommend(uri7);
+  }
+  void updateNewFood(String data){
+    uri5 = Uri.parse('http://222.107.249.189:9990/api/updateFood'+'$data');
+    uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal'+'$data');
+    uri7 = Uri.parse('http://222.107.249.189:9990/api/productFood');
+
+  }
+  void updateNewMeal(){
+
+  }
 }
+
 
 // Countn(int _daycount){
 //

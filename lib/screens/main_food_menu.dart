@@ -85,7 +85,6 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
     print('updateList()');
     setState(() {
       futureFood = fetchFood(foodName);
-
     });
   }
 
@@ -98,7 +97,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
         title: Column(
           children: [
             Text(
-              selectedFood + " 변경",
+              selectedFood+" 변경       ",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
