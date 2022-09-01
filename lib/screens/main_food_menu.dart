@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
+import 'package:food_management/screens/main_home.dart';
 
 class MainFoodMenu extends StatefulWidget {
-  String selectedFood = '';//받아온 음식 220829 홍석준
+  String selectedFood = ''; //받아온 음식 220829 홍석준
   MainFoodMenu({Key? key}) : super(key: key); //Const 삭제
   MainFoodMenu.setDayMeal(this.selectedFood);
 
@@ -96,7 +97,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
         title: Column(
           children: [
             Text(
-              selectedFood+" 변경",
+              selectedFood + " 변경",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
@@ -148,7 +149,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
             Expanded(
               child: FutureBuilder<Food>(
                 future: futureFood,
-                builder: (context, snapshot){
+                builder: (context, snapshot) {
                   // 음식 정보 가져오는법
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -157,11 +158,33 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                         // print(foodIterable?.elementAt(index));
                         return ListTile(
                           title: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
-                          subtitle: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)}kcal'),
-                          trailing: Text('Serving Size ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.sERVINGSIZE).elementAt(index)}g'),
-
+                              '${snapshot.data?.i2790?.row?.map((
+                                  futureFood) => futureFood.dESCKOR).elementAt(
+                                  index)}'),
+                          onTap:() {
+                            Navigator.pop(context, snapshot.data?.i2790?.row?.map((
+                                futureFood) => futureFood).elementAt(index));
+                          },
+                          subtitle: Text('${snapshot.data?.i2790?.row?.map((
+                              futureFood) => futureFood.nUTRCONT1).elementAt(
+                              index)} kcal' +
+                              '\n' +
+                              '탄수화물 ${snapshot.data?.i2790?.row?.map((
+                                  futureFood) => futureFood.nUTRCONT2)
+                                  .elementAt(index)}g' +
+                              '\n' +
+                              '단백질 ${snapshot.data?.i2790?.row?.map((
+                                  futureFood) => futureFood.nUTRCONT3)
+                                  .elementAt(index)}g' +
+                              '\n' +
+                              '지방 ${snapshot.data?.i2790?.row?.map((
+                                  futureFood) => futureFood.nUTRCONT4)
+                                  .elementAt(index)}g'),
+                          trailing: Text(
+                              '1인분 양: ${snapshot.data?.i2790?.row?.map((
+                                  futureFood) => futureFood.sERVINGSIZE)
+                                  .elementAt(index)}g',
+                              style: TextStyle(color: Colors.amber)),
                         );
                       },
                     );
