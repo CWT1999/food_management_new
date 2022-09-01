@@ -13,7 +13,7 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
-  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
+  Future<void> _navigateAndDisplaySelection_breackfast(BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
 
@@ -23,7 +23,7 @@ class _MainHomeState extends State<MainHome> {
       breakfast = foodName;
     });
   }
-  Future<void> _navigateAndDisplaySelection2(BuildContext context) async {
+  Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
 
@@ -31,6 +31,16 @@ class _MainHomeState extends State<MainHome> {
 
     setState(() {
       lunch = foodName;
+    });
+  }
+  Future<void> _navigateAndDisplaySelection_dinner(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+
+    setState(() {
+      dinner = foodName;
     });
   }
 
@@ -559,7 +569,7 @@ class _MainHomeState extends State<MainHome> {
                       child: Text(' + '),
 
                       onTap: () {
-                        _navigateAndDisplaySelection(context);
+                        _navigateAndDisplaySelection_breackfast(context);
                       },
                       // onTap: () {
                       //   Navigator.of(context).push(MaterialPageRoute<void>(
@@ -818,7 +828,7 @@ class _MainHomeState extends State<MainHome> {
                     child: InkWell(
                       child: Text(' + '),
                       onTap: () {
-                        _navigateAndDisplaySelection2(context);
+                        _navigateAndDisplaySelection_lunch(context);
                       },
                      /* onTap: () {
                         Navigator.of(context).push(MaterialPageRoute<void>(
@@ -1026,14 +1036,17 @@ class _MainHomeState extends State<MainHome> {
                       ),
                       child: InkWell(
                         child: Text(' + '),
-                        onTap: () {
+                       onTap: () {
+                          _navigateAndDisplaySelection_dinner(context);
+                       },
+                       /* onTap: () {
                           Navigator.of(context).push(MaterialPageRoute<void>(
                               fullscreenDialog: true,
                               builder: (BuildContext context) {
                                 return MainFoodMenu.setDayMeal(
                                     dinner); //220823 홍석준 아침 전달
                               }));
-                        },
+                        },*/
                       ))
                 ])),
             Container(
