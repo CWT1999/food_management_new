@@ -85,6 +85,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
     print('updateList()');
     setState(() {
       futureFood = fetchFood(foodName);
+
     });
   }
 
@@ -150,8 +151,10 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
               child: FutureBuilder<Food>(
                 future: futureFood,
                 builder: (context, snapshot) {
-                  // 음식 정보 가져오는법
-                  if (snapshot.hasData) {
+                  if(snapshot.data?.i2790?.row == null) {
+                    return Text('음식을 검색해 주세요.');
+                  }
+                  else {
                     return ListView.builder(
                       itemCount: snapshot.data?.i2790?.row?.length,
                       itemBuilder: (context, index) {
@@ -167,17 +170,11 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                           },
                           subtitle: Text('${snapshot.data?.i2790?.row?.map((
                               futureFood) => futureFood.nUTRCONT1).elementAt(
-                              index)} kcal' +
-                              '\n' +
-                              '탄수화물 ${snapshot.data?.i2790?.row?.map((
+                              index)} kcal\n탄수화물 ${snapshot.data?.i2790?.row?.map((
                                   futureFood) => futureFood.nUTRCONT2)
-                                  .elementAt(index)}g' +
-                              '\n' +
-                              '단백질 ${snapshot.data?.i2790?.row?.map((
+                                  .elementAt(index)}g\n단백질 ${snapshot.data?.i2790?.row?.map((
                                   futureFood) => futureFood.nUTRCONT3)
-                                  .elementAt(index)}g' +
-                              '\n' +
-                              '지방 ${snapshot.data?.i2790?.row?.map((
+                                  .elementAt(index)}g\n지방 ${snapshot.data?.i2790?.row?.map((
                                   futureFood) => futureFood.nUTRCONT4)
                                   .elementAt(index)}g'),
                           trailing: Text(

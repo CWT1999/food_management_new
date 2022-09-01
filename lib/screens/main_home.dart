@@ -5,6 +5,7 @@ import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart';
 
+
 class MainHome extends StatefulWidget {
   const MainHome({Key? key}) : super(key: key);
 
@@ -13,7 +14,8 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
-  Future<void> _navigateAndDisplaySelection_breackfast(BuildContext context) async {
+  Future<void> _navigateAndDisplaySelection_breackfast(
+      BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
 
@@ -23,6 +25,7 @@ class _MainHomeState extends State<MainHome> {
       breakfast = foodName;
     });
   }
+
   Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
@@ -33,6 +36,7 @@ class _MainHomeState extends State<MainHome> {
       lunch = foodName;
     });
   }
+
   Future<void> _navigateAndDisplaySelection_dinner(BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
@@ -830,7 +834,7 @@ class _MainHomeState extends State<MainHome> {
                       onTap: () {
                         _navigateAndDisplaySelection_lunch(context);
                       },
-                     /* onTap: () {
+                      /* onTap: () {
                         Navigator.of(context).push(MaterialPageRoute<void>(
                             fullscreenDialog: true,
                             builder: (BuildContext context) {
@@ -1036,10 +1040,10 @@ class _MainHomeState extends State<MainHome> {
                       ),
                       child: InkWell(
                         child: Text(' + '),
-                       onTap: () {
+                        onTap: () {
                           _navigateAndDisplaySelection_dinner(context);
-                       },
-                       /* onTap: () {
+                        },
+                        /* onTap: () {
                           Navigator.of(context).push(MaterialPageRoute<void>(
                               fullscreenDialog: true,
                               builder: (BuildContext context) {
