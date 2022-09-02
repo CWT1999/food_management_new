@@ -136,35 +136,48 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   }
 
   Future initNews2() async {
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
     FoodRecommend newsProvider2 = FoodRecommend(uri2);
 
     news[1] = await newsProvider2.getNews();
   }
 
   Future initNews3() async {
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
     FoodRecommend newsProvider3 = FoodRecommend(uri3);
 
     news[2] = await newsProvider3.getNews();
   }
 
   Future initNewsAll1() async {
+    breakfast = 'loading..';
     MealProviders newsProvider4 = MealProviders(uri4);
     List<dynamic> a  = await newsProvider4.getNews();
     breakfast = a[0];
+
+    uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
     initnewsAsynk();
-    print("loading");
+
   }
   Future initNewsAll2() async {
+    lunch = 'loading..';
     MealProviders newsProvider4 = MealProviders(uri4);
     List<dynamic> a  = await newsProvider4.getNews();
-    initnewsAsynk2();
     lunch = a[1];
+
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
+    initnewsAsynk2();
+
   }
   Future initNewsAll3() async {
+    dinner = 'loading..';
     MealProviders newsProvider4 = MealProviders(uri4);
     List<dynamic> a  = await newsProvider4.getNews();
-    initnewsAsynk3();
     dinner = a[2];
+
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
+    initnewsAsynk3();
+
   }
 
   Future initNews4() async {
@@ -316,12 +329,12 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                             color: Colors.grey,
                           ),
                           // bottom: BorderSide(
-                          //   color : Colors.grey,
+                          //   color : Colors.grey,f
                           // ),
                         )),
                     child: Row(children: [
                       Container(
-                          alignment: Alignment(-0.9, 0.0),
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                           width: 360,
                           child: Text(
                             breakfast,
@@ -371,7 +384,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[0][1],
@@ -419,7 +432,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[0][2],
@@ -469,7 +482,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           '전체 칼로리 : '+news[0][3].toString()+"\n영양소 : "+news[0][4].toString(),
@@ -596,7 +609,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           lunch,
@@ -647,7 +660,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[1][1],
@@ -697,7 +710,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[1][2],
@@ -747,7 +760,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           '전체 칼로리 : '+news[1][3].toString()+"\n영양소 : "+news[1][4].toString(),
@@ -865,7 +878,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           dinner,
@@ -916,9 +929,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: MediaQuery.of(context).size.width*0.92,
-                        height: 30,
+                        //height: 30,
                         child: Text(
                           news[2][1],
                           style: TextStyle(
@@ -969,7 +982,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[2][2],
@@ -1066,7 +1079,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                   child : ElevatedButton(
                     child: Text("수정완료"),
                     onPressed: () {
-                      Navigator.pop(context, widget.sendData);
+                      Navigator.pop(context, SendData(news, breakfast, lunch, dinner));
                       //updateNewFood(FoodInfomation) 새로운 음식 업데이트
                       //updateNewMeal(FoodMeals) 새로운 식단 업데이트
                       print("음식과,식단 업데이트 그리고 product request");

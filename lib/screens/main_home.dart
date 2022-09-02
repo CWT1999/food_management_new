@@ -162,9 +162,7 @@ class _MainHomeState extends State<MainHome> {
 
   void initState() {
     super.initState();
-    uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
+
     uri4 = Uri.parse('http://222.107.249.189:9990/api/meal');
 
     initnewsAsynk4();
@@ -207,6 +205,10 @@ class _MainHomeState extends State<MainHome> {
     breakfast = a[0];
     lunch = a[1];
     dinner = a[2];
+
+    uri = Uri.parse('http://222.107.249.189:9990/api/' + a[0]);
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + a[1]);
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + a[2]);
 
     loadingText(123);
     initnewsAsynk();
@@ -272,7 +274,7 @@ class _MainHomeState extends State<MainHome> {
                               )),
                           child: Row(children: [
                             Container(
-                              alignment: Alignment(-0.9, 0.0),
+                              alignment: Alignment(-0.0, 0.0),
                               width: 320,
                               child: Text(
                                 "***님 반갑습니다",
@@ -288,7 +290,7 @@ class _MainHomeState extends State<MainHome> {
                     ]),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  alignment: Alignment(-0.9, 0.0),
+                  alignment: Alignment(-0.0, 0.0),
 
                   //Spacer(),
                   height: 40,
@@ -382,7 +384,7 @@ class _MainHomeState extends State<MainHome> {
                     children: <Widget>[
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          alignment: Alignment(-0.9, 0.0),
+                          alignment: Alignment(-0.0, 0.0),
 
                           //Spacer(),
                           height: 40,
@@ -416,7 +418,7 @@ class _MainHomeState extends State<MainHome> {
                     ]),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
+                    alignment: Alignment(-0.0, 0.0),
 
                     //Spacer(),
                     height: 40,
@@ -432,7 +434,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                          alignment: Alignment(-0.9, 0.0),
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                           width: 360,
                           child: Text(
                             breakfast,
@@ -463,7 +465,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[0][1],
@@ -492,7 +494,8 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        //alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[0][2],
@@ -508,7 +511,7 @@ class _MainHomeState extends State<MainHome> {
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    alignment: Alignment(-0.9, 0.0),
+                    //alignment: Alignment(-0.9, 0.0),
 
                     //Spacer(),
                     height: 60,
@@ -524,7 +527,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           '전체 칼로리 : '+news[0][3].toString()+"\n영양소 : "+news[0][4].toString(),
@@ -556,6 +559,7 @@ class _MainHomeState extends State<MainHome> {
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           alignment: Alignment(-0.9, 0.0),
+
 
                           //Spacer(),
                           height: 40,
@@ -604,7 +608,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           lunch,
@@ -636,7 +640,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[1][1],
@@ -668,7 +672,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[1][2],
@@ -700,7 +704,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           '전체 칼로리 : '+news[1][3].toString()+"\n영양소 : "+news[1][4].toString(),
@@ -772,7 +776,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           dinner,
@@ -804,9 +808,9 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: MediaQuery.of(context).size.width*0.92,
-                        height: 30,
+                        //height: 30,
                         child: Text(
                           news[2][1],
                           style: TextStyle(
@@ -836,7 +840,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
                     child: Row(children: [
                       Container(
-                        alignment: Alignment(-0.9, 0.0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
                           news[2][2],
