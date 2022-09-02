@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
 import 'package:food_management/screens/main_home.dart';
 
-class MainFoodMenu extends StatefulWidget {
+class MainFoodMenu2 extends StatefulWidget {
   String selectedFood = ''; //받아온 음식 220829 홍석준
-  MainFoodMenu({Key? key}) : super(key: key); //Const 삭제
-  MainFoodMenu.setDayMeal(this.selectedFood);
+  MainFoodMenu2({Key? key}) : super(key: key); //Const 삭제
+  MainFoodMenu2.setDayMeal(this.selectedFood);
 
   @override
-  State<MainFoodMenu> createState() => _MainFoodMenuState();
+  State<MainFoodMenu2> createState() => _MainFoodMenu2State();
 }
 
-class _MainFoodMenuState extends State<MainFoodMenu> {
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+    );
+  }
+}
+
+
+class _MainFoodMenu2State extends State<MainFoodMenu2> {
   late Future<Food> futureFood;
   String selectedFood = '';
 
@@ -78,12 +90,12 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
       builder: (BuildContext context) {
         return Dialog(
             child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            new CircularProgressIndicator(),
-            new Text("Loading"),
-          ],
-        ));
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new CircularProgressIndicator(),
+                new Text("Loading"),
+              ],
+            ));
       },
     );
     new Future.delayed(new Duration(seconds: 3), () {
@@ -117,7 +129,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
         title: Column(
           children: [
             Text(
-              selectedFood+" 변경       ",
+              selectedFood + " 변경",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
@@ -181,11 +193,7 @@ class _MainFoodMenuState extends State<MainFoodMenu> {
                           title: Text(
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
                           onTap: () {
-                            Navigator.pop(
-                                context,
-                                snapshot.data?.i2790?.row
-                                    ?.map((futureFood) => futureFood)
-                                    .elementAt(index));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
                           },
                           subtitle: Text(
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)} kcal\n탄수화물 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT2).elementAt(index)}g\n단백질 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT3).elementAt(index)}g\n지방 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT4).elementAt(index)}g'),

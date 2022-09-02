@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_management/screens/main_home_edit.dart';
+import 'package:food_management/screens/main_food_menu2.dart';
+import 'package:food_management/screens/main_home.dart';
 import 'package:food_management/screens/main_profile.dart';
 
 
@@ -35,7 +37,7 @@ class _MainPageState extends State<MainPage> {
             children: [
               MainHome(),
               MainProfile(),
-              MainFoodMenu(),
+              MainFoodMenu2(),
               MainMore(),
             ],
           ),

@@ -196,6 +196,39 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     initnewsAsynk3();
 
   }
+  Future<void> _navigateAndDisplaySelection_breackfast(
+      BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+
+    setState(() {
+      breakfast = foodName;
+    });
+  }
+
+  Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+
+    setState(() {
+      lunch = foodName;
+    });
+  }
+
+  Future<void> _navigateAndDisplaySelection_dinner(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+
+    setState(() {
+      dinner = foodName;
+    });
+  }
 
 
 
@@ -356,12 +389,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         child: InkWell(
                           child: Text(' + '),
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute<void>(
+                            _navigateAndDisplaySelection_breackfast(context);
+                            /*Navigator.of(context).push(MaterialPageRoute<void>(
                                 fullscreenDialog: true,
                                 builder: (BuildContext context) {
                                   return MainFoodMenu.setDayMeal(
                                       breakfast); //220823 홍석준 아침 전달
-                                }));
+                                }));*/
                           },
                         ),
                       )
@@ -631,12 +665,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         child: InkWell(
                           child: Text(' + '),
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute<void>(
+                            _navigateAndDisplaySelection_lunch(context);
+                            /*Navigator.of(context).push(MaterialPageRoute<void>(
                                 fullscreenDialog: true,
                                 builder: (BuildContext context) {
                                   return MainFoodMenu.setDayMeal(
                                       lunch); //220823 홍석준 아침 전달
-                                }));
+                                }));*/
                           },
                         ),
                       )
@@ -900,12 +935,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                           child: InkWell(
                             child: Text(' + '),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
+                              _navigateAndDisplaySelection_dinner(context);
+                             /* Navigator.of(context).push(MaterialPageRoute<void>(
                                   fullscreenDialog: true,
                                   builder: (BuildContext context) {
                                     return MainFoodMenu.setDayMeal(
                                         dinner); //220823 홍석준 아침 전달
-                                  }));
+                                  }));*/
                             },
                           )
                       )
