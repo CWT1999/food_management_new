@@ -23,8 +23,17 @@ class DetailScreen extends StatelessWidget {
   }
 }
 
+class FoodDetail {
+  final String title;
+  final String description;
+
+  FoodDetail(this.title, this.description);
+}
+
+
 
 class _MainFoodMenu2State extends State<MainFoodMenu2> {
+
   late Future<Food> futureFood;
   String selectedFood = '';
 
@@ -234,7 +243,28 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
     );
   }
 }
-
+// class DetailScreen  extends State<MainFoodMenu2> {
+//   late Future<Food> futureFood;
+//   String selectedFood = '';
+//
+//   final myController = TextEditingController();
+//
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Padding(padding: EdgeInsets.all(16),
+//         child: FutureBuilder<Food>(
+//         future: futureFood,
+//           builder: (context, snapshot) {
+//
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 /* CustomScrollView(slivers: [ //이 아래부터는 넷플 검색창
         SliverToBoxAdapter(
           child: Container(
