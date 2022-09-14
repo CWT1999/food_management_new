@@ -200,15 +200,16 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
                         // print(foodIterable?.elementAt(index));
                         return ListTile(
                           title: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
+                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}',
+                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
                           },
                           subtitle: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)} kcal\n탄수화물 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT2).elementAt(index)}g\n단백질 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT3).elementAt(index)}g\n지방 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT4).elementAt(index)}g'),
+                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)} kcal'),
                           trailing: Text(
                               '1인분 양: ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.sERVINGSIZE).elementAt(index)}g',
-                              style: TextStyle(color: Colors.amber)),
+                              style: TextStyle(color: Colors.orange)),
                         );
                       },
                     );

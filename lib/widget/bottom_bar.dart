@@ -32,12 +32,7 @@ class Bottom extends StatelessWidget {
           ),
               child: Text('Food Menu', style: TextStyle(fontSize: 9),)
           ),
-          Tab(icon: Icon(
-            Icons.settings,
-            size: 18,
-          ),
-              child: Text('More', style: TextStyle(fontSize: 9),)
-          ),
+
         ],
       ),
     ),

@@ -9,7 +9,6 @@ import 'package:food_management/screens/main_profile.dart';
 import '../widget/bottom_bar.dart';
 import 'main_food_menu.dart';
 import 'main_home.dart';
-import 'main_more.dart';
 
 // ignore: must_be_immutable
 class MainPage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _MainPageState extends State<MainPage> {
       theme: ThemeData(
           brightness: Brightness.light, primaryColor: Colors.lightGreenAccent),
       home: DefaultTabController(
-        length: 4,
+        length: 3,
         child: Scaffold(
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
@@ -38,7 +37,6 @@ class _MainPageState extends State<MainPage> {
               MainHome(),
               MainProfile(),
               MainFoodMenu2(),
-              MainMore(),
             ],
           ),
           bottomNavigationBar: Bottom(),
