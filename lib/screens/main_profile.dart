@@ -71,6 +71,7 @@ class _MainProfile extends State<MainProfile> {
                     image: DecorationImage(
                         image: FileImage(File(_pickedFile!.path)),
                         fit: BoxFit.cover),
+
                   ),
                 ),
               ),
