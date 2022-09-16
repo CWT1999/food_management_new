@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
-import 'package:food_management/screens/main_home.dart';
 
 class MainFoodMenu2 extends StatefulWidget {
   String selectedFood = ''; //받아온 음식 220829 홍석준
@@ -38,45 +37,6 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
   String selectedFood = '';
 
   final myController = TextEditingController();
-
-  // 기존에 승훈이 코드
-  // static List<Food> main_foods_list = [
-  //   Food(
-  //     "닭가슴살",
-  //     15,
-  //     150,
-  //   ),
-  //   Food(
-  //     "현미밥",
-  //     30,
-  //     300,
-  //   ),
-  //   Food(
-  //     "햄버거",
-  //     50,
-  //     500,
-  //   ),
-  // ];
-  //
-  // List<Food> display_list = List.from(main_foods_list);
-  //
-  // void updateList(String value) {
-  //   setState(() {
-  //     display_list = main_foods_list.where((element) => element.food_title!.toLowerCase().contains(value.toLowerCase())).toList();
-  //   });
-  // }
-  //
-  // final TextEditingController _filter = TextEditingController();
-  // FocusNode focusNode = FocusNode();
-  // String _searchText = "";
-  //
-  // _MainFoodMenuState() {
-  //   _filter.addListener(() {
-  //     setState(() {
-  //       _searchText = _filter.text;
-  //     });
-  //   });
-  // }
 
   @override
   void dispose() {
@@ -217,25 +177,6 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
                 },
-
-                // 기존에 승훈이 코드
-                // itemBuilder: (context, index) => ListTile(
-                //   contentPadding: EdgeInsets.all(8.0),
-                //   title: Text(
-                //     display_list[index].food_title!,
-                //     style: TextStyle(
-                //         color: Colors.black, fontWeight: FontWeight.bold),
-                //   ),
-                //   subtitle: Text(
-                //     'kcal ${display_list[index].food_kcal}',
-                //     style: TextStyle(color: Colors.black),
-                //   ),
-                //   trailing: Text(
-                //     'protein ${display_list[index].food_protein}',
-                //     style: TextStyle(color: Colors.amber),
-                //   ),
-                //   //leading: Image.network('')
-                // ),
               ),
             ),
           ],
@@ -244,113 +185,3 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
     );
   }
 }
-// class DetailScreen  extends State<MainFoodMenu2> {
-//   late Future<Food> futureFood;
-//   String selectedFood = '';
-//
-//   final myController = TextEditingController();
-//
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Padding(padding: EdgeInsets.all(16),
-//         child: FutureBuilder<Food>(
-//         future: futureFood,
-//           builder: (context, snapshot) {
-//
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-/* CustomScrollView(slivers: [ //이 아래부터는 넷플 검색창
-        SliverToBoxAdapter(
-          child: Container(
-              child: Column(
-            children: [
-              Padding(padding: EdgeInsets.all(5)),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.fromLTRB(
-                  5,
-                  10,
-                  5,
-                  10,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: TextField(
-                        focusNode: focusNode,
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                        autofocus: true,
-                        controller: _filter,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                          suffixIcon: focusNode.hasFocus
-                              ? IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _filter.clear();
-                                      _searchText = "";
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.cancel,
-                                    size: 20,
-                                  ),
-                                )
-                              : Container(),
-                          hintText: "검색",
-                          labelStyle: TextStyle(color: Colors.white),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                        ),
-                      ),
-                    ),
-                    focusNode.hasFocus
-                        ? Expanded(
-                            child: TextButton(
-                              child: Text('취소'),
-                              onPressed: () {
-                                setState(() {
-                                  _filter.clear();
-                                  _searchText = "";
-                                  focusNode.unfocus();
-                                });
-                              },
-                            ),
-                          )
-                        : Expanded(
-                            child: Container(),
-                            flex: 0,
-                          )
-                  ],
-                ),
-              ),
-            ],
-          )),
-        ),
-      ]),*/

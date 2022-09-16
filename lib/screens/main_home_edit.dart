@@ -5,6 +5,7 @@ import 'package:food_management/screens/main_home.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart';
+
 class MainHomeEdit extends StatefulWidget {
   List<dynamic>? news = null;
   String? breakfast = '';
@@ -12,7 +13,8 @@ class MainHomeEdit extends StatefulWidget {
   String? dinner = '';
   SendData? sendData;
 
-  MainHomeEdit({Key? key,this.news, this.breakfast, this.lunch,this.dinner }) : super(key: key){
+  MainHomeEdit({Key? key, this.news, this.breakfast, this.lunch, this.dinner})
+      : super(key: key) {
     sendData = SendData(news, breakfast, lunch, dinner);
   }
 
@@ -20,21 +22,24 @@ class MainHomeEdit extends StatefulWidget {
   State<MainHomeEdit> createState() => _MainHomeEditState();
 }
 
-class SendData{
+class SendData {
   List<dynamic>? news;
   String? breakfast;
   String? lunch;
   String? dinner;
-  SendData(this.news,this.breakfast,this.lunch,this.dinner){}
 
+  SendData(this.news, this.breakfast, this.lunch, this.dinner) {}
 }
 
 class _MainHomeEditState extends State<MainHomeEdit> {
-   List<dynamic> news = [["","","",'',''],["","","",'',''],["","","",'','']];
-   String breakfast = '';
-   String lunch = '';
-   String dinner = '';
-
+  List<dynamic> news = [
+    ["", "", "", '', ''],
+    ["", "", "", '', ''],
+    ["", "", "", '', '']
+  ];
+  String breakfast = '';
+  String lunch = '';
+  String dinner = '';
 
   //final List<String> newText = ['new', '...'];
   int idx = 0;
@@ -47,6 +52,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Uri uri5 = Uri.parse('');
   Uri uri6 = Uri.parse('');
   Uri uri7 = Uri.parse('');
+
   initnewsAsynk() async {
     if (isLoading == false) {
       isLoading = true;
@@ -89,18 +95,54 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   void loadingText(int index) {
     switch (index) {
       case 1:
-        news[0] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        news[0] = [
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...'
+        ];
         break;
       case 2:
-        news[1] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        news[1] = [
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...'
+        ];
         break;
       case 3:
-        news[2] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        news[2] = [
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...'
+        ];
         break;
       case 123:
-        news[0] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
-        news[1] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
-        news[2] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        news[0] = [
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...'
+        ];
+        news[1] = [
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...'
+        ];
+        news[2] = [
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...',
+          'loading...'
+        ];
         break;
     }
   }
@@ -111,19 +153,15 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     this.breakfast = widget.breakfast!;
     this.lunch = widget.lunch!;
     this.dinner = widget.dinner!;
-    uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
+    uri = Uri.parse('http://222.107.249.189:9990/api/$breakfast');
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/$lunch');
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/$dinner');
     uri4 = Uri.parse('http://222.107.249.189:9990/api/meal');
     // initnewsAsynk4();
     isLoading = false;
     isLoading2 = false;
     isLoading3 = false;
-
-
   }
-
-
 
   late bool isLoading;
   late bool isLoading2;
@@ -136,14 +174,14 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   }
 
   Future initNews2() async {
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/$lunch');
     FoodRecommend newsProvider2 = FoodRecommend(uri2);
 
     news[1] = await newsProvider2.getNews();
   }
 
   Future initNews3() async {
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/$dinner');
     FoodRecommend newsProvider3 = FoodRecommend(uri3);
 
     news[2] = await newsProvider3.getNews();
@@ -152,51 +190,49 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Future initNewsAll1() async {
     breakfast = 'loading..';
     MealProviders newsProvider4 = MealProviders(uri4);
-    List<dynamic> a  = await newsProvider4.getNews();
+    List<dynamic> a = await newsProvider4.getNews();
     breakfast = a[0];
 
-    uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
+    uri = Uri.parse('http://222.107.249.189:9990/api/$breakfast');
     initnewsAsynk();
-
   }
+
   Future initNewsAll2() async {
     lunch = 'loading..';
     MealProviders newsProvider4 = MealProviders(uri4);
-    List<dynamic> a  = await newsProvider4.getNews();
+    List<dynamic> a = await newsProvider4.getNews();
     lunch = a[1];
 
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/$lunch');
     initnewsAsynk2();
-
   }
+
   Future initNewsAll3() async {
     dinner = 'loading..';
     MealProviders newsProvider4 = MealProviders(uri4);
-    List<dynamic> a  = await newsProvider4.getNews();
+    List<dynamic> a = await newsProvider4.getNews();
     dinner = a[2];
 
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/$dinner');
     initnewsAsynk3();
-
   }
 
   Future initNews4() async {
     MealProviders newsProvider4 = MealProviders(uri4);
 
-    List<dynamic> a  = await newsProvider4.getNews();
+    List<dynamic> a = await newsProvider4.getNews();
     breakfast = a[0];
     lunch = a[1];
     dinner = a[2];
-
-
 
     loadingText(123);
     initnewsAsynk();
     initnewsAsynk2();
     initnewsAsynk3();
-
   }
+
   var totalkcal = List<double>.filled(3, 0);
+
   Future<void> _navigateAndDisplaySelection_breackfast(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -224,6 +260,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       totalkcal[1] = double.parse(kcal);
     });
   }
+
   Future<void> _navigateAndDisplaySelection_breackfast_2(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -232,11 +269,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodName = '${result.dESCKOR}';
     var kcal = '${result.nUTRCONT1}';
 
-
     setState(() {
       news[0][2] = foodName;
       totalkcal[1] = double.parse(kcal);
-
     });
   }
 
@@ -250,6 +285,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       lunch = foodName;
     });
   }
+
   Future<void> _navigateAndDisplaySelection_lunch_1(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -261,6 +297,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       news[1][1] = foodName;
     });
   }
+
   Future<void> _navigateAndDisplaySelection_lunch_2(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -283,6 +320,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       dinner = foodName;
     });
   }
+
   Future<void> _navigateAndDisplaySelection_dinner_1(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -294,6 +332,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       news[2][1] = foodName;
     });
   }
+
   Future<void> _navigateAndDisplaySelection_dinner_2(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -305,8 +344,6 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       news[2][2] = foodName;
     });
   }
-
-
 
   int _daycount = 0;
 
@@ -334,878 +371,867 @@ class _MainHomeEditState extends State<MainHomeEdit> {
             ),
           ),
 
-
           SliverToBoxAdapter(
               child: Column(children: [
-                Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          alignment: Alignment(0.0, 0.0),
+            Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      alignment: Alignment(0.0, 0.0),
 
-                          //Spacer(),
-                          height: 80,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                                bottom: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              )),
-                          child: Text(
-                              "MY menu",
-                              style: TextStyle(
-                                backgroundColor: Colors.white,
-                                fontFamily: 'RobotoSlab',
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              )))
-                    ]),
-              ])),
-
-          SliverToBoxAdapter(
-              child: Column(children: [
-                Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          alignment: Alignment(-0.9, 0.0),
-
-                          //Spacer(),
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                                bottom: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              )),
-                          child: Row(children: [
-                            Container(
-                              alignment: Alignment(-0.97, 0.0),
-                              //width: 320,
-                              width: MediaQuery.of(context).size.width*0.90,
-                              child: Text(
-                                "아침",
-                                style: TextStyle(
-                                  backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                      //Spacer(),
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.grey,
                             ),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                child: InkWell(
-                                  child: Icon(Icons.autorenew),
-                                  onTap: () {
-                                    setState(() {
-                                      loadingText(1);
-                                    });
-                                    initNewsAll1();
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          )),
+                      child: Text("MY menu",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          )))
+                ]),
+          ])),
 
-                                  },
-                                )
-                            )
-                          ]))
-                    ]),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
+          SliverToBoxAdapter(
+              child: Column(children: [
+            Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      alignment: Alignment(-0.9, 0.0),
 
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // bottom: BorderSide(
-                          //   color : Colors.grey,f
-                          // ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          width: 360,
+                      //Spacer(),
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.grey,
+                            ),
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          )),
+                      child: Row(children: [
+                        Container(
+                          alignment: Alignment(-0.97, 0.0),
+                          //width: 320,
+                          width: MediaQuery.of(context).size.width * 0.90,
                           child: Text(
-                            breakfast,
+                            "아침",
                             style: TextStyle(
                               backgroundColor: Colors.white,
                               fontFamily: 'RobotoSlab',
                               //fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),
-                          )
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.grey,
                           ),
                         ),
-                        child: InkWell(
-                          child: Text(' + '),
-                          onTap: () {
-                            _navigateAndDisplaySelection_breackfast(context);
-                            /*Navigator.of(context).push(MaterialPageRoute<void>(
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            child: InkWell(
+                              child: Icon(Icons.autorenew),
+                              onTap: () {
+                                setState(() {
+                                  loadingText(1);
+                                });
+                                initNewsAll1();
+                              },
+                            ))
+                      ]))
+                ]),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      // bottom: BorderSide(
+                      //   color : Colors.grey,f
+                      // ),
+                    )),
+                child: Row(children: [
+                  Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      width: 360,
+                      child: Text(
+                        breakfast,
+                        style: TextStyle(
+                          backgroundColor: Colors.white,
+                          fontFamily: 'RobotoSlab',
+                          //fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: InkWell(
+                      child: Text(' + '),
+                      onTap: () {
+                        _navigateAndDisplaySelection_breackfast(context);
+                        /*Navigator.of(context).push(MaterialPageRoute<void>(
                                 fullscreenDialog: true,
                                 builder: (BuildContext context) {
                                   return MainFoodMenu.setDayMeal(
                                       breakfast); //220823 홍석준 아침 전달
                                 }));*/
-                          },
-                        ),
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // bottom: BorderSide(
-                          //   color : Colors.grey,
-                          // ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          news[0][1],
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        child: InkWell(
-                          child: Text(' + '),
-                          onTap: () {
-                            _navigateAndDisplaySelection_breackfast_1(context);
-                            // Navigator.of(context).push(MaterialPageRoute<void>(
-                            //     fullscreenDialog: true,
-                            //     builder: (BuildContext context) {
-                            //       return MainFoodMenu.setDayMeal(
-                            //           news[0][1]); //220823 홍석준 아침 전달
-                            //     }));
-                          },
-                        ),
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // s
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          news[0][2],
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: InkWell(
-                            child: Text(' + '),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
-                                  fullscreenDialog: true,
-                                  builder: (BuildContext context) {
-                                    return MainFoodMenu.setDayMeal(
-                                        news[0][2]); //220823 홍석준 아침 전달
-                                  }));
-                            },
-                          )
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          bottom: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          '전체 칼로리 : '+(totalkcal[0]+totalkcal[1]+totalkcal[2]).toString()+"\n영양소 : "+news[0][4].toString(),
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            // border: Border.all(
-                            //   width: 2,
-                            //   color: Colors.grey,
-                            // ),
-                          ),
-                          child: InkWell(
-                            child: Icon(Icons.zoom_in),
-                            onTap: () {
-                              _navigateAndDisplaySelection_breackfast_2(context);
-                              // Navigator.of(context).push(MaterialPageRoute<void>(
-                              //     fullscreenDialog: true,
-                              //     builder: (BuildContext context) {
-                              //       return MainFoodMenu.setDayMeal(
-                              //           news[0][2]); //220823 홍석준 아침 전달
-                              //     }));
-                            },
-                          )
-                      ),
-
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child : ElevatedButton(
-                      child: Text("'"+"$breakfast"+"' 새로운 조합 가져오기"),
-                      onPressed: () {
-                        setState(() {
-                          loadingText(1);
-                        });
-                        initnewsAsynk();
                       },
-                    ))
-                // Container(
-                //   child : ElevatedButton(
-                //     child: Text("전송"),
-                //     onPressed: () {
-                //       print("print");
-                //     },
-                //   ),
-                // )
-              ])),
+                    ),
+                  )
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      // bottom: BorderSide(
+                      //   color : Colors.grey,
+                      // ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      news[0][1],
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: InkWell(
+                      child: Text(' + '),
+                      onTap: () {
+                        _navigateAndDisplaySelection_breackfast_1(context);
+                        // Navigator.of(context).push(MaterialPageRoute<void>(
+                        //     fullscreenDialog: true,
+                        //     builder: (BuildContext context) {
+                        //       return MainFoodMenu.setDayMeal(
+                        //           news[0][1]); //220823 홍석준 아침 전달
+                        //     }));
+                      },
+                    ),
+                  )
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      // s
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      news[0][2],
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: InkWell(
+                        child: Text(' + '),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute<void>(
+                              fullscreenDialog: true,
+                              builder: (BuildContext context) {
+                                return MainFoodMenu.setDayMeal(
+                                    news[0][2]); //220823 홍석준 아침 전달
+                              }));
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      '전체 칼로리 : ' + (totalkcal[0] + totalkcal[1] + totalkcal[2]).toString() + "\n영양소 : " + news[0][4].toString(),
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          // border: Border.all(
+                          //   width: 2,
+                          //   color: Colors.grey,
+                          // ),
+                          ),
+                      child: InkWell(
+                        child: Icon(Icons.zoom_in),
+                        onTap: () {
+                          _navigateAndDisplaySelection_breackfast_2(context);
+                          // Navigator.of(context).push(MaterialPageRoute<void>(
+                          //     fullscreenDialog: true,
+                          //     builder: (BuildContext context) {
+                          //       return MainFoodMenu.setDayMeal(
+                          //           news[0][2]); //220823 홍석준 아침 전달
+                          //     }));
+                        },
+                      )),
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: ElevatedButton(
+                  child: Text("'$breakfast' 새로운 조합 가져오기"),
+                  onPressed: () {
+                    setState(() {
+                      loadingText(1);
+                    });
+                    initnewsAsynk();
+                  },
+                ))
+            // Container(
+            //   child : ElevatedButton(
+            //     child: Text("전송"),
+            //     onPressed: () {
+            //       print("print");
+            //     },
+            //   ),
+            // )
+          ])),
 
           SliverToBoxAdapter(
               child: Column(children: [
-                Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          alignment: Alignment(-0.9, 0.0),
+            Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      alignment: Alignment(-0.9, 0.0),
 
-                          //Spacer(),
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                                bottom: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              )),
-                          child: Row(children: [
-                            Container(
-                              alignment: Alignment(-0.97, 0.0),
-                              width: MediaQuery.of(context).size.width*0.90,
-                              child: Text(
-                                "점심",
-                                style: TextStyle(
-                                  backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      //Spacer(),
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.grey,
+                            ),
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          )),
+                      child: Row(children: [
+                        Container(
+                          alignment: Alignment(-0.97, 0.0),
+                          width: MediaQuery.of(context).size.width * 0.90,
+                          child: Text(
+                            "점심",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.grey,
                               ),
                             ),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                child: InkWell(
-                                  child: Icon(Icons.autorenew),
-                                  onTap: () {
-                                    setState(() {
-                                      loadingText(2);
-                                    });
-                                    initNewsAll2();
-                                  },
-                                )
-                            )
-                          ]))
-                    ]),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
+                            child: InkWell(
+                              child: Icon(Icons.autorenew),
+                              onTap: () {
+                                setState(() {
+                                  loadingText(2);
+                                });
+                                initNewsAll2();
+                              },
+                            ))
+                      ]))
+                ]),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
 
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // bottom: BorderSide(
-                          //   color : Colors.grey,
-                          // ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          lunch,
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        child: InkWell(
-                          child: Text(' + '),
-                          onTap: () {
-                            _navigateAndDisplaySelection_lunch(context);
-                            /*Navigator.of(context).push(MaterialPageRoute<void>(
+                      // bottom: BorderSide(
+                      //   color : Colors.grey,
+                      // ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      lunch,
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: InkWell(
+                      child: Text(' + '),
+                      onTap: () {
+                        _navigateAndDisplaySelection_lunch(context);
+                        /*Navigator.of(context).push(MaterialPageRoute<void>(
                                 fullscreenDialog: true,
                                 builder: (BuildContext context) {
                                   return MainFoodMenu.setDayMeal(
                                       lunch); //220823 홍석준 아침 전달
                                 }));*/
-                          },
-                        ),
-                      )
-
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // bottom: BorderSide(
-                          //   color : Colors.grey,
-                          // ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          news[1][1],
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: InkWell(
-                            child: Text(' + '),
-                            onTap: () {
-                              _navigateAndDisplaySelection_lunch_1(context);
-                              // Navigator.of(context).push(MaterialPageRoute<void>(
-                              //     fullscreenDialog: true,
-                              //     builder: (BuildContext context) {
-                              //       return MainFoodMenu.setDayMeal(
-                              //           news[1][1]); //220823 홍석준 아침 전달
-                              //     }));
-                            },
-                          )
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          bottom: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          news[1][2],
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        child: InkWell(
-                          child: Text(' + '),
-                          onTap: () {
-                            _navigateAndDisplaySelection_lunch_2(context);
-                            // Navigator.of(context).push(MaterialPageRoute<void>(
-                            //     fullscreenDialog: true,
-                            //     builder: (BuildContext context) {
-                            //       return MainFoodMenu.setDayMeal(
-                            //           news[1][2]); //220823 홍석준 아침 전달
-                            //     }));
-                          },
-                        ),
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          bottom: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          '전체 칼로리 : '+news[1][3].toString()+"\n영양소 : "+news[1][4].toString(),
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            // border: Border.all(
-                            //   width: 2,
-                            //   color: Colors.grey,
-                            // ),
-                          ),
-                          child: InkWell(
-                            child: Icon(Icons.zoom_in),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
-                                  fullscreenDialog: true,
-                                  builder: (BuildContext context) {
-                                    return MainFoodMenu.setDayMeal(
-                                        news[0][3]); //220823 홍석준 아침 전달
-                                  }));
-                            },
-                          )
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child : ElevatedButton(
-                      child: Text("'"+"$lunch"+"' 새로운 조합 가져오기"),
-                      onPressed: () {
-                        setState(() {
-                          loadingText(2);
-                        });
-                        initnewsAsynk2();
                       },
+                    ),
+                  )
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      // bottom: BorderSide(
+                      //   color : Colors.grey,
+                      // ),
                     )),
-              ])),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      news[1][1],
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: InkWell(
+                        child: Text(' + '),
+                        onTap: () {
+                          _navigateAndDisplaySelection_lunch_1(context);
+                          // Navigator.of(context).push(MaterialPageRoute<void>(
+                          //     fullscreenDialog: true,
+                          //     builder: (BuildContext context) {
+                          //       return MainFoodMenu.setDayMeal(
+                          //           news[1][1]); //220823 홍석준 아침 전달
+                          //     }));
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      news[1][2],
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: InkWell(
+                      child: Text(' + '),
+                      onTap: () {
+                        _navigateAndDisplaySelection_lunch_2(context);
+                        // Navigator.of(context).push(MaterialPageRoute<void>(
+                        //     fullscreenDialog: true,
+                        //     builder: (BuildContext context) {
+                        //       return MainFoodMenu.setDayMeal(
+                        //           news[1][2]); //220823 홍석준 아침 전달
+                        //     }));
+                      },
+                    ),
+                  )
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      '전체 칼로리 : ' +
+                          news[1][3].toString() +
+                          "\n영양소 : " +
+                          news[1][4].toString(),
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          // border: Border.all(
+                          //   width: 2,
+                          //   color: Colors.grey,
+                          // ),
+                          ),
+                      child: InkWell(
+                        child: Icon(Icons.zoom_in),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute<void>(
+                              fullscreenDialog: true,
+                              builder: (BuildContext context) {
+                                return MainFoodMenu.setDayMeal(
+                                    news[0][3]); //220823 홍석준 아침 전달
+                              }));
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: ElevatedButton(
+                  child: Text("'$lunch' 새로운 조합 가져오기"),
+                  onPressed: () {
+                    setState(() {
+                      loadingText(2);
+                    });
+                    initnewsAsynk2();
+                  },
+                )),
+          ])),
 
           SliverToBoxAdapter(
               child: Column(children: [
-                Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          alignment: Alignment(-0.9, 0.0),
+            Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      alignment: Alignment(-0.9, 0.0),
 
-                          //Spacer(),
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                                bottom: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              )),
-                          child: Row(children: [
-                            Container(
-                              alignment: Alignment(-0.97, 0.0),
-                              width: MediaQuery.of(context).size.width*0.90,
-                              child: Text(
-                                "저녁",
-                                style: TextStyle(
-                                  backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                child: InkWell(
-                                  child: Icon(Icons.autorenew),
-                                  onTap: () {
-                                    setState(() {
-                                      loadingText(3);
-                                    });
-                                    initNewsAll3();
-                                  },
-                                )
-                            )
-                          ]))
-                    ]),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // bottom: BorderSide(
-                          //   color : Colors.grey,
-                          // ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          dinner,
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
+                      //Spacer(),
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            top: BorderSide(
                               color: Colors.grey,
                             ),
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          )),
+                      child: Row(children: [
+                        Container(
+                          alignment: Alignment(-0.97, 0.0),
+                          width: MediaQuery.of(context).size.width * 0.90,
+                          child: Text(
+                            "저녁",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          child: InkWell(
-                            child: Text(' + '),
-                            onTap: () {
-                              _navigateAndDisplaySelection_dinner(context);
-                             /* Navigator.of(context).push(MaterialPageRoute<void>(
+                        ),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            child: InkWell(
+                              child: Icon(Icons.autorenew),
+                              onTap: () {
+                                setState(() {
+                                  loadingText(3);
+                                });
+                                initNewsAll3();
+                              },
+                            ))
+                      ]))
+                ]),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      // bottom: BorderSide(
+                      //   color : Colors.grey,
+                      // ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      dinner,
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: InkWell(
+                        child: Text(' + '),
+                        onTap: () {
+                          _navigateAndDisplaySelection_dinner(context);
+                          /* Navigator.of(context).push(MaterialPageRoute<void>(
                                   fullscreenDialog: true,
                                   builder: (BuildContext context) {
                                     return MainFoodMenu.setDayMeal(
                                         dinner); //220823 홍석준 아침 전달
                                   }));*/
-                            },
-                          )
-                      )
-                    ])),
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
 
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          // bottom: BorderSide(
-                          //   color : Colors.grey,
-                          // ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: MediaQuery.of(context).size.width*0.92,
-                        //height: 30,
-                        child: Text(
-                          news[2][1],
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
                       ),
-                      Container(
-                          alignment: Alignment(0.9, 0.0),
-                          height: 20,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: InkWell(
-                            child: Text(' + '),
-                            onTap: () {
-                              _navigateAndDisplaySelection_dinner_1(context);
-                              // Navigator.of(context).push(MaterialPageRoute<void>(
-                              //     fullscreenDialog: true,
-                              //     builder: (BuildContext context) {
-                              //       return MainFoodMenu.setDayMeal(
-                              //           news[2][1]); //220823 홍석준 아침 전달
-                              //     }));
-                            },
-                          )
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          bottom: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
-                        child: Text(
-                          news[2][2],
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: InkWell(
-                            child: Text(' + '),
-                            onTap: () {
-                              _navigateAndDisplaySelection_dinner_2(context);
-                              // Navigator.of(context).push(MaterialPageRoute<void>(
-                              //     fullscreenDialog: true,
-                              //     builder: (BuildContext context) {
-                              //       return MainFoodMenu.setDayMeal(
-                              //           news[2][2]); //220823 홍석준 아침 전달
-                              //     }));
-                              //     }));
-                            },
-                          )
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    alignment: Alignment(-0.9, 0.0),
-
-                    //Spacer(),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          top: BorderSide(
-                            color: Colors.grey,
-                          ),
-                          bottom: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        )),
-                    child: Row(children: [
-                      Container(
-                        alignment: Alignment(-0.9, 0.0),
-                        width: 360,
-                        child: Text(
-                          '전체 칼로리 : '+news[2][3].toString()+"\n영양소 : "+news[2][4].toString(),
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            //fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            // border: Border.all(
-                            //   width: 2,
-                            //   color: Colors.grey,
-                            // ),
-                          ),
-                          child: InkWell(
-                            child: Icon(Icons.zoom_in),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
-                                  fullscreenDialog: true,
-                                  builder: (BuildContext context) {
-                                    return MainFoodMenu.setDayMeal(
-                                        news[0][2]); //220823 홍석준 아침 전달
-                                  }));
-                            },
-                          )
-                      )
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child : ElevatedButton(
-                      child: Text("'"+"$dinner"+"' 새로운 조합 가져오기"),
-                      onPressed: () {
-                        setState(() {
-                          loadingText(3);
-                        });
-                        initnewsAsynk3();
-                      },
+                      // bottom: BorderSide(
+                      //   color : Colors.grey,
+                      // ),
                     )),
-                Container(
-                  child : ElevatedButton(
-                    child: Text("수정완료"),
-                    onPressed: () {
-                      Navigator.pop(context, SendData(news, breakfast, lunch, dinner));
-                      //updateNewFood(FoodInfomation) 새로운 음식 업데이트
-                      //updateNewMeal(FoodMeals) 새로운 식단 업데이트
-                      print("음식과,식단 업데이트 그리고 product request");
-                      },
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: MediaQuery.of(context).size.width * 0.92,
+                    //height: 30,
+                    child: Text(
+                      news[2][1],
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                )
-              ])),
+                  Container(
+                      alignment: Alignment(0.9, 0.0),
+                      height: 20,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: InkWell(
+                        child: Text(' + '),
+                        onTap: () {
+                          _navigateAndDisplaySelection_dinner_1(context);
+                          // Navigator.of(context).push(MaterialPageRoute<void>(
+                          //     fullscreenDialog: true,
+                          //     builder: (BuildContext context) {
+                          //       return MainFoodMenu.setDayMeal(
+                          //           news[2][1]); //220823 홍석준 아침 전달
+                          //     }));
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: 360,
+                    child: Text(
+                      news[2][2],
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: InkWell(
+                        child: Text(' + '),
+                        onTap: () {
+                          _navigateAndDisplaySelection_dinner_2(context);
+                          // Navigator.of(context).push(MaterialPageRoute<void>(
+                          //     fullscreenDialog: true,
+                          //     builder: (BuildContext context) {
+                          //       return MainFoodMenu.setDayMeal(
+                          //           news[2][2]); //220823 홍석준 아침 전달
+                          //     }));
+                          //     }));
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                alignment: Alignment(-0.9, 0.0),
+
+                //Spacer(),
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.grey,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    )),
+                child: Row(children: [
+                  Container(
+                    alignment: Alignment(-0.9, 0.0),
+                    width: 360,
+                    child: Text(
+                      '전체 칼로리 : ' +
+                          news[2][3].toString() +
+                          "\n영양소 : " +
+                          news[2][4].toString(),
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'RobotoSlab',
+                        //fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          // border: Border.all(
+                          //   width: 2,
+                          //   color: Colors.grey,
+                          // ),
+                          ),
+                      child: InkWell(
+                        child: Icon(Icons.zoom_in),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute<void>(
+                              fullscreenDialog: true,
+                              builder: (BuildContext context) {
+                                return MainFoodMenu.setDayMeal(
+                                    news[0][2]); //220823 홍석준 아침 전달
+                              }));
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: ElevatedButton(
+                  child: Text("'$dinner' 새로운 조합 가져오기"),
+                  onPressed: () {
+                    setState(() {
+                      loadingText(3);
+                    });
+                    initnewsAsynk3();
+                  },
+                )),
+            Container(
+              child: ElevatedButton(
+                child: Text("수정완료"),
+                onPressed: () {
+                  Navigator.pop(
+                      context, SendData(news, breakfast, lunch, dinner));
+                  //updateNewFood(FoodInfomation) 새로운 음식 업데이트
+                  //updateNewMeal(FoodMeals) 새로운 식단 업데이트
+                  print("음식과,식단 업데이트 그리고 product request");
+                },
+              ),
+            )
+          ])),
 
           // SliverPadding(
           //   padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -1229,17 +1255,15 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Future initNews7() async {
     FoodRecommend newsProvider7 = FoodRecommend(uri7);
   }
-  void updateNewFood(String data){
-    uri5 = Uri.parse('http://222.107.249.189:9990/api/updateFood'+'$data');
-    uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal'+'$data');
+
+  void updateNewFood(String data) {
+    uri5 = Uri.parse('http://222.107.249.189:9990/api/updateFood' + '$data');
+    uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' + '$data');
     uri7 = Uri.parse('http://222.107.249.189:9990/api/productFood');
-
   }
-  void updateNewMeal(){
 
-  }
+  void updateNewMeal() {}
 }
-
 
 // Countn(int _daycount){
 //

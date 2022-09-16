@@ -12,7 +12,10 @@ class MainHome extends StatefulWidget {
   State<MainHome> createState() => _MainHomeState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<MainHome> {
+
+  @override
+  bool get wantKeepAlive => true;
 
   //220823 홍석준 아침,점심,저녁 전달을 위한 리스트화
   String breakfast = '영양돌솥밥';
@@ -309,33 +312,6 @@ class _MainHomeState extends State<MainHome> {
                       SizedBox(
                         width: 30,
                       ),
-                      Text('D-day+$_daycount'),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              // setState() 추가.
-                              _daycount++;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              minimumSize: Size(20, 20)),
-                          child: Icon(Icons.add)),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (_daycount != 0) {
-                                // setState() 추가.
-                                _daycount--;
-                              }
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              minimumSize: Size(20, 20)),
-                          child: Icon(Icons.remove)),
                       SizedBox(
                         width: 30,
                       ),

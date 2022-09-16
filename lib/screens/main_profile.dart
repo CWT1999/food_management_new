@@ -5,14 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class MainProfile extends StatefulWidget {
   @override
   State<MainProfile> createState() => _MainProfile();
 }
 
-class _MainProfile extends State<MainProfile> {
+class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin<MainProfile> {
   XFile? _pickedFile;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +196,9 @@ class _MainProfile extends State<MainProfile> {
             hintText: 'Input your name'),
       );
     }
-
   }
 }
+
+
+
+

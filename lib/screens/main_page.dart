@@ -45,24 +45,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-
-
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//       title : Text("메인화면"),
-//     ),
-//     body: Column(
-//       children: [
-//         Container(
-//           child: ElevatedButton(onPressed: (){
-//             FirebaseAuth.instance.signOut();
-//
-//           }, child: Text("Logout")),
-//         ),
-//       ],
-//     ),
-//   );
-// }

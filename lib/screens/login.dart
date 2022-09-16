@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_management/data/join_or_login.dart';
 import 'package:food_management/helper/login_background.dart';
 import 'package:provider/provider.dart';
-
 import 'forget_pw.dart';
-import 'main_page.dart';
 
 class AuthPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); //로그인 form에 key를 지정
