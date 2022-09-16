@@ -1,16 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MainProfile extends StatefulWidget {
   @override
   State<MainProfile> createState() => _MainProfile();
+
+  final user = FirebaseAuth.instance.currentUser;
+
 }
 
+
 class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin<MainProfile> {
+
   XFile? _pickedFile;
 
   @override
@@ -73,14 +77,13 @@ class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin
                     image: DecorationImage(
                         image: FileImage(File(_pickedFile!.path)),
                         fit: BoxFit.cover),
-
                   ),
                 ),
               ),
             Container(
               padding: EdgeInsets.only(top: 15),
               child: Text(
-                'hyeonjin',
+                "${widget.user?.email}",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
@@ -153,7 +156,7 @@ class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin
 
   _getCameraImage() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       setState(() {
         _pickedFile = pickedFile;
@@ -167,7 +170,7 @@ class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin
 
   _getPhotoLibraryImage() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _pickedFile = pickedFile;
@@ -198,7 +201,3 @@ class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin
     }
   }
 }
-
-
-
-

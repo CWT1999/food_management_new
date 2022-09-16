@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_management/data/food.dart';
 import 'package:food_management/screens/main_home_edit.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
-import 'package:food_management/data/food_recommend_api/food_recommend.dart';
+import 'package:food_management/data/food_recommend_api/food_recommend.dart'
+;import 'package:firebase_auth/firebase_auth.dart';
+
 class MainHome extends StatefulWidget {
-  const MainHome({Key? key}) : super(key: key);
+  MainHome({Key? key}) : super(key: key);
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   State<MainHome> createState() => _MainHomeState();
@@ -277,14 +280,14 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                               )),
                           child: Row(children: [
                             Container(
-                              alignment: Alignment(-0.0, 0.0),
+                              alignment: Alignment(-0.7,0),
                               width: 320,
                               child: Text(
-                                "***님 반갑습니다",
+                                "${widget.user?.email}님 \n 반갑습니다",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
                                   fontFamily: 'RobotoSlab',
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

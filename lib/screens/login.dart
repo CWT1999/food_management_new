@@ -173,6 +173,8 @@ class AuthPage extends StatelessWidget {
           builder: (context, joinOrLogin, child) =>
               ElevatedButton(
                 onPressed: () {
+                  print(_emailController.text);
+
                   if (_formKey.currentState!.validate()) {
                     joinOrLogin.isJoin?_register(context):_login(context);
                   }
@@ -199,7 +201,7 @@ class AuthPage extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.contain,
           child: CircleAvatar(
-            backgroundImage: AssetImage("assets/food1.jpg"),
+            backgroundImage: AssetImage("assets/logo.png"),
           ),
         ),
       ),
