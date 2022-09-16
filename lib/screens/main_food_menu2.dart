@@ -1,40 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
+import '../data/food_model.dart' as fd;
 
 class MainFoodMenu2 extends StatefulWidget {
-  String selectedFood = ''; //받아온 음식 220829 홍석준
-  MainFoodMenu2({Key? key}) : super(key: key); //Const 삭제
-  MainFoodMenu2.setDayMeal(this.selectedFood);
+  const MainFoodMenu2({Key? key}) : super(key: key);
 
   @override
   State<MainFoodMenu2> createState() => _MainFoodMenu2State();
 }
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-    );
-  }
-}
-
-class FoodDetail {
-  final String title;
-  final String description;
-
-  FoodDetail(this.title, this.description);
-}
-
-
-
 class _MainFoodMenu2State extends State<MainFoodMenu2> {
-
-  late Future<Food> futureFood;
   String selectedFood = '';
+  late Future<Food> futureFood;
 
   final myController = TextEditingController();
 
@@ -49,28 +27,6 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
   @override
   void initState() {
     super.initState();
-    selectedFood = widget.selectedFood; //받아온 음식 전달 220829홍석준
-  }
-
-  void _onLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new CircularProgressIndicator(),
-                new Text("Loading"),
-              ],
-            ));
-      },
-    );
-    new Future.delayed(new Duration(seconds: 3), () {
-      Navigator.pop(context);
-      _onLoading();
-    });
   }
 
   // If you want to have the option of reloading the API in response to an InheritedWidget changing,
@@ -160,10 +116,19 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
                         // print(foodIterable?.elementAt(index));
                         return ListTile(
                           title: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}',
-                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                            '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailScreen(
+                                        food: snapshot.data?.i2790?.row
+                                            ?.map((futureFood) => futureFood)
+                                            .elementAt(index))));
                           },
                           subtitle: Text(
                               '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)} kcal'),
@@ -181,6 +146,42 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  DetailScreen({Key? key, required this.food}) : super(key: key);
+
+  final fd.Row? food;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        elevation: 0,
+        title: Column(
+          children: [
+            Text(
+              "상세 정보",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'RobotoSlab',
+                fontSize: 25,
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+            )
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+            "${food?.dESCKOR}\n${food?.sERVINGSIZE}\n${food?.nUTRCONT1}\n${food?.nUTRCONT2}\n${food?.nUTRCONT3}\n${food?.nUTRCONT4}\n${food?.nUTRCONT5}\n${food?.nUTRCONT6}\n${food?.nUTRCONT7}\n${food?.nUTRCONT8}\n${food?.nUTRCONT9}"),
       ),
     );
   }
