@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_management/data/food.dart';
 import 'package:food_management/data/food_recommend_api/food_update.dart';
 import 'package:food_management/screens/main_home.dart';
+import '../data/food_recommend_api/original_food_data.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart';
@@ -35,7 +36,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
    String breakfast = '';
    String lunch = '';
    String dinner = '';
-
+   List<dynamic> originalFood = [];
 
   //final List<String> newText = ['new', '...'];
   int idx = 0;
@@ -110,6 +111,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     //   });
     // });
   }
+  initOriginalAsynk() async{
+    await initOriginal();
+  }
 /********************************************************************/
   void loadingText(int index) {
     switch (index) {
@@ -132,10 +136,17 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   void initState() {
     super.initState();
+
     this.news = widget.news!;
     this.breakfast = widget.breakfast!;
     this.lunch = widget.lunch!;
     this.dinner = widget.dinner!;
+
+
+    uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+breakfast+'/'+news[0][1]+'/'+news[0][2]+'/'+lunch+'/'+news[1][1]+'/'+news[1][2]+'/'+dinner+'/'+news[2][1]+'/'+news[2][2]);
+    initOriginalAsynk();
+
+
     uri = Uri.parse('http://10.0.2.2:8000/api/' + breakfast);
     uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
     uri3 = Uri.parse('http://10.0.2.2:8000/api/' + dinner);
@@ -144,6 +155,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     isLoading = false;
     isLoading2 = false;
     isLoading3 = false;
+
+
 
 
   }
@@ -225,6 +238,12 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     });
 
 
+  }
+
+  Future initOriginal() async{
+    OrignialProvider orignialProvider = OrignialProvider(uri8);
+    originalFood = await orignialProvider.getNews();
+    print(originalFood[0]['KCAL']);
   }
 /********************************************************************/
   Future initNews4() async {
