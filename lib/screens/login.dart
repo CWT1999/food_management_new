@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_management/data/join_or_login.dart';
 import 'package:food_management/helper/login_background.dart';
 import 'package:provider/provider.dart';
-
 import 'forget_pw.dart';
-import 'main_page.dart';
 
 class AuthPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); //로그인 form에 key를 지정
@@ -175,6 +173,8 @@ class AuthPage extends StatelessWidget {
           builder: (context, joinOrLogin, child) =>
               ElevatedButton(
                 onPressed: () {
+                  print(_emailController.text);
+
                   if (_formKey.currentState!.validate()) {
                     joinOrLogin.isJoin?_register(context):_login(context);
                   }
@@ -201,7 +201,7 @@ class AuthPage extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.contain,
           child: CircleAvatar(
-            backgroundImage: AssetImage("assets/food1.jpg"),
+            backgroundImage: AssetImage("assets/logo.png"),
           ),
         ),
       ),

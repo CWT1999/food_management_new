@@ -1,18 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_management/data/food.dart';
 import 'package:food_management/screens/main_home_edit.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
-import 'package:food_management/data/food_recommend_api/food_recommend.dart';
+import 'package:food_management/data/food_recommend_api/food_recommend.dart'
+;import 'package:firebase_auth/firebase_auth.dart';
+
 class MainHome extends StatefulWidget {
-  const MainHome({Key? key}) : super(key: key);
+  MainHome({Key? key}) : super(key: key);
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   State<MainHome> createState() => _MainHomeState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<MainHome> {
+
+  @override
+  bool get wantKeepAlive => true;
 
   //220823 홍석준 아침,점심,저녁 전달을 위한 리스트화
   String breakfast = '영양돌솥밥';
@@ -320,14 +326,14 @@ class _MainHomeState extends State<MainHome> {
                               )),
                           child: Row(children: [
                             Container(
-                              alignment: Alignment(-0.0, 0.0),
+                              alignment: Alignment(-0.7,0),
                               width: 320,
                               child: Text(
-                                "***님 반갑습니다",
+                                "${widget.user?.email}님 \n 반갑습니다",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
                                   fontFamily: 'RobotoSlab',
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -355,33 +361,6 @@ class _MainHomeState extends State<MainHome> {
                       SizedBox(
                         width: 30,
                       ),
-                      Text('D-day+$_daycount'),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              // setState() 추가.
-                              _daycount++;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              minimumSize: Size(20, 20)),
-                          child: Icon(Icons.add)),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (_daycount != 0) {
-                                // setState() 추가.
-                                _daycount--;
-                              }
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              minimumSize: Size(20, 20)),
-                          child: Icon(Icons.remove)),
                       SizedBox(
                         width: 30,
                       ),

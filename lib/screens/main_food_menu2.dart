@@ -1,73 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
-import 'package:food_management/screens/main_home.dart';
+import '../data/food_model.dart' as fd;
 
-class MainFoodMenu2 extends StatefulWidget {
-  String selectedFood = ''; //받아온 음식 220829 홍석준
-  MainFoodMenu2({Key? key}) : super(key: key); //Const 삭제
-  MainFoodMenu2.setDayMeal(this.selectedFood);
+class MainFoodMenu2 extends StatefulWidget  {
+  const MainFoodMenu2({Key? key}) : super(key: key);
 
   @override
   State<MainFoodMenu2> createState() => _MainFoodMenu2State();
 }
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
-
+class _MainFoodMenu2State extends State<MainFoodMenu2> with AutomaticKeepAliveClientMixin<MainFoodMenu2> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-    );
-  }
-}
+  bool get wantKeepAlive => true;
 
-
-class _MainFoodMenu2State extends State<MainFoodMenu2> {
-  late Future<Food> futureFood;
   String selectedFood = '';
+  late Future<Food> futureFood;
 
   final myController = TextEditingController();
-
-  // 기존에 승훈이 코드
-  // static List<Food> main_foods_list = [
-  //   Food(
-  //     "닭가슴살",
-  //     15,
-  //     150,
-  //   ),
-  //   Food(
-  //     "현미밥",
-  //     30,
-  //     300,
-  //   ),
-  //   Food(
-  //     "햄버거",
-  //     50,
-  //     500,
-  //   ),
-  // ];
-  //
-  // List<Food> display_list = List.from(main_foods_list);
-  //
-  // void updateList(String value) {
-  //   setState(() {
-  //     display_list = main_foods_list.where((element) => element.food_title!.toLowerCase().contains(value.toLowerCase())).toList();
-  //   });
-  // }
-  //
-  // final TextEditingController _filter = TextEditingController();
-  // FocusNode focusNode = FocusNode();
-  // String _searchText = "";
-  //
-  // _MainFoodMenuState() {
-  //   _filter.addListener(() {
-  //     setState(() {
-  //       _searchText = _filter.text;
-  //     });
-  //   });
-  // }
 
   @override
   void dispose() {
@@ -80,28 +30,6 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
   @override
   void initState() {
     super.initState();
-    selectedFood = widget.selectedFood; //받아온 음식 전달 220829홍석준
-  }
-
-  void _onLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new CircularProgressIndicator(),
-                new Text("Loading"),
-              ],
-            ));
-      },
-    );
-    new Future.delayed(new Duration(seconds: 3), () {
-      Navigator.pop(context);
-      _onLoading();
-    });
   }
 
   // If you want to have the option of reloading the API in response to an InheritedWidget changing,
@@ -191,15 +119,25 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
                         // print(foodIterable?.elementAt(index));
                         return ListTile(
                           title: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}'),
+                            '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.dESCKOR).elementAt(index)}',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailScreen(
+                                        food: snapshot.data?.i2790?.row
+                                            ?.map((futureFood) => futureFood)
+                                            .elementAt(index))));
                           },
                           subtitle: Text(
-                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)} kcal\n탄수화물 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT2).elementAt(index)}g\n단백질 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT3).elementAt(index)}g\n지방 ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT4).elementAt(index)}g'),
+                              '${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.nUTRCONT1).elementAt(index)} kcal'),
                           trailing: Text(
                               '1인분 양: ${snapshot.data?.i2790?.row?.map((futureFood) => futureFood.sERVINGSIZE).elementAt(index)}g',
-                              style: TextStyle(color: Colors.amber)),
+                              style: TextStyle(color: Colors.orange)),
                         );
                       },
                     );
@@ -207,25 +145,6 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
                 },
-
-                // 기존에 승훈이 코드
-                // itemBuilder: (context, index) => ListTile(
-                //   contentPadding: EdgeInsets.all(8.0),
-                //   title: Text(
-                //     display_list[index].food_title!,
-                //     style: TextStyle(
-                //         color: Colors.black, fontWeight: FontWeight.bold),
-                //   ),
-                //   subtitle: Text(
-                //     'kcal ${display_list[index].food_kcal}',
-                //     style: TextStyle(color: Colors.black),
-                //   ),
-                //   trailing: Text(
-                //     'protein ${display_list[index].food_protein}',
-                //     style: TextStyle(color: Colors.amber),
-                //   ),
-                //   //leading: Image.network('')
-                // ),
               ),
             ),
           ],
@@ -235,91 +154,38 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> {
   }
 }
 
-/* CustomScrollView(slivers: [ //이 아래부터는 넷플 검색창
-        SliverToBoxAdapter(
-          child: Container(
-              child: Column(
-            children: [
-              Padding(padding: EdgeInsets.all(5)),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.fromLTRB(
-                  5,
-                  10,
-                  5,
-                  10,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: TextField(
-                        focusNode: focusNode,
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                        autofocus: true,
-                        controller: _filter,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                          suffixIcon: focusNode.hasFocus
-                              ? IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _filter.clear();
-                                      _searchText = "";
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.cancel,
-                                    size: 20,
-                                  ),
-                                )
-                              : Container(),
-                          hintText: "검색",
-                          labelStyle: TextStyle(color: Colors.white),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                        ),
-                      ),
-                    ),
-                    focusNode.hasFocus
-                        ? Expanded(
-                            child: TextButton(
-                              child: Text('취소'),
-                              onPressed: () {
-                                setState(() {
-                                  _filter.clear();
-                                  _searchText = "";
-                                  focusNode.unfocus();
-                                });
-                              },
-                            ),
-                          )
-                        : Expanded(
-                            child: Container(),
-                            flex: 0,
-                          )
-                  ],
-                ),
+class DetailScreen extends StatelessWidget {
+  DetailScreen({Key? key, required this.food}) : super(key: key);
+
+  final fd.Row? food;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        elevation: 0,
+        title: Column(
+          children: [
+            Text(
+              "상세 정보",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'RobotoSlab',
+                fontSize: 25,
               ),
-            ],
-          )),
+            ),
+            Align(
+              alignment: Alignment.center,
+            )
+          ],
         ),
-      ]),*/
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+            "${food?.dESCKOR}\n${food?.sERVINGSIZE}\n${food?.nUTRCONT1}\n${food?.nUTRCONT2}\n${food?.nUTRCONT3}\n${food?.nUTRCONT4}\n${food?.nUTRCONT5}\n${food?.nUTRCONT6}\n${food?.nUTRCONT7}\n${food?.nUTRCONT8}\n${food?.nUTRCONT9}"),
+      ),
+    );
+  }
+}
