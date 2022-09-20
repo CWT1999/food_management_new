@@ -136,10 +136,10 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     this.breakfast = widget.breakfast!;
     this.lunch = widget.lunch!;
     this.dinner = widget.dinner!;
-    uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
-    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
+    uri = Uri.parse('http://10.0.2.2:8000/api/' + breakfast);
+    uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
+    uri3 = Uri.parse('http://10.0.2.2:8000/api/' + dinner);
+    uri4 = Uri.parse('http://10.0.2.2:8000/api/updateOneDish');
     // initnewsAsynk4();
     isLoading = false;
     isLoading2 = false;
@@ -161,14 +161,14 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   }
 
   Future initNews2() async {
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
+    uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
     FoodRecommend newsProvider2 = FoodRecommend(uri2);
 
     news[1] = await newsProvider2.getNews();
   }
 
   Future initNews3() async {
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
+    uri3 = Uri.parse('http://10.0.2.2:8000/api/' + dinner);
     FoodRecommend newsProvider3 = FoodRecommend(uri3);
 
     news[2] = await newsProvider3.getNews();
@@ -188,7 +188,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     // breakfast = a[0];
     //
-    // uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
+    // uri = Uri.parse('http://10.0.2.2:8000/api/' + breakfast);
     //initnewsAsynk();
 
   }
@@ -198,7 +198,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     // List<dynamic> a  = await newsProvider4.getNews();
     // lunch = a[1];
     //
-    // uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
+    // uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
     // initnewsAsynk2();
     //한끼 한번에 받아오기
     lunch = 'loading..';
@@ -1220,7 +1220,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     while(n-- > 0) {
       print("uri 실행 ");
       uri5 = Uri.parse(
-          'http://222.107.249.189:9990/save' + '/${data[n][0]}' + '/${data[n][1]}' +
+          'http://10.0.2.2:8000/save' + '/${data[n][0]}' + '/${data[n][1]}' +
               '/${data[n][2]}' + '/${data[n][3]}' + '/${data[n][4]}' + '/${data[n][5]}' +
               '/${data[n][6]}' + '/${data[n][7]}' + '/${data[n][8]}' + '/${data[n][9]}' +
               '/${data[n][10]}' + '/${data[n][11]}' + '/${data[n][12]}');
@@ -1234,7 +1234,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     int n = data.length;
     while(n-- > 0){
-      uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal'+'/${data[n][0]}'+'/${data[n][1]}'+'/${data[n][2]}'+'/${data[n][3]}'+'/${data[n][4]}');
+      uri6 = Uri.parse('http://10.0.2.2:8000/api/updateMeal'+'/${data[n][0]}'+'/${data[n][1]}'+'/${data[n][2]}'+'/${data[n][3]}'+'/${data[n][4]}');
       updateDishAsync();
     }
 
