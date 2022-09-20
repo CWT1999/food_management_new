@@ -197,23 +197,69 @@ class _MainHomeState extends State<MainHome> {
     news[2] = await newsProvider3.getNews();
   }
 
+  Future initNewsAll1() async {
+    //아침 한번에 받아오기
+    breakfast = 'loading..';
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
+    FoodRecommend newsProvider4 = FoodRecommend(uri4);
+    List<dynamic> result = await newsProvider4.getNews();
 
+    setState(() {
+      news[0] = result;
+      breakfast =  news[0][0];
+    });
+
+  }
+  Future initNewsAll2() async {
+    //점심 한번에 받아오기
+    lunch = 'loading..';
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
+    FoodRecommend newsProvider5 = FoodRecommend(uri4);
+    List<dynamic> result2 = await newsProvider5.getNews();
+    setState(() {
+      news[1] = result2;
+      lunch =  news[1][0];
+    });
+
+  }
+  Future initNewsAll3() async {
+    //저녁 한번에 받아오기
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
+    dinner = 'loading..';
+
+    FoodRecommend newsProvider6 = FoodRecommend(uri4);
+    List<dynamic> result3 = await newsProvider6.getNews();
+    setState(() {
+      news[2] = result3;
+      dinner =  news[2][0];
+    });
+  }
   Future initNews4() async {
-    MealProviders newsProvider4 = MealProviders(uri4);
-
-    List<dynamic> a  = await newsProvider4.getNews();
-    breakfast = a[0];
-    lunch = a[1];
-    dinner = a[2];
-
-    uri = Uri.parse('http://222.107.249.189:9990/api/' + a[0]);
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + a[1]);
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + a[2]);
-
+    // MealProviders newsProvider4 = MealProviders(uri4);
+    //
+    // List<dynamic> a  = await newsProvider4.getNews();
+    // breakfast = a[0];
+    // lunch = a[1];
+    // dinner = a[2];
+    //
+    // uri = Uri.parse('http://222.107.249.189:9990/api/' + a[0]);
+    // uri2 = Uri.parse('http://222.107.249.189:9990/api/' + a[1]);
+    // uri3 = Uri.parse('http://222.107.249.189:9990/api/' + a[2]);
+    //
+    // loadingText(123);
+    // initnewsAsynk();
+    // initnewsAsynk2();
+    // initnewsAsynk3();
     loadingText(123);
-    initnewsAsynk();
-    initnewsAsynk2();
-    initnewsAsynk3();
+    initNewsAll1();
+    initNewsAll2();
+    initNewsAll3();
+
+
+
+
+
+
 
   }
 

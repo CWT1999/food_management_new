@@ -21,9 +21,10 @@ class FoodRecommend {
       result = jsonDecode(utf8.decode(response.bodyBytes));
       int dataLength = result.length;
 
-      String RANK = (Random().nextInt(dataLength) + 1).toString();
+      String RANK = (Random().nextInt(dataLength+1)).toString();
 
-      returnData = jsonDecode(utf8.decode(response.bodyBytes))[RANK];
+
+      returnData = jsonDecode(utf8.decode(response.bodyBytes))[RANK] ?? "";
       returnData[3] = returnData[3].toString();
 
       returnData[4] = double.parse(returnData[4]);

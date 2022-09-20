@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_management/data/food.dart';
+import 'package:food_management/data/food_recommend_api/food_update.dart';
 import 'package:food_management/screens/main_home.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
@@ -47,6 +48,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Uri uri5 = Uri.parse('');
   Uri uri6 = Uri.parse('');
   Uri uri7 = Uri.parse('');
+  Uri uri8 = Uri.parse('');
+
   initnewsAsynk() async {
     if (isLoading == false) {
       isLoading = true;
@@ -85,7 +88,29 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       });
     });
   }
-
+/********************************************************************/
+  initnewsAsynkALl1() async {
+    await initNewsAll1();//.then((_) {
+    //   //API를 위해 220822 initState() 수정
+    //   setState(() {
+    //   });
+    // });
+  }
+  initnewsAsynkALl2() async {
+    await initNewsAll2();//.then((_) {
+    //   //API를 위해 220822 initState() 수정
+    //   setState(() {
+    //   });
+    // });
+  }
+  initnewsAsynkALl3() async {
+    await initNewsAll3();//.then((_) {
+    //   //API를 위해 220822 initState() 수정
+    //   setState(() {
+    //   });
+    // });
+  }
+/********************************************************************/
   void loadingText(int index) {
     switch (index) {
       case 1:
@@ -114,7 +139,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
     uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
     uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
-    uri4 = Uri.parse('http://222.107.249.189:9990/api/meal');
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     // initnewsAsynk4();
     isLoading = false;
     isLoading2 = false;
@@ -148,38 +173,60 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     news[2] = await newsProvider3.getNews();
   }
-
+/********************************************************************/
   Future initNewsAll1() async {
+    //한끼 한번에 받아오기
     breakfast = 'loading..';
-    MealProviders newsProvider4 = MealProviders(uri4);
-    List<dynamic> a  = await newsProvider4.getNews();
-    breakfast = a[0];
+    FoodRecommend newsProvider4 = FoodRecommend(uri4);
+    List<dynamic> result = await newsProvider4.getNews();
 
-    uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
-    initnewsAsynk();
+    setState(() {
+      news[0] =  result;
+      breakfast =   news[0][0];
+    });
+
+
+    // breakfast = a[0];
+    //
+    // uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
+    //initnewsAsynk();
 
   }
   Future initNewsAll2() async {
+    // lunch = 'loading..';
+    // MealProviders newsProvider4 = MealProviders(uri4);
+    // List<dynamic> a  = await newsProvider4.getNews();
+    // lunch = a[1];
+    //
+    // uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
+    // initnewsAsynk2();
+    //한끼 한번에 받아오기
     lunch = 'loading..';
-    MealProviders newsProvider4 = MealProviders(uri4);
-    List<dynamic> a  = await newsProvider4.getNews();
-    lunch = a[1];
+    FoodRecommend newsProvider4 = FoodRecommend(uri4);
+    List<dynamic> result = await newsProvider4.getNews();
 
-    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
-    initnewsAsynk2();
+
+    setState(() {
+      news[1] = result;
+      lunch =  news[1][0];
+    });
+
+
 
   }
   Future initNewsAll3() async {
+    //저녁 한번에 바꾸기
     dinner = 'loading..';
-    MealProviders newsProvider4 = MealProviders(uri4);
-    List<dynamic> a  = await newsProvider4.getNews();
-    dinner = a[2];
+    FoodRecommend newsProvider4 = FoodRecommend(uri4);
+    List<dynamic> result = await newsProvider4.getNews();
+    setState(() {
+    news[2] = result;
+    dinner =  news[2][0] ;
+    });
 
-    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + dinner);
-    initnewsAsynk3();
 
   }
-
+/********************************************************************/
   Future initNews4() async {
     MealProviders newsProvider4 = MealProviders(uri4);
 
@@ -341,8 +388,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                   onTap: () {
                                     setState(() {
                                       loadingText(1);
+
                                     });
-                                    initNewsAll1();
+                                    initnewsAsynkALl1();
 
                                   },
                                 )
@@ -619,7 +667,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                     setState(() {
                                       loadingText(2);
                                     });
-                                    initNewsAll2();
+                                    initnewsAsynkALl2();
+
                                   },
                                 )
                             )
@@ -888,8 +937,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                   onTap: () {
                                     setState(() {
                                       loadingText(3);
+
                                     });
-                                    initNewsAll3();
+                                    initnewsAsynkALl3();
                                   },
                                 )
                             )
@@ -1114,12 +1164,15 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                 Container(
                   child : ElevatedButton(
                     child: Text("수정완료"),
-                    onPressed: () {
+                    onPressed: () {/********************************************************************/
                       Navigator.pop(context, SendData(news, breakfast, lunch, dinner));
                       //updateNewFood(FoodInfomation) 새로운 음식 업데이트
+                      List<List<String>> data = [['meal','국물면류','최현진','600','457.88','59.8','17.6','16.5','1.4','1192.57','3.36','1.5','0']];
+                      updateNewFoodAndProduct(data);
                       //updateNewMeal(FoodMeals) 새로운 식단 업데이트
+                      //updateDishAsync(newDishList)
                       print("음식과,식단 업데이트 그리고 product request");
-                      },
+                      },/********************************************************************/
                   ),
                 )
               ])),
@@ -1134,27 +1187,59 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       ),
     );
   }
-
+/********************************************************************/
   Future initNews5() async {
-    FoodRecommend newsProvider5 = FoodRecommend(uri5);
+    print(uri5);
+    UpdateProviders newsProvider5 = UpdateProviders(uri5);
+    newsProvider5.getNews();
   }
 
   Future initNews6() async {
-    FoodRecommend newsProvider6 = FoodRecommend(uri6);
+    UpdateProviders newsProvider6 = UpdateProviders(uri6);
+  }
+  updateNewFoodAndProductAsynk() async {
+    await initNews5().then((_) {
+      setState(() {
+      });
+    });
+  }
+  updateDishAsync() async {
+    await initNews6().then((_) {
+      setState(() {
+      });
+    });
   }
 
-  Future initNews7() async {
-    FoodRecommend newsProvider7 = FoodRecommend(uri7);
+  void updateNewFoodAndProduct(List<List<String>> data){
+    //data = [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
+    //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
+    //       ...
+    //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
+    int n = data.length;
+    print("함수실행");
+    while(n-- > 0) {
+      print("uri 실행 ");
+      uri5 = Uri.parse(
+          'http://222.107.249.189:9990/save' + '/${data[n][0]}' + '/${data[n][1]}' +
+              '/${data[n][2]}' + '/${data[n][3]}' + '/${data[n][4]}' + '/${data[n][5]}' +
+              '/${data[n][6]}' + '/${data[n][7]}' + '/${data[n][8]}' + '/${data[n][9]}' +
+              '/${data[n][10]}' + '/${data[n][11]}' + '/${data[n][12]}');
+      updateNewFoodAndProductAsynk();
+    }
   }
-  void updateNewFood(String data){
-    uri5 = Uri.parse('http://222.107.249.189:9990/api/updateFood'+'$data');
-    uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal'+'$data');
-    uri7 = Uri.parse('http://222.107.249.189:9990/api/productFood');
+  void updateNewMeal(List<String> data){
+    // data = [meal, main, side, total_kcal,score]
+    //        ...
+    //        [meal, main, side, total_kcal,score]
+
+    int n = data.length;
+    while(n-- > 0){
+      uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal'+'/${data[n][0]}'+'/${data[n][1]}'+'/${data[n][2]}'+'/${data[n][3]}'+'/${data[n][4]}');
+      updateDishAsync();
+    }
 
   }
-  void updateNewMeal(){
-
-  }
+/********************************************************************/
 }
 
 
