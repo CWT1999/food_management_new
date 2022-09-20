@@ -288,6 +288,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     setState(() {
       news[0][1] = foodName;
+      news[0][3] = double.parse(foodKcal) + originalFood[0]["KCAL"] + originalFood[2]["KCAL"];
 
     });
   }
@@ -301,6 +302,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     setState(() {
       news[0][2]= foodName;
+      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[0]["KCAL"];
 
     });
   }
@@ -310,9 +312,38 @@ class _MainHomeEditState extends State<MainHomeEdit> {
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
 
     var foodName = '${result.dESCKOR}';
+    var foodKcal = '${result.nUTRCONT1}';
 
     setState(() {
       lunch = foodName;
+      news[1][3] = double.parse(foodKcal) + originalFood[4]["KCAL"] + originalFood[5]["KCAL"];
+    });
+  }
+  Future<void> _navigateAndDisplaySelection_lunch2(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+    var foodKcal = '${result.nUTRCONT1}';
+
+    setState(() {
+      news[1][1] = foodName;
+      news[1][3] = double.parse(foodKcal) + originalFood[3]["KCAL"] + originalFood[5]["KCAL"];
+
+
+    });
+  }
+  Future<void> _navigateAndDisplaySelection_lunch3(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+    var foodKcal = '${result.nUTRCONT1}';
+
+    setState(() {
+      news[1][2] = foodName;
+      news[1][3] = double.parse(foodKcal) + originalFood[4]["KCAL"] + originalFood[3]["KCAL"];
+
     });
   }
 
@@ -321,9 +352,39 @@ class _MainHomeEditState extends State<MainHomeEdit> {
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
 
     var foodName = '${result.dESCKOR}';
+    var foodKcal = '${result.nUTRCONT1}';
 
     setState(() {
       dinner = foodName;
+      news[2][3] = double.parse(foodKcal) + originalFood[7]["KCAL"] + originalFood[8]["KCAL"];
+
+
+    });
+  }
+  Future<void> _navigateAndDisplaySelection_dinner2(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+    var foodKcal = '${result.nUTRCONT1}';
+
+    setState(() {
+      news[2][1] = foodName;
+      news[2][3] = double.parse(foodKcal) + originalFood[6]["KCAL"] + originalFood[8]["KCAL"];
+
+    });
+  }
+  Future<void> _navigateAndDisplaySelection_dinner3(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
+
+    var foodName = '${result.dESCKOR}';
+    var foodKcal = '${result.nUTRCONT1}';
+
+    setState(() {
+      news[2][2] = foodName;
+      news[2][3] = double.parse(foodKcal) + originalFood[7]["KCAL"] + originalFood[6]["KCAL"];
+
     });
   }
 
@@ -818,12 +879,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                           child: InkWell(
                             child: Text(' + '),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
-                                  fullscreenDialog: true,
-                                  builder: (BuildContext context) {
-                                    return MainFoodMenu.setDayMeal(
-                                        news[1][1]); //220823 홍석준 아침 전달
-                                  }));
+                              _navigateAndDisplaySelection_lunch2(context);
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[1][1]); //220823 홍석준 아침 전달
+                              //     }));
                             },
                           )
                       )
@@ -868,12 +930,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         child: InkWell(
                           child: Text(' + '),
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute<void>(
-                                fullscreenDialog: true,
-                                builder: (BuildContext context) {
-                                  return MainFoodMenu.setDayMeal(
-                                      news[1][2]); //220823 홍석준 아침 전달
-                                }));
+                            _navigateAndDisplaySelection_lunch3(context);
+                            // Navigator.of(context).push(MaterialPageRoute<void>(
+                            //     fullscreenDialog: true,
+                            //     builder: (BuildContext context) {
+                            //       return MainFoodMenu.setDayMeal(
+                            //           news[1][2]); //220823 홍석준 아침 전달
+                            //     }));
                           },
                         ),
                       )
@@ -1092,12 +1155,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                           child: InkWell(
                             child: Text(' + '),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
-                                  fullscreenDialog: true,
-                                  builder: (BuildContext context) {
-                                    return MainFoodMenu.setDayMeal(
-                                        news[2][1]); //220823 홍석준 아침 전달
-                                  }));
+                              _navigateAndDisplaySelection_dinner2(context);
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[2][1]); //220823 홍석준 아침 전달
+                              //     }));
                             },
                           )
                       )
@@ -1142,12 +1206,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                           child: InkWell(
                             child: Text(' + '),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute<void>(
-                                  fullscreenDialog: true,
-                                  builder: (BuildContext context) {
-                                    return MainFoodMenu.setDayMeal(
-                                        news[2][2]); //220823 홍석준 아침 전달
-                                  }));
+                              _navigateAndDisplaySelection_dinner3(context);
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[2][2]); //220823 홍석준 아침 전달
+                              //     }));
                             },
                           )
                       )
