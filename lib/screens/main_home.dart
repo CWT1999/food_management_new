@@ -337,7 +337,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     setState(() {
       news[2] = result3;
       dinner =  news[2][0];
-      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+lunch+'/'+news[2][1]+'/'+news[2][2]);
+      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+dinner+'/'+news[2][1]+'/'+news[2][2]);
       initOriginalAsynk2();
     });
   }

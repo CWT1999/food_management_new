@@ -3,14 +3,15 @@ import 'package:food_management/data/food_model.dart';
 import '../data/providers.dart';
 import '../data/food_model.dart' as fd;
 
-class MainFoodMenu2 extends StatefulWidget  {
+class MainFoodMenu2 extends StatefulWidget {
   const MainFoodMenu2({Key? key}) : super(key: key);
 
   @override
   State<MainFoodMenu2> createState() => _MainFoodMenu2State();
 }
 
-class _MainFoodMenu2State extends State<MainFoodMenu2> with AutomaticKeepAliveClientMixin<MainFoodMenu2> {
+class _MainFoodMenu2State extends State<MainFoodMenu2>
+    with AutomaticKeepAliveClientMixin<MainFoodMenu2> {
   @override
   bool get wantKeepAlive => true;
 
@@ -57,7 +58,7 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> with AutomaticKeepAliveCl
         title: Column(
           children: [
             Text(
-              selectedFood + " 검색",
+              selectedFood + " 변경",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
@@ -77,7 +78,7 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> with AutomaticKeepAliveCl
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Serch for a Food",
+              "Serch for a Food information",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 22.0,
