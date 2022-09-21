@@ -220,6 +220,32 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   }
 
   initnewsAsynkALl2() async {
+    showDialog(
+      // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        useRootNavigator: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
     await initNewsAll2();//.then((_) {
     //   //API를 위해 220822 initState() 수정
     //   setState(() {
@@ -229,6 +255,32 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   }
 
   initnewsAsynkALl3() async {
+    showDialog(
+      // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        useRootNavigator: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
     await initNewsAll3();//.then((_) {
     //   //API를 위해 220822 initState() 수정
     //   setState(() {
@@ -246,17 +298,23 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     switch (index) {
       case 1:
         news[0] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        originalFood1=['','',''];
         break;
       case 2:
         news[1] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        originalFood2=['','',''];
         break;
       case 3:
         news[2] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        originalFood3=['','',''];
         break;
       case 123:
         news[0] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
         news[1] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
         news[2] = ['loading...', 'loading...', 'loading...','loading...','loading...'];
+        originalFood1=['','',''];
+        originalFood2=['','',''];
+        originalFood3=['','',''];
         break;
     }
   }
@@ -268,7 +326,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     this.breakfast = widget.breakfast!;
     this.lunch = widget.lunch!;
     this.dinner = widget.dinner!;
-
+    this.originalFood1 = widget.originalFood1;
+    this.originalFood2 = widget.originalFood2;
+    this.originalFood3 = widget.originalFood3;
 
     uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+breakfast+'/'+news[0][1]+'/'+news[0][2]+'/'+lunch+'/'+news[1][1]+'/'+news[1][2]+'/'+dinner+'/'+news[2][1]+'/'+news[2][2]);
     initOriginalAsynk();
@@ -368,6 +428,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     setState(() {
       news[0] =  result;
       breakfast =   news[0][0];
+      uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+breakfast+'/'+news[0][1]+'/'+news[0][2]);
+      initOriginalAsynk0();
     });
 
     // breakfast = a[0];
@@ -392,6 +454,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     setState(() {
       news[1] = result;
       lunch =  news[1][0];
+      uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+lunch+'/'+news[1][1]+'/'+news[1][2]);
+      initOriginalAsynk1();
     });
   }
 
@@ -403,6 +467,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     setState(() {
     news[2] = result;
     dinner =  news[2][0] ;
+    uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+breakfast+'/'+news[2][1]+'/'+news[2][2]);
+    initOriginalAsynk2();
     });
   }
 
@@ -1086,7 +1152,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
-                          lunch,
+                          lunch+"(${(originalFood2![0])?? 0}g)",
                           style: TextStyle(
                             backgroundColor: Colors.white,
                             fontFamily: 'RobotoSlab',
@@ -1137,7 +1203,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
-                          news[1][1],
+                          news[1][1]+"(${(originalFood2![1])?? 0}g)",
                           style: TextStyle(
                             backgroundColor: Colors.white,
                             fontFamily: 'RobotoSlab',
@@ -1188,7 +1254,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
-                          news[1][2],
+                          news[1][2]+"(${(originalFood2![2])?? 0}g)",
                           style: TextStyle(
                             backgroundColor: Colors.white,
                             fontFamily: 'RobotoSlab',
@@ -1358,7 +1424,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
-                          dinner,
+                          dinner+"(${(originalFood3![0])?? 0}g)",
                           style: TextStyle(
                             backgroundColor: Colors.white,
                             fontFamily: 'RobotoSlab',
@@ -1409,7 +1475,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         width: MediaQuery.of(context).size.width*0.92,
                         //height: 30,
                         child: Text(
-                          news[2][1],
+                          news[2][1]+"(${(originalFood3![1])?? 0}g)",
                           style: TextStyle(
                             backgroundColor: Colors.white,
                             fontFamily: 'RobotoSlab',
@@ -1462,7 +1528,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         width: 360,
                         child: Text(
-                          news[2][2],
+                          news[2][2]+"(${(originalFood3![2])?? 0}g)",
                           style: TextStyle(
                             backgroundColor: Colors.white,
                             fontFamily: 'RobotoSlab',
