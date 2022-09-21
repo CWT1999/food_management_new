@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:food_management/screens/main_home_edit.dart';
+import '../data/food_recommend_api/original_food_data.dart';
+import '../data/food_recommend_api/serving_size.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart'
@@ -24,7 +27,56 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
   String breakfast = '영양돌솥밥';
   String lunch = '부대찌개';
   String dinner = '생선모듬초밥';
+  dynamic originalFood1 = [0,0,0];
+  dynamic originalFood2 = [0,0,0];
+  dynamic originalFood3 = [0,0,0];
+  initOriginalAsynk0() async{
+    await initOriginal0();
+  }
+  initOriginalAsynk1() async{
+    await initOriginal1();
+  }
+  initOriginalAsynk2() async{
+    await initOriginal2();
+  }
 
+
+  Future initOriginal0() async{
+    ServingProvider orignialProvider1 = ServingProvider(uri8);
+    dynamic a = await orignialProvider1.getNews();
+    print(originalFood1);
+
+    setState(() {
+      originalFood1 = a;
+    });
+    //print(originalFood![0]['SERVING_SIZE']);
+    //print(originalFood[0]['KCAL']);
+  }
+  Future initOriginal1() async{
+    ServingProvider orignialProvider2 = ServingProvider(uri8);
+    dynamic a = await orignialProvider2.getNews();
+    print(originalFood2);
+
+    setState(() {
+      originalFood2 = a;
+    });
+    //print(originalFood![0]['SERVING_SIZE']);
+    //print(originalFood[0]['KCAL']);
+  }
+  Future initOriginal2() async{
+    ServingProvider orignialProvider3 = ServingProvider(uri8);
+    dynamic a = await orignialProvider3.getNews();
+    print(originalFood3);
+
+    setState(() {
+      originalFood3 = a;
+    });
+    //print(originalFood![0]['SERVING_SIZE']);
+    //print(originalFood[0]['KCAL']);
+  }
+
+
+  Uri uri8 = Uri.parse('');
   Future<void> _navigateAndDisplaySelection_breackfast(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -36,6 +88,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
       breakfast = foodName;
     });
   }
+
 
   Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
     final result = await Navigator.push(
@@ -76,7 +129,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     if (isLoading == false) {
       isLoading = true;
       await initNews().then((_) {
-        //API를 위해 220822 initState() 수정
+
         setState(() {
           isLoading = false;
         });
@@ -86,7 +139,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
 
   initnewsAsynk2() async {
     await initNews2().then((_) {
-      //API를 위해 220822 initState() 수정
+
       setState(() {
         isLoading2 = false;
       });
@@ -95,7 +148,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
 
   initnewsAsynk3() async {
     await initNews3().then((_) {
-      //API를 위해 220822 initState() 수정
+
       setState(() {
         isLoading3 = false;
       });
@@ -103,12 +156,18 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
   }
 
   initnewsAsynk4() async {
+
     await initNews4().then((_) {
-      //API를 위해 220822 initState() 수정
+
       setState(() {
         isLoading4 = false;
+
       });
+
     });
+
+    //Navigator.of(context).pop();
+
   }
 
   void loadingText(int index) {
@@ -166,18 +225,53 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     }
   }
 
+  _showDialog()  {
+    //await Future.delayed(Duration(milliseconds: 1000));
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+
+          Future.delayed(Duration(seconds: 15), () {
+            Navigator.pop(context);
+          });
+
+
+          return new Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+  }
   void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async{
+    //위젯을 바로실행시키기 위해 이 함수가 필요하다.
+      await _showDialog();
+    });
     super.initState();
 
-    uri4 = Uri.parse('http://10.0.2.2:8000/api/meal');
-
+    //uri4 = Uri.parse('http://10.0.2.2:8000/api/meal');
     initnewsAsynk4();
+
     isLoading = false;
     isLoading2 = false;
     isLoading3 = false;
-
-
   }
+
 
   List<dynamic> news = [["","","",'',''],["","","",'',''],["","","",'','']];
 
@@ -213,6 +307,9 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     setState(() {
       news[0] = result;
       breakfast =  news[0][0];
+      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+breakfast+'/'+news[0][1]+'/'+news[0][2]);
+      initOriginalAsynk0();
+
     });
 
   }
@@ -225,6 +322,8 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     setState(() {
       news[1] = result2;
       lunch =  news[1][0];
+      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+lunch+'/'+news[1][1]+'/'+news[1][2]);
+      initOriginalAsynk1();
     });
 
   }
@@ -238,6 +337,8 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     setState(() {
       news[2] = result3;
       dinner =  news[2][0];
+      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+lunch+'/'+news[2][1]+'/'+news[2][2]);
+      initOriginalAsynk2();
     });
   }
   Future initNews4() async {
@@ -460,7 +561,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          width: 360,
+                          //width: 100,
                           child: Text(
                             breakfast,
                             style: TextStyle(
@@ -471,6 +572,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                             ),
                           )
                       ),
+                    Container(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        //width: 100,
+                        child: Text(
+                          "(${(originalFood1[0])?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                    )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -491,7 +605,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           news[0][1],
                           style: TextStyle(
@@ -502,6 +616,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood1[1])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -521,7 +648,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                       Container(
                         //alignment: Alignment(-0.9, 0.0),
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           news[0][2],
                           style: TextStyle(
@@ -532,6 +659,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood1[2])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
 
                     ])),
                 Container(
@@ -634,7 +774,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           lunch,
                           style: TextStyle(
@@ -645,6 +785,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood2[0])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
 
                     ])),
                 Container(
@@ -666,7 +819,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           news[1][1],
                           style: TextStyle(
@@ -677,6 +830,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood2[1])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
 
                     ])),
                 Container(
@@ -698,7 +864,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           news[1][2],
                           style: TextStyle(
@@ -709,7 +875,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
-
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood2[2])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -802,7 +980,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           dinner,
                           style: TextStyle(
@@ -813,6 +991,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood3[0])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
                     ])),
 
                 Container(
@@ -834,7 +1025,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: MediaQuery.of(context).size.width*0.92,
+                        //width: MediaQuery.of(context).size.width*0.92,
                         //height: 30,
                         child: Text(
                           news[2][1],
@@ -846,6 +1037,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood3[1])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -866,7 +1070,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     child: Row(children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 360,
+                        //width: 360,
                         child: Text(
                           news[2][2],
                           style: TextStyle(
@@ -877,6 +1081,19 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                           ),
                         ),
                       ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //width: 100,
+                          child: Text(
+                            "(${(originalFood3[2])?? 0}g)",
+                            style: TextStyle(
+                              backgroundColor: Colors.white,
+                              fontFamily: 'RobotoSlab',
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                      )
                     ])),
                 Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -916,7 +1133,8 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                     onPressed: () async{
                       final SendData returnData = await Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MainHomeEdit(news: news, breakfast: breakfast, lunch: lunch, dinner: dinner,)),
+                        MaterialPageRoute(builder: (context) => MainHomeEdit(news: news, breakfast: breakfast, lunch: lunch, dinner: dinner,originalFood1: originalFood1,originalFood2: originalFood2
+                          ,originalFood3: originalFood3,)),
                       );
                       if( returnData != null ){
                         print("modified: $returnData");
