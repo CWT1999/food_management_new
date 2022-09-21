@@ -62,6 +62,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
 
 
 
+
   //final List<String> newText = ['new', '...'];
   int idx = 0;
 

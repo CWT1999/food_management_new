@@ -388,6 +388,139 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     });
   }
 
+  double calcScore() {
+    double carb_total = 0;
+    double protein_total = 0;
+    double fat_total = 0;
+    double sugars_total = 0;
+    double sodium_total = 0;
+    double sfa_total = 0;
+    double transFat_total = 0;
+    double kcal_total = 0;
+    List score_list = [];
+
+    kcal_total = originalFood[0]["KCAL"] +
+        originalFood[1]["KCAL"] +
+        originalFood[2]["KCAL"];
+    carb_total = originalFood[0]["CARBOHYDRATE"] +
+        originalFood[1]["CARBOHYDRATE"] +
+        originalFood[2]["CARBOHYDRATE"];
+    protein_total = originalFood[0]["PROTEIN"] +
+        originalFood[1]["PROTEIN"] +
+        originalFood[2]["PROTEIN"];
+    fat_total = originalFood[0]["FAT"] +
+        originalFood[1]["FAT"] +
+        originalFood[2]["FAT"];
+    sugars_total = originalFood[0]["SUGARS"] +
+        originalFood[1]["SUGARS"] +
+        originalFood[2]["SUGARS"];
+    sodium_total = originalFood[0]["SODIUM"] +
+        originalFood[1]["SODIUM"] +
+        originalFood[2]["SODIUM"];
+    sfa_total = originalFood[0]["SATURATED_FATTY_ACIDS"] +
+        originalFood[1]["SATURATED_FATTY_ACIDS"] +
+        originalFood[2]["SATURATED_FATTY_ACIDS"];
+    transFat_total = originalFood[0]["TRANS_FAT"] +
+        originalFood[1]["TRANS_FAT"] +
+        originalFood[2]["TRANS_FAT"];
+
+    double sugars_score = (50 / 3 - sugars_total).abs();
+    double sodium_score = (2000 / 3 - sodium_total).abs();
+    double sfa_score = (51 / 3 - sfa_total).abs();
+    double transFat_score;
+    if (kcal_total / 100 >= transFat_total) {
+      transFat_score = 0;
+    } else {
+      transFat_score = (kcal_total / 100 - transFat_total).abs();
+    }
+
+    double cpf_total = carb_total + protein_total + fat_total;
+    double carb_ratio = carb_total / cpf_total * 10;
+    double protein_ratio = protein_total / cpf_total * 10;
+    double fat_ratio = fat_total / cpf_total * 10;
+    double cpf_score = (5 - carb_ratio).abs() +
+        (3 - protein_ratio).abs() +
+        (2 - fat_ratio).abs();
+
+    List scoreList = [
+      kcal_total,
+      cpf_score,
+      sugars_score,
+      sodium_score,
+      sfa_score,
+      transFat_score
+    ];
+    score_list.addAll(scoreList);
+
+    print('score_list: $score_list');
+    print('score_list[1]: ${score_list[1]}');
+
+    // 영양소 비율
+    double sugars_max = 0;
+    double sodium_max = 0;
+    double sfa_max = 0;
+    double transFat_max = 0;
+    double cpf_max = 0;
+
+    if(cpf_max < cpf_total) {
+      cpf_max = cpf_total;
+    }
+    if (sugars_max < sugars_total) {
+      sugars_max = sugars_total;
+    }
+    if (sodium_max < sodium_total) {
+      sodium_max = sodium_total;
+    }
+    if (sfa_max < sfa_total) {
+      sfa_max = sfa_total;
+    }
+    if (transFat_max < transFat_total) {
+      transFat_max = transFat_total;
+    }
+
+    // if (cpf_max < score_list[1]) {
+    //   cpf_max = score_list[1];
+    // }
+    // if (sugars_max < score_list[2]) {
+    //   sugars_max = score_list[2];
+    // }
+    // if (sodium_max < score_list[3]) {
+    //   sodium_max = score_list[3];
+    // }
+    // if (sfa_max < score_list[4]) {
+    //   sfa_max = score_list[4];
+    // }
+    // if (transFat_max < score_list[5]) {
+    //   transFat_max = score_list[5];
+    // }
+
+    print('cpf_max: $cpf_max');
+    print('sugars_max: $sugars_max');
+    print('sodium_max: $sodium_max');
+    print('sfa_max: $sfa_max');
+
+    score_list[1] = (score_list[1] / cpf_max) * 100;
+    score_list[2] = (score_list[2] / sugars_max) * 100;
+    score_list[3] = (score_list[3] / sodium_max) * 100;
+    score_list[4] = (score_list[4] / sfa_max) * 100;
+    if (transFat_max != 0) {
+      score_list[5] = (score_list[5] / transFat_max) * 100;
+    } else {
+      score_list[5] = 0;
+    }
+
+    print("cpf_score ${score_list[1]}");
+    print("sugars_score ${score_list[2]}");
+    print("sodium_score ${score_list[3]}");
+    print("sfa_score ${score_list[4]}");
+    print("transFat_score ${score_list[5]}");
+
+    return score_list[1] +
+        score_list[2] +
+        score_list[3] +
+        score_list[4] +
+        score_list[5];
+  }
 
 
   int _daycount = 0;

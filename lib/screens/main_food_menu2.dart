@@ -57,7 +57,7 @@ class _MainFoodMenu2State extends State<MainFoodMenu2> with AutomaticKeepAliveCl
         title: Column(
           children: [
             Text(
-              selectedFood + " 변경",
+              selectedFood + " 검색",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
@@ -168,7 +168,7 @@ class DetailScreen extends StatelessWidget {
         title: Column(
           children: [
             Text(
-              "상세 정보",
+              "상세 정보         ",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'RobotoSlab',
@@ -184,7 +184,10 @@ class DetailScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-            "${food?.dESCKOR}\n${food?.sERVINGSIZE}\n${food?.nUTRCONT1}\n${food?.nUTRCONT2}\n${food?.nUTRCONT3}\n${food?.nUTRCONT4}\n${food?.nUTRCONT5}\n${food?.nUTRCONT6}\n${food?.nUTRCONT7}\n${food?.nUTRCONT8}\n${food?.nUTRCONT9}"),
+            "${food?.dESCKOR}\n 1회 제공량: ${food?.sERVINGSIZE}g\n 칼로리: ${food?.nUTRCONT1}kcal\n 탄수화물: ${food?.nUTRCONT2}g\n 단백질: ${food?.nUTRCONT3}g\n 지방: ${food?.nUTRCONT4}g\n 당류: ${food?.nUTRCONT5}g\n 나트륨: ${food?.nUTRCONT6}mg\n 콜레스테롤: ${food?.nUTRCONT7}mg\n 포화지방산: ${food?.nUTRCONT8}g\n 트랜스지방: ${food?.nUTRCONT9}g",
+        style: TextStyle(fontSize:20)
+        ),
+
       ),
     );
   }
