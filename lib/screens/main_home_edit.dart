@@ -232,6 +232,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     //   });
     // });
     Navigator.of(context).pop();
+
   }
 
   initnewsAsynkALl2() async {
@@ -373,6 +374,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   void initState() {
     super.initState();
 
+    whatIsChange = [0,0,0,0,0,0,0,0,0];
     this.news = widget.news!;
     this.breakfast = widget.breakfast!;
     this.lunch = widget.lunch!;
@@ -381,7 +383,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     this.originalFood2 = widget.originalFood2;
     this.originalFood3 = widget.originalFood3;
 
-    uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
+    uri8 = Uri.parse('http://222.107.249.189:9990/api/nutrient/' +
         breakfast +
         '/' +
         news[0][1] +
@@ -401,14 +403,15 @@ class _MainHomeEditState extends State<MainHomeEdit> {
         news[2][2]);
     initOriginalAsynk();
 
-    uri = Uri.parse('http://10.0.2.2:8000/api/' + breakfast);
-    uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
-    uri3 = Uri.parse('http://10.0.2.2:8000/api/' + dinner);
-    uri4 = Uri.parse('http://10.0.2.2:8000/api/updateOneDish');
+    uri = Uri.parse('http://222.107.249.189:9990/api/' + news[0][0]);
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + news[1][0]);
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + news[2][0]);
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     // initnewsAsynk4();
     isLoading = false;
     isLoading2 = false;
     isLoading3 = false;
+
   }
 
   late bool isLoading;
@@ -465,47 +468,43 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   }
 
   Future initNews() async {
+    uri = Uri.parse('http://222.107.249.189:9990/api/' + news[0][0]);
     FoodRecommend newsProvider = FoodRecommend(uri);
     news[0] = await newsProvider.getNews();
-    uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
-        breakfast +
-        '/' +
-        news[0][1] +
-        '/' +
-        news[0][2]);
+    if (news[0] == []) {
+      Map<String, String> a = originalFood[0] as Map<String, String>;
+      String u = "http://222.107.249.189:9990/save";
+      for (String b in a.values){
+          u = u+"/"+b;
+      }
+      print(u);
+    }
+    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+news[0][0]+'/'+news[0][1]+'/'+news[0][2]);
     initOriginalAsynk0();
   }
 
   Future initNews2() async {
-    uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
+    uri2 = Uri.parse('http://222.107.249.189:9990/api/' + news[1][0]);
     FoodRecommend newsProvider2 = FoodRecommend(uri2);
 
     news[1] = await newsProvider2.getNews();
-    uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
-        lunch +
-        '/' +
-        news[1][1] +
-        '/' +
-        news[1][2]);
+    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+news[1][0]+'/'+news[1][1]+'/'+news[1][2]);
     initOriginalAsynk1();
   }
 
   Future initNews3() async {
-    uri3 = Uri.parse('http://10.0.2.2:8000/api/' + dinner);
+    uri3 = Uri.parse('http://222.107.249.189:9990/api/' + news[2][0]);
     FoodRecommend newsProvider3 = FoodRecommend(uri3);
 
     news[2] = await newsProvider3.getNews();
-    uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
-        dinner +
-        '/' +
-        news[2][1] +
-        '/' +
-        news[2][2]);
+    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+news[2][0]+'/'+news[2][1]+'/'+news[2][2]);
     initOriginalAsynk2();
   }
 
 /********************************************************************/
   Future initNewsAll1() async {
+
+
     //한끼 한번에 받아오기
     breakfast = 'loading..';
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
@@ -514,7 +513,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     setState(() {
       news[0] = result;
       breakfast = news[0][0];
-      uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
+      uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/' +
           breakfast +
           '/' +
           news[0][1] +
@@ -525,7 +524,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     // breakfast = a[0];
     //
-    // uri = Uri.parse('http://10.0.2.2:8000/api/' + breakfast);
+    // uri = Uri.parse('http://222.107.249.189:9990/api/' + breakfast);
     //initnewsAsynk();
   }
 
@@ -535,7 +534,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     // List<dynamic> a  = await newsProvider4.getNews();
     // lunch = a[1];
     //
-    // uri2 = Uri.parse('http://10.0.2.2:8000/api/' + lunch);
+    // uri2 = Uri.parse('http://222.107.249.189:9990/api/' + lunch);
     // initnewsAsynk2();
     //한끼 한번에 받아오기
     lunch = 'loading..';
@@ -544,13 +543,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     setState(() {
       news[1] = result;
-      lunch = news[1][0];
-      uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
-          lunch +
-          '/' +
-          news[1][1] +
-          '/' +
-          news[1][2]);
+      lunch =  news[1][0];
+      uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+lunch+'/'+news[1][1]+'/'+news[1][2]);
       initOriginalAsynk1();
     });
   }
@@ -561,21 +555,18 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
     List<dynamic> result = await newsProvider4.getNews();
     setState(() {
-      news[2] = result;
-      dinner = news[2][0];
-      uri9 = Uri.parse('http://10.0.2.2:8000/api/nutrient/' +
-          breakfast +
-          '/' +
-          news[2][1] +
-          '/' +
-          news[2][2]);
-      initOriginalAsynk2();
+    news[2] = result;
+    dinner =  news[2][0] ;
+    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+breakfast+'/'+news[2][1]+'/'+news[2][2]);
+    initOriginalAsynk2();
     });
   }
 
   Future initOriginal() async {
     OrignialProvider orignialProvider = OrignialProvider(uri8);
     originalFood = await orignialProvider.getNews();
+    double d = calcScore();
+    print("@#@#!# $d");
     print(originalFood[0]['KCAL']);
   }
 
@@ -593,9 +584,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     initnewsAsynk2();
     initnewsAsynk3();
   }
-
+  List<int> whatIsChange = [0,0,0,0,0,0,0,0,0];
   var b1Kcal;
-
+  dynamic changeBreakfast;
   Future<void> _navigateAndDisplaySelection_breackfast(
       BuildContext context) async {
     final result = await Navigator.push(
@@ -606,11 +597,11 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodServing = '${result.sERVINGSIZE}';
 
     setState(() {
+      originalFood1[0] = foodServing;
       breakfast = foodName;
-      originalFood[0]["KCAL"] = double.parse(foodKcal);
-      news[0][3] = originalFood[0]["KCAL"] +
-          originalFood[1]["KCAL"] +
-          originalFood[2]["KCAL"];
+      news[0][0] = foodName;
+      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+      whatIsChange[0] = 1;
     });
   }
 
@@ -623,11 +614,10 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      originalFood1[1] = foodServing;
       news[0][1] = foodName;
-      originalFood[1]["KCAL"] = double.parse(foodKcal);
-      news[0][3] = originalFood[1]["KCAL"] +
-          originalFood[0]["KCAL"] +
-          originalFood[2]["KCAL"];
+      news[0][3] = double.parse(foodKcal) + originalFood[0]["KCAL"] + originalFood[2]["KCAL"];
+      whatIsChange[1] = 1;
     });
   }
 
@@ -640,11 +630,10 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
-      news[0][2] = foodName;
-      originalFood[2]["KCAL"] = double.parse(foodKcal);
-      news[0][3] = originalFood[2]["KCAL"] +
-          originalFood[1]["KCAL"] +
-          originalFood[0]["KCAL"];
+      originalFood1[2] = foodServing;
+      news[0][2]= foodName;
+      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[0]["KCAL"];
+
     });
   }
 
@@ -658,8 +647,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     setState(() {
       originalFood2[0] = foodServing;
       lunch = foodName;
-      originalFood[3]["KCAL"] = double.parse(foodKcal);
-      news[1][3] = originalFood[3]["KCAL"] +
+      news[1][0] = foodName;
+      news[1][3] = double.parse(foodKcal) +
           originalFood[4]["KCAL"] +
           originalFood[5]["KCAL"];
     });
@@ -690,6 +679,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      originalFood2[2] = foodServing;
       news[1][2] = foodName;
       originalFood[5]["KCAL"] = double.parse(foodKcal);
       news[1][3] = originalFood[5]["KCAL"] +
@@ -708,6 +698,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     setState(() {
       originalFood3[0] = foodServing;
       dinner = foodName;
+      news[2][0] = foodName;
       originalFood[6]["KCAL"] = double.parse(foodKcal);
       news[2][3] = originalFood[6]["KCAL"] +
           originalFood[7]["KCAL"] +
@@ -762,31 +753,16 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     List score_list = [];
 
     for (int i = 0; i < 3; i++) {
-      kcal_total += originalFood[i]["KCAL"] +
-          originalFood[i]["KCAL"] +
-          originalFood[i]["KCAL"];
-      carb_total += originalFood[i]["CARBOHYDRATE"] +
-          originalFood[i]["CARBOHYDRATE"] +
-          originalFood[i]["CARBOHYDRATE"];
-      protein_total += originalFood[i]["PROTEIN"] +
-          originalFood[i]["PROTEIN"] +
-          originalFood[i]["PROTEIN"];
-      fat_total += originalFood[i]["FAT"] +
-          originalFood[i]["FAT"] +
-          originalFood[i]["FAT"];
-      sugars_total += originalFood[i]["SUGARS"] +
-          originalFood[i]["SUGARS"] +
-          originalFood[i]["SUGARS"];
-      sodium_total += originalFood[i]["SODIUM"] +
-          originalFood[i]["SODIUM"] +
-          originalFood[i]["SODIUM"];
-      sfa_total += originalFood[i]["SATURATED_FATTY_ACIDS"] +
-          originalFood[i]["SATURATED_FATTY_ACIDS"] +
-          originalFood[i]["SATURATED_FATTY_ACIDS"];
-      transFat_total += originalFood[i]["TRANS_FAT"] +
-          originalFood[i]["TRANS_FAT"] +
-          originalFood[i]["TRANS_FAT"];
-
+        kcal_total += originalFood[i]["KCAL"];
+        carb_total += originalFood[i]["CARBOHYDRATE"];
+        protein_total += originalFood[i]["PROTEIN"];
+        fat_total += originalFood[i]["FAT"];
+        sugars_total += originalFood[i]["SUGARS"];
+        sodium_total += originalFood[i]["SODIUM"];
+        sfa_total += originalFood[i]["SATURATED_FATTY_ACIDS"];
+        transFat_total += originalFood[i]["TRANS_FAT"];
+        print("KCAL : ${originalFood[i]["SODIUM"]}");
+    }
       double sugars_score = (50 / 3 - sugars_total).abs();
       double sodium_score = (2000 / 3 - sodium_total).abs();
       double sfa_score = (51 / 3 - sfa_total).abs();
@@ -805,6 +781,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
           (3 - protein_ratio).abs() +
           (2 - fat_ratio).abs();
 
+      print("fgasdkgljs $sodium_score");
       List scoreList = [
         kcal_total,
         cpf_score,
@@ -815,18 +792,18 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       ];
 
       score_list.addAll(scoreList);
-    }
+
 
     print('score_list: $score_list');
     print('score_list[1]: ${score_list[0]}');
     // 0, 7, 14가 음식이름
 
     // 영양소 비율
-    double sugars_max = 50.633333333333326;
-    double sodium_max = 6602.543333333333;
-    double sfa_max = 20.07;
+    double sugars_max = 68.633333333333326;
+    double sodium_max = 8678.3333333333;
+    double sfa_max = 44.07;
     double transFat_max = 0;
-    double cpf_max = 6.130292141852834;
+    double cpf_max = 8.530292141852834;
 
     score_list[1] = (score_list[1] / cpf_max) * 100;
     score_list[2] = (score_list[2] / sugars_max) * 100;
@@ -843,6 +820,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     print("sodium_score ${score_list[3]}");
     print("sfa_score ${score_list[4]}");
     print("transFat_score ${score_list[5]}");
+
+    print(score_list[5].runtimeType);
 
     return score_list[1] +
         score_list[2] +
@@ -1213,9 +1192,10 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                   child: Text("'" + "$breakfast" + "' 새로운 조합 가져오기"),
                   onPressed: () {
                     setState(() {
+                      initnewsAsynk();
                       loadingText(1);
                     });
-                    initnewsAsynk();
+
                   },
                 ))
             // Container(
@@ -1861,28 +1841,37 @@ class _MainHomeEditState extends State<MainHomeEdit> {
               child: ElevatedButton(
                 child: Text("수정완료"),
                 onPressed: () {
+                  var score = calcScore();
+                  String gnb;
+                  if (score <= 79)
+                    gnb = "GOOD";
+                  else if (score <= 120)
+                    gnb = "NORMAL";
+                  else
+                    gnb = "BAD";
+                  print('칼크스코어: '+gnb);
                   /********************************************************************/
                   Navigator.pop(
                       context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
                   //updateNewFood(FoodInfomation) 새로운 음식 업데이트
-                  List<List<String>> data = [
-                    [
-                      'meal',
-                      '국물면류',
-                      '최현진',
-                      '600',
-                      '457.88',
-                      '59.8',
-                      '17.6',
-                      '16.5',
-                      '1.4',
-                      '1192.57',
-                      '3.36',
-                      '1.5',
-                      '0'
-                    ]
-                  ];
-                  updateNewFoodAndProduct(data);
+                  // List<List<String>> data = [
+                  //   [
+                  //     'meal',
+                  //     '국물면류',
+                  //     '최현진',
+                  //     '600',
+                  //     '457.88',
+                  //     '59.8',
+                  //     '17.6',
+                  //     '16.5',
+                  //     '1.4',
+                  //     '1192.57',
+                  //     '3.36',
+                  //     '1.5',
+                  //     '0'
+                  //   ]
+                  // ];
+                  //updateNewFoodAndProduct(originalFood);
                   //updateNewMeal(FoodMeals) 새로운 식단 업데이트
                   //updateDishAsync(newDishList)
                   print("음식과,식단 업데이트 그리고 product request");
@@ -1925,7 +1914,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     });
   }
 
-  void updateNewFoodAndProduct(List<List<String>> data) {
+  void updateNewFoodAndProduct(List<dynamic> data) {
     //data = [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
     //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
     //       ...
@@ -1933,12 +1922,21 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     int n = data.length;
     print("함수실행");
     while (n-- > 0) {
+      //if(whatIsChange[n] == 1) 변경된 적이 있을 경우
       print("uri 실행 ");
-      uri5 = Uri.parse('http://10.0.2.2:8000/save' +
-          '/${data[n][0]}' +
-          '/${data[n][1]}' +
-          '/${data[n][2]}' +
-          '/${data[n][3]}' +
+      String category;
+      if(n == 2 || n == 4 || n == 6){
+        category = "side";
+      }else if(n == 1 || n == 3 || n == 5){
+        category = "main";
+      }else
+        category = "meal";
+
+      uri5 = Uri.parse('http://222.107.249.189:9990/save' +
+          '/${data[n][category]}' +
+          '/${data[n]['GROUP_NAME']}' +
+          '/${data[n]['DESC_KOR']}' +
+          '/${data[n]['SERVING_SIZE']}' +
           '/${data[n][4]}' +
           '/${data[n][5]}' +
           '/${data[n][6]}' +
@@ -1959,13 +1957,15 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
     int n = data.length;
     while (n-- > 0) {
-      uri6 = Uri.parse('http://10.0.2.2:8000/api/updateMeal' +
-          '/${data[n][0]}' +
-          '/${data[n][1]}' +
-          '/${data[n][2]}' +
-          '/${data[n][3]}' +
-          '/${data[n][4]}');
-      updateDishAsync();
+      if(whatIsChange[n] == 1) {
+        uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' +
+            '/${data[n][0]}' +
+            '/${data[n][1]}' +
+            '/${data[n][2]}' +
+            '/${data[n][3]}' +
+            '/${data[n][4]}');
+        updateDishAsync();
+      }
     }
   }
 /********************************************************************/

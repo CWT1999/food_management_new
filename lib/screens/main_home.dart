@@ -264,7 +264,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     });
     super.initState();
 
-    //uri4 = Uri.parse('http://10.0.2.2:8000/api/meal');
+    //uri4 = Uri.parse('http://222.107.249.189:9990/api/meal');
     initnewsAsynk4();
 
     isLoading = false;
@@ -300,14 +300,14 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
   Future initNewsAll1() async {
     //아침 한번에 받아오기
     breakfast = 'loading..';
-    uri4 = Uri.parse('http://10.0.2.2:8000/api/updateOneDish');
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
     List<dynamic> result = await newsProvider4.getNews();
 
     setState(() {
       news[0] = result;
       breakfast =  news[0][0];
-      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+breakfast+'/'+news[0][1]+'/'+news[0][2]);
+      uri8 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+breakfast+'/'+news[0][1]+'/'+news[0][2]);
       initOriginalAsynk0();
 
     });
@@ -316,20 +316,20 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
   Future initNewsAll2() async {
     //점심 한번에 받아오기
     lunch = 'loading..';
-    uri4 = Uri.parse('http://10.0.2.2:8000/api/updateOneDish');
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     FoodRecommend newsProvider5 = FoodRecommend(uri4);
     List<dynamic> result2 = await newsProvider5.getNews();
     setState(() {
       news[1] = result2;
       lunch =  news[1][0];
-      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+lunch+'/'+news[1][1]+'/'+news[1][2]);
+      uri8 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+lunch+'/'+news[1][1]+'/'+news[1][2]);
       initOriginalAsynk1();
     });
 
   }
   Future initNewsAll3() async {
     //저녁 한번에 받아오기
-    uri4 = Uri.parse('http://10.0.2.2:8000/api/updateOneDish');
+    uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     dinner = 'loading..';
 
     FoodRecommend newsProvider6 = FoodRecommend(uri4);
@@ -337,7 +337,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     setState(() {
       news[2] = result3;
       dinner =  news[2][0];
-      uri8 = Uri.parse('http://10.0.2.2:8000/api/nutrient/'+dinner+'/'+news[2][1]+'/'+news[2][2]);
+      uri8 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+dinner+'/'+news[2][1]+'/'+news[2][2]);
       initOriginalAsynk2();
     });
   }
@@ -349,9 +349,9 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     // lunch = a[1];
     // dinner = a[2];
     //
-    // uri = Uri.parse('http://10.0.2.2:8000/api/' + a[0]);
-    // uri2 = Uri.parse('http://10.0.2.2:8000/api/' + a[1]);
-    // uri3 = Uri.parse('http://10.0.2.2:8000/api/' + a[2]);
+    // uri = Uri.parse('http://222.107.249.189:9990/api/' + a[0]);
+    // uri2 = Uri.parse('http://222.107.249.189:9990/api/' + a[1]);
+    // uri3 = Uri.parse('http://222.107.249.189:9990/api/' + a[2]);
     //
     // loadingText(123);
     // initnewsAsynk();

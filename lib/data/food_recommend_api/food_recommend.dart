@@ -18,17 +18,22 @@ class FoodRecommend {
 
     if (response.statusCode == 200) {
       print("진행");
+      if(response.bodyBytes.length == 2){
+        return [];
+      }
       result = jsonDecode(utf8.decode(response.bodyBytes));
-      int dataLength = result.length;
+      int dataLength = result.keys.length;
 
-      String RANK = (Random().nextInt(dataLength+1)).toString();
+       String RANK = (Random().nextInt(dataLength+1)).toString();
 
 
-      returnData = jsonDecode(utf8.decode(response.bodyBytes))[RANK] ?? "";
+      returnData = jsonDecode(utf8.decode(response.bodyBytes))[RANK] ?? [];
+      if(returnData == [])
+        returnData = jsonDecode(utf8.decode(response.bodyBytes))[RANK] ?? [];
       returnData[3] = returnData[3].toString();
 
       returnData[4] = double.parse(returnData[4]);
-      print(returnData[4]);
+      //print(returnData[4]);
       if (returnData[4] <= 20)
         returnData[4] = "GOOD";
       else if (returnData[4] <= 30)
