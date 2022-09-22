@@ -236,7 +236,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
           });
 
 
-          return new Dialog(
+          return Dialog(
             // The background color
             backgroundColor: Colors.white,
             child: Padding(

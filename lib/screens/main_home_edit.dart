@@ -21,13 +21,13 @@ class MainHomeEdit extends StatefulWidget {
 
   MainHomeEdit(
       {Key? key,
-      this.news,
-      this.breakfast,
-      this.lunch,
-      this.dinner,
-      this.originalFood1,
-      this.originalFood2,
-      this.originalFood3})
+        this.news,
+        this.breakfast,
+        this.lunch,
+        this.dinner,
+        this.originalFood1,
+        this.originalFood2,
+        this.originalFood3})
       : super(key: key) {
     sendData = SendData(news, breakfast, lunch, dinner, originalFood1,
         originalFood2, originalFood3);
@@ -80,7 +80,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   initnewsAsynk() async {
     showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
+      // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
         useRootNavigator: false,
         context: context,
@@ -119,7 +119,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   initnewsAsynk2() async {
     showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
+      // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
         useRootNavigator: false,
         context: context,
@@ -155,7 +155,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   initnewsAsynk3() async {
     showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
+      // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
         useRootNavigator: false,
         context: context,
@@ -201,7 +201,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 /********************************************************************/
   initnewsAsynkALl1() async {
     showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
+      // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
         useRootNavigator: false,
         context: context,
@@ -237,7 +237,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   initnewsAsynkALl2() async {
     showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
+      // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
         useRootNavigator: false,
         context: context,
@@ -272,7 +272,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   initnewsAsynkALl3() async {
     showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
+      // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
         useRootNavigator: false,
         context: context,
@@ -475,7 +475,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       Map<String, String> a = originalFood[0] as Map<String, String>;
       String u = "http://222.107.249.189:9990/save";
       for (String b in a.values){
-          u = u+"/"+b;
+        u = u+"/"+b;
       }
       print(u);
     }
@@ -555,10 +555,10 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
     List<dynamic> result = await newsProvider4.getNews();
     setState(() {
-    news[2] = result;
-    dinner =  news[2][0] ;
-    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+breakfast+'/'+news[2][1]+'/'+news[2][2]);
-    initOriginalAsynk2();
+      news[2] = result;
+      dinner =  news[2][0] ;
+      uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+breakfast+'/'+news[2][1]+'/'+news[2][2]);
+      initOriginalAsynk2();
     });
   }
 
@@ -584,11 +584,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     initnewsAsynk2();
     initnewsAsynk3();
   }
+
   List<int> whatIsChange = [0,0,0,0,0,0,0,0,0];
   var b1Kcal;
   dynamic changeBreakfast;
-  Future<void> _navigateAndDisplaySelection_breackfast(
-      BuildContext context) async {
+
+  Future<void> _navigateAndDisplaySelection(
+      BuildContext context, String str) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
 
@@ -597,473 +599,84 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodServing = '${result.sERVINGSIZE}';
 
     setState(() {
-      originalFood1[0] = foodServing;
-      breakfast = foodName;
-      news[0][0] = foodName;
-      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+
       whatIsChange[0] = 1;
 
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+      if(str == "breakfast1") {
+        breakfast = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[0] = foodServing;
+        // double b1 = calcScore();
+        // print('아침1 $b1');
+
+      }
+      else if(str == "breakfast2") {
+        news[0][1] = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[1] = foodServing;
+        // double b2 = calcScore();
+        // print('아침2 $b2');
+      }
+      else if(str == "breakfast3") {
+        news[0][2] = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[2] = foodServing;
+
+        // double b3 = calcScore();
+        // print('아침3 $b3');
+
+      }
+
+      else if(str == "lunch1") {
+        lunch = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[0] = foodServing;
+
+      }
+      else if(str == "lunch2") {
+        news[1][1] = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[1] = foodServing;
+
+      }
+      else if(str == "lunch3") {
+        news[1][2] = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[2] = foodServing;
+
+      }
+      else if(str == "dinner1") {
+        dinner = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[0] = foodServing;
+
+      }
+      else if(str == "dinner2"){
+        news[2][1] = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[1] = foodServing;
+
+      }
+      else if(str == "dinner3") {
+        news[2][2] = foodName;
+        news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+        originalFood1[2] = foodServing;
+
+      }
+
 
       double score = calcScore();
       String gnb;
-      if (score <= 79)
+      if (score <= 79) {
         gnb = "GOOD";
-      else if (score <= 120)
+      } else if (score <= 120) {
         gnb = "NORMAL";
-      else
+      } else
         gnb = "BAD";
-      print('칼크스코어: '+gnb);
+      print('칼크스코어: $gnb');
+      print('점수: $score');
 
       news[0][4] = gnb;
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_breackfast2(
-      BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      originalFood1[1] = foodServing;
-      news[0][1] = foodName;
-      news[0][3] = double.parse(foodKcal) + originalFood[0]["KCAL"] + originalFood[2]["KCAL"];
-      whatIsChange[1] = 1;
-      originalFood[1]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[1]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[1]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[1]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[1]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[1]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[1]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[1]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[1]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[1]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[1]["TRANS_FAT"] = '${result.nUTRCONT9}';
-      print("*****************************");
-      print(whatIsChange);
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[0][4] = gnb;
-
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_breackfast3(
-      BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      whatIsChange[2] = 1;
-      originalFood1[2] = foodServing;
-      news[0][2]= foodName;
-      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[0]["KCAL"];
-      originalFood[2]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[2]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[2]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[2]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[2]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[2]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[2]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[2]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[2]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[2]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[2]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[0][4] = gnb;
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-
-
-
-    setState(() {
-      whatIsChange[3] = 1;
-      originalFood2[0] = foodServing;
-      lunch = foodName;
-      news[1][0] = foodName;
-      news[1][3] = double.parse(foodKcal) +
-          originalFood[4]["KCAL"] +
-          originalFood[5]["KCAL"];
-      originalFood[3]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[3]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[3]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[3]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[3]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[3]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[3]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[3]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[3]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[3]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[3]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[1][4] = gnb;
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_lunch2(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      whatIsChange[4] = 1;
-      originalFood2[1] = foodServing;
-      originalFood[4]["KCAL"] = double.parse(foodKcal);
-      news[1][1] = foodName;
-      news[1][3] = originalFood[4]["KCAL"] +
-          originalFood[3]["KCAL"] +
-          originalFood[5]["KCAL"];
-      originalFood[4]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[4]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[4]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[4]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[4]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[4]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[4]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[4]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[4]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[4]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[4]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[1][4] = gnb;
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_lunch3(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      whatIsChange[5] = 1;
-      originalFood2[2] = foodServing;
-      news[1][2] = foodName;
-      originalFood[5]["KCAL"] = double.parse(foodKcal);
-      news[1][3] = originalFood[5]["KCAL"] +
-          originalFood[4]["KCAL"] +
-          originalFood[3]["KCAL"];
-      originalFood[5]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[5]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[5]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[5]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[5]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[5]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[5]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[5]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[5]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[5]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[5]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[1][4] = gnb;
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_dinner(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      whatIsChange[6] = 1;
-      originalFood3[0] = foodServing;
-      dinner = foodName;
-      news[2][0] = foodName;
-      originalFood[6]["KCAL"] = double.parse(foodKcal);
-      news[2][3] = originalFood[6]["KCAL"] +
-          originalFood[7]["KCAL"] +
-          originalFood[8]["KCAL"];
-      originalFood[6]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[6]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[6]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[6]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[6]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[6]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[6]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[6]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[6]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[6]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[6]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[2][4] = gnb;
-
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_dinner2(
-      BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      whatIsChange[7] = 1;
-      originalFood3[1] = foodServing;
-      news[2][1] = foodName;
-      originalFood[7] = double.parse(foodKcal);
-      news[2][3] =
-          originalFood[7] + originalFood[6]["KCAL"] + originalFood[8]["KCAL"];
-      originalFood[7]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[7]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[7]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[7]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[7]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[7]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[7]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[7]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[7]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[7]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[7]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[2][4] = gnb;
-
-
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_dinner3(
-      BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-    var foodKcal = '${result.nUTRCONT1}';
-    var foodServing = '${result.sERVINGSIZE}';
-    setState(() {
-      whatIsChange[8] = 1;
-      originalFood3[2] = foodServing;
-      news[2][2] = foodName;
-      originalFood[8]["KCAL"] = double.parse(foodKcal);
-      news[2][3] = originalFood[8]["KCAL"] +
-          originalFood[7]["KCAL"] +
-          originalFood[6]["KCAL"];
-      originalFood[8]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[8]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[8]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[8]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[8]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[8]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[8]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[8]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[8]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[8]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[8]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
-
-      double score = calcScore();
-      String gnb;
-      if (score <= 79)
-        gnb = "GOOD";
-      else if (score <= 120)
-        gnb = "NORMAL";
-      else
-        gnb = "BAD";
-      print('칼크스코어: '+gnb);
-
-      news[2][4] = gnb;
 
 
     });
@@ -1081,45 +694,45 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     List score_list = [];
 
     for (int i = 0; i < 3; i++) {
-        kcal_total += double.parse((originalFood[i]["KCAL"]).toString());
-        carb_total += double.parse((originalFood[i]["CARBOHYDRATE"]).toString());
-        protein_total += double.parse((originalFood[i]["PROTEIN"]).toString());
-        fat_total += double.parse((originalFood[i]["FAT"]).toString());
-        sugars_total += double.parse((originalFood[i]["SUGARS"]).toString());
-        sodium_total += double.parse((originalFood[i]["SODIUM"]).toString());
-        sfa_total += double.parse((originalFood[i]["SATURATED_FATTY_ACIDS"]).toString());
-        transFat_total += double.parse((originalFood[i]["TRANS_FAT"]).toString());
-        print("KCAL : ${originalFood[i]["SODIUM"]}");
+      kcal_total += double.parse((originalFood[i]["KCAL"]).toString());
+      carb_total += double.parse((originalFood[i]["CARBOHYDRATE"]).toString());
+      protein_total += double.parse((originalFood[i]["PROTEIN"]).toString());
+      fat_total += double.parse((originalFood[i]["FAT"]).toString());
+      sugars_total += double.parse((originalFood[i]["SUGARS"]).toString());
+      sodium_total += double.parse((originalFood[i]["SODIUM"]).toString());
+      sfa_total += double.parse((originalFood[i]["SATURATED_FATTY_ACIDS"]).toString());
+      transFat_total += double.parse((originalFood[i]["TRANS_FAT"]).toString());
+      print("KCAL : ${originalFood[i]["SODIUM"]}");
     }
-      double sugars_score = (50 / 3 - sugars_total).abs();
-      double sodium_score = (2000 / 3 - sodium_total).abs();
-      double sfa_score = (51 / 3 - sfa_total).abs();
-      double transFat_score;
-      if (kcal_total / 100 >= transFat_total) {
-        transFat_score = 0;
-      } else {
-        transFat_score = (kcal_total / 100 - transFat_total).abs();
-      }
+    double sugars_score = (50 / 3 - sugars_total).abs();
+    double sodium_score = (2000 / 3 - sodium_total).abs();
+    double sfa_score = (51 / 3 - sfa_total).abs();
+    double transFat_score;
+    if (kcal_total / 100 >= transFat_total) {
+      transFat_score = 0;
+    } else {
+      transFat_score = (kcal_total / 100 - transFat_total).abs();
+    }
 
-      double cpf_total = carb_total + protein_total + fat_total;
-      double carb_ratio = carb_total / cpf_total * 10;
-      double protein_ratio = protein_total / cpf_total * 10;
-      double fat_ratio = fat_total / cpf_total * 10;
-      double cpf_score = (5 - carb_ratio).abs() +
-          (3 - protein_ratio).abs() +
-          (2 - fat_ratio).abs();
+    double cpf_total = carb_total + protein_total + fat_total;
+    double carb_ratio = carb_total / cpf_total * 10;
+    double protein_ratio = protein_total / cpf_total * 10;
+    double fat_ratio = fat_total / cpf_total * 10;
+    double cpf_score = (5 - carb_ratio).abs() +
+        (3 - protein_ratio).abs() +
+        (2 - fat_ratio).abs();
 
-      print("fgasdkgljs $sodium_score");
-      List scoreList = [
-        kcal_total,
-        cpf_score,
-        sugars_score,
-        sodium_score,
-        sfa_score,
-        transFat_score
-      ];
+    print("fgasdkgljs $sodium_score");
+    List scoreList = [
+      kcal_total,
+      cpf_score,
+      sugars_score,
+      sodium_score,
+      sfa_score,
+      transFat_score
+    ];
 
-      score_list.addAll(scoreList);
+    score_list.addAll(scoreList);
 
 
     print('score_list: $score_list');
@@ -1184,302 +797,302 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
           SliverToBoxAdapter(
               child: Column(children: [
-            Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      alignment: Alignment(0.0, 0.0),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          alignment: Alignment(0.0, 0.0),
 
-                      //Spacer(),
-                      height: 80,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            top: BorderSide(
-                              color: Colors.grey,
-                            ),
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          )),
-                      child: Text("MY menu",
-                          style: TextStyle(
-                            backgroundColor: Colors.white,
-                            fontFamily: 'RobotoSlab',
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          )))
-                ]),
-          ])),
+                          //Spacer(),
+                          height: 80,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                top: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                bottom: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              )),
+                          child: Text("MY menu",
+                              style: TextStyle(
+                                backgroundColor: Colors.white,
+                                fontFamily: 'RobotoSlab',
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              )))
+                    ]),
+              ])),
 
           SliverToBoxAdapter(
               child: Column(children: [
-            Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      alignment: Alignment(-0.9, 0.0),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          alignment: Alignment(-0.9, 0.0),
 
-                      //Spacer(),
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            top: BorderSide(
-                              color: Colors.grey,
+                          //Spacer(),
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                top: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                bottom: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              )),
+                          child: Row(children: [
+                            Container(
+                              alignment: Alignment(-0.97, 0.0),
+                              //width: 320,
+                              width: MediaQuery.of(context).size.width * 0.90,
+                              child: Text(
+                                "아침",
+                                style: TextStyle(
+                                  backgroundColor: Colors.white,
+                                  fontFamily: 'RobotoSlab',
+                                  //fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          )),
-                      child: Row(children: [
-                        Container(
-                          alignment: Alignment(-0.97, 0.0),
-                          //width: 320,
-                          width: MediaQuery.of(context).size.width * 0.90,
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: InkWell(
+                                  child: Icon(Icons.autorenew),
+                                  onTap: () {
+                                    setState(() {
+                                      loadingText(1);
+                                    });
+                                    initnewsAsynkALl1();
+                                  },
+                                ))
+                          ]))
+                    ]),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          // bottom: BorderSide(
+                          //   color : Colors.grey,f
+                          // ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          width: 360,
                           child: Text(
-                            "아침",
+                            breakfast + "(${(originalFood1![0]) ?? 0}g)",
                             style: TextStyle(
                               backgroundColor: Colors.white,
                               fontFamily: 'RobotoSlab',
                               //fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),
+                          )),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
                           ),
                         ),
-                        Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            child: InkWell(
-                              child: Icon(Icons.autorenew),
-                              onTap: () {
-                                setState(() {
-                                  loadingText(1);
-                                });
-                                initnewsAsynkALl1();
-                              },
-                            ))
-                      ]))
-                ]),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // bottom: BorderSide(
-                      //   color : Colors.grey,f
-                      // ),
-                    )),
-                child: Row(children: [
-                  Container(
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      width: 360,
-                      child: Text(
-                        breakfast + "(${(originalFood1![0]) ?? 0}g)",
-                        style: TextStyle(
-                          backgroundColor: Colors.white,
-                          fontFamily: 'RobotoSlab',
-                          //fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    child: InkWell(
-                      child: Text(' + '),
-                      onTap: () {
-                        _navigateAndDisplaySelection_breackfast(context);
-                        /*Navigator.of(context).push(MaterialPageRoute<void>(
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            _navigateAndDisplaySelection(context, "breakfast1");
+                            /*Navigator.of(context).push(MaterialPageRoute<void>(
                                 fullscreenDialog: true,
                                 builder: (BuildContext context) {
                                   return MainFoodMenu.setDayMeal(
                                       breakfast); //220823 홍석준 아침 전달
                                 }));*/
-                      },
-                    ),
-                  )
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
+                          },
+                        ),
+                      )
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
 
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // bottom: BorderSide(
-                      //   color : Colors.grey,
-                      // ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      news[0][1] + "(${(originalFood1![1]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
+                    //Spacer(),
+                    height: 40,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    child: InkWell(
-                      child: Text(' + '),
-                      onTap: () {
-                        _navigateAndDisplaySelection_breackfast2(context);
-                        // Navigator.of(context).push(MaterialPageRoute<void>(
-                        //     fullscreenDialog: true,
-                        //     builder: (BuildContext context) {
-                        //       return MainFoodMenu.setDayMeal(
-                        //           news[0][1]); //220823 홍석준 아침 전달
-                        //     }));
-                      },
-                    ),
-                  )
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // s
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      news[0][2] + "(${(originalFood1![2]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey,
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          // bottom: BorderSide(
+                          //   color : Colors.grey,
+                          // ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          news[0][1] + "(${(originalFood1![1]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      child: InkWell(
-                        child: Text(' + '),
-                        onTap: () {
-                          _navigateAndDisplaySelection_breackfast3(context);
-                          // Navigator.of(context).push(MaterialPageRoute<void>(
-                          //     fullscreenDialog: true,
-                          //     builder: (BuildContext context) {
-                          //       return MainFoodMenu.setDayMeal(
-                          //           news[0][2]); //220823 홍석준 아침 전달
-                          //     }));
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      '전체 칼로리 : ' +
-                          news[0][3].toString() +
-                          "\n영양소 : " +
-                          news[0][4].toString(),
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          // border: Border.all(
-                          //   width: 2,
-                          //   color: Colors.grey,
-                          // ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
                           ),
-                      child: InkWell(
-                        child: Icon(Icons.zoom_in),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailScreen(
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            _navigateAndDisplaySelection(context, "breakfast2");
+                            // Navigator.of(context).push(MaterialPageRoute<void>(
+                            //     fullscreenDialog: true,
+                            //     builder: (BuildContext context) {
+                            //       return MainFoodMenu.setDayMeal(
+                            //           news[0][1]); //220823 홍석준 아침 전달
+                            //     }));
+                          },
+                        ),
+                      )
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          // s
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          news[0][2] + "(${(originalFood1![2]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              _navigateAndDisplaySelection(context, "breakfast3");
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[0][2]); //220823 홍석준 아침 전달
+                              //     }));
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          '전체 칼로리 : ' +
+                              news[0][3].toString() +
+                              "\n영양소 : " +
+                              news[0][4].toString(),
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   width: 2,
+                            //   color: Colors.grey,
+                            // ),
+                          ),
+                          child: InkWell(
+                            child: Icon(Icons.zoom_in),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailScreen(
                                         name1: breakfast,
                                         name2: news[0][1],
                                         name3: news[0][2],
                                         servingsize1: originalFood[0]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         servingsize2: originalFood[1]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         servingsize3: originalFood[2]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         carbohydrate1: originalFood[0]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         carbohydrate2: originalFood[1]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         carbohydrate3: originalFood[2]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         protein1: originalFood[0]["PROTEIN"],
                                         protein2: originalFood[1]["PROTEIN"],
                                         protein3: originalFood[2]["PROTEIN"],
@@ -1493,17 +1106,17 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         sodium2: originalFood[1]["SODIUM"],
                                         sodium3: originalFood[2]["SODIUM"],
                                         cholesterol1: originalFood[0]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         cholesterol2: originalFood[1]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         cholesterol3: originalFood[2]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         saturatedfatty1: originalFood[0]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         saturatedfatty2: originalFood[1]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         saturatedfatty3: originalFood[2]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         transfat1: originalFood[0]["TRANS_FAT"],
                                         transfat2: originalFood[1]["TRANS_FAT"],
                                         transfat3: originalFood[2]["TRANS_FAT"],
@@ -1511,284 +1124,284 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         kcal2: originalFood[1]["KCAL"],
                                         kcal3: originalFood[2]["KCAL"],
                                       )));
-                        },
-                      )),
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: ElevatedButton(
-                  child: Text("'" + "$breakfast" + "' 새로운 조합 가져오기"),
-                  onPressed: () {
-                    setState(() {
-                      initnewsAsynk();
-                      loadingText(1);
-                    });
+                            },
+                          )),
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: ElevatedButton(
+                      child: Text("'" + "$breakfast" + "' 새로운 조합 가져오기"),
+                      onPressed: () {
+                        setState(() {
+                          initnewsAsynk();
+                          loadingText(1);
+                        });
 
-                  },
-                ))
-            // Container(
-            //   child : ElevatedButton(
-            //     child: Text("전송"),
-            //     onPressed: () {
-            //       print("print");
-            //     },
-            //   ),
-            // )
-          ])),
+                      },
+                    ))
+                // Container(
+                //   child : ElevatedButton(
+                //     child: Text("전송"),
+                //     onPressed: () {
+                //       print("print");
+                //     },
+                //   ),
+                // )
+              ])),
 
           SliverToBoxAdapter(
               child: Column(children: [
-            Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      alignment: Alignment(-0.9, 0.0),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          alignment: Alignment(-0.9, 0.0),
 
-                      //Spacer(),
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            top: BorderSide(
-                              color: Colors.grey,
-                            ),
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          )),
-                      child: Row(children: [
-                        Container(
-                          alignment: Alignment(-0.97, 0.0),
-                          width: MediaQuery.of(context).size.width * 0.90,
-                          child: Text(
-                            "점심",
-                            style: TextStyle(
-                              backgroundColor: Colors.white,
-                              fontFamily: 'RobotoSlab',
-                              //fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.grey,
+                          //Spacer(),
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                top: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                bottom: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              )),
+                          child: Row(children: [
+                            Container(
+                              alignment: Alignment(-0.97, 0.0),
+                              width: MediaQuery.of(context).size.width * 0.90,
+                              child: Text(
+                                "점심",
+                                style: TextStyle(
+                                  backgroundColor: Colors.white,
+                                  fontFamily: 'RobotoSlab',
+                                  //fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                            child: InkWell(
-                              child: Icon(Icons.autorenew),
-                              onTap: () {
-                                setState(() {
-                                  loadingText(2);
-                                });
-                                initnewsAsynkALl2();
-                              },
-                            ))
-                      ]))
-                ]),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: InkWell(
+                                  child: Icon(Icons.autorenew),
+                                  onTap: () {
+                                    setState(() {
+                                      loadingText(2);
+                                    });
+                                    initnewsAsynkALl2();
+                                  },
+                                ))
+                          ]))
+                    ]),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
 
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // bottom: BorderSide(
-                      //   color : Colors.grey,
-                      // ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      lunch + "(${(originalFood2![0]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
+                    //Spacer(),
+                    height: 40,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.grey,
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          // bottom: BorderSide(
+                          //   color : Colors.grey,
+                          // ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          lunch + "(${(originalFood2![0]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    child: InkWell(
-                      child: Text(' + '),
-                      onTap: () {
-                        _navigateAndDisplaySelection_lunch(context);
-                        /*Navigator.of(context).push(MaterialPageRoute<void>(
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            _navigateAndDisplaySelection(context, "lunch1");
+                            /*Navigator.of(context).push(MaterialPageRoute<void>(
                                 fullscreenDialog: true,
                                 builder: (BuildContext context) {
                                   return MainFoodMenu.setDayMeal(
                                       lunch); //220823 홍석준 아침 전달
                                 }));*/
-                      },
-                    ),
-                  )
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
+                          },
+                        ),
+                      )
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
 
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // bottom: BorderSide(
-                      //   color : Colors.grey,
-                      // ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      news[1][1] + "(${(originalFood2![1]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey,
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          // bottom: BorderSide(
+                          //   color : Colors.grey,
+                          // ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          news[1][1] + "(${(originalFood2![1]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      child: InkWell(
-                        child: Text(' + '),
-                        onTap: () {
-                          _navigateAndDisplaySelection_lunch2(context);
-                          // Navigator.of(context).push(MaterialPageRoute<void>(
-                          //     fullscreenDialog: true,
-                          //     builder: (BuildContext context) {
-                          //       return MainFoodMenu.setDayMeal(
-                          //           news[1][1]); //220823 홍석준 아침 전달
-                          //     }));
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      news[1][2] + "(${(originalFood2![2]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    child: InkWell(
-                      child: Text(' + '),
-                      onTap: () {
-                        _navigateAndDisplaySelection_lunch3(context);
-                        // Navigator.of(context).push(MaterialPageRoute<void>(
-                        //     fullscreenDialog: true,
-                        //     builder: (BuildContext context) {
-                        //       return MainFoodMenu.setDayMeal(
-                        //           news[1][2]); //220823 홍석준 아침 전달
-                        //     }));
-                      },
-                    ),
-                  )
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      '전체 칼로리 : ' +
-                          news[1][3].toString() +
-                          "\n영양소 : " +
-                          news[1][4].toString(),
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          // border: Border.all(
-                          //   width: 2,
-                          //   color: Colors.grey,
-                          // ),
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
                           ),
-                      child: InkWell(
-                        child: Icon(Icons.zoom_in),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailScreen(
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              _navigateAndDisplaySelection(context, "lunch2");
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[1][1]); //220823 홍석준 아침 전달
+                              //     }));
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          news[1][2] + "(${(originalFood2![2]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: InkWell(
+                          child: Text(' + '),
+                          onTap: () {
+                            _navigateAndDisplaySelection(context, "lunch3");
+                            // Navigator.of(context).push(MaterialPageRoute<void>(
+                            //     fullscreenDialog: true,
+                            //     builder: (BuildContext context) {
+                            //       return MainFoodMenu.setDayMeal(
+                            //           news[1][2]); //220823 홍석준 아침 전달
+                            //     }));
+                          },
+                        ),
+                      )
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          '전체 칼로리 : ' +
+                              news[1][3].toString() +
+                              "\n영양소 : " +
+                              news[1][4].toString(),
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   width: 2,
+                            //   color: Colors.grey,
+                            // ),
+                          ),
+                          child: InkWell(
+                            child: Icon(Icons.zoom_in),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailScreen(
                                         name1: lunch,
                                         name2: news[1][1],
                                         name3: news[1][2],
@@ -1796,17 +1409,17 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         kcal2: originalFood[4]["KCAL"],
                                         kcal3: originalFood[5]["KCAL"],
                                         servingsize1: originalFood[3]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         servingsize2: originalFood[4]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         servingsize3: originalFood[5]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         carbohydrate1: originalFood[3]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         carbohydrate2: originalFood[4]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         carbohydrate3: originalFood[5]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         protein1: originalFood[3]["PROTEIN"],
                                         protein2: originalFood[4]["PROTEIN"],
                                         protein3: originalFood[5]["PROTEIN"],
@@ -1820,291 +1433,291 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         sodium2: originalFood[4]["SODIUM"],
                                         sodium3: originalFood[5]["SODIUM"],
                                         cholesterol1: originalFood[3]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         cholesterol2: originalFood[4]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         cholesterol3: originalFood[5]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         saturatedfatty1: originalFood[3]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         saturatedfatty2: originalFood[4]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         saturatedfatty3: originalFood[5]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         transfat1: originalFood[3]["TRANS_FAT"],
                                         transfat2: originalFood[4]["TRANS_FAT"],
                                         transfat3: originalFood[5]["TRANS_FAT"],
                                       )));
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: ElevatedButton(
-                  child: Text("'" + "$lunch" + "' 새로운 조합 가져오기"),
-                  onPressed: () {
-                    setState(() {
-                      loadingText(2);
-                    });
-                    initnewsAsynk2();
-                  },
-                )),
-          ])),
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: ElevatedButton(
+                      child: Text("'" + "$lunch" + "' 새로운 조합 가져오기"),
+                      onPressed: () {
+                        setState(() {
+                          loadingText(2);
+                        });
+                        initnewsAsynk2();
+                      },
+                    )),
+              ])),
 
           SliverToBoxAdapter(
               child: Column(children: [
-            Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      alignment: Alignment(-0.9, 0.0),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          alignment: Alignment(-0.9, 0.0),
 
-                      //Spacer(),
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            top: BorderSide(
-                              color: Colors.grey,
-                            ),
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          )),
-                      child: Row(children: [
-                        Container(
-                          alignment: Alignment(-0.97, 0.0),
-                          width: MediaQuery.of(context).size.width * 0.90,
-                          child: Text(
-                            "저녁",
-                            style: TextStyle(
-                              backgroundColor: Colors.white,
-                              fontFamily: 'RobotoSlab',
-                              //fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.grey,
+                          //Spacer(),
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                top: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                bottom: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              )),
+                          child: Row(children: [
+                            Container(
+                              alignment: Alignment(-0.97, 0.0),
+                              width: MediaQuery.of(context).size.width * 0.90,
+                              child: Text(
+                                "저녁",
+                                style: TextStyle(
+                                  backgroundColor: Colors.white,
+                                  fontFamily: 'RobotoSlab',
+                                  //fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                            child: InkWell(
-                              child: Icon(Icons.autorenew),
-                              onTap: () {
-                                setState(() {
-                                  loadingText(3);
-                                });
-                                initnewsAsynkALl3();
-                              },
-                            ))
-                      ]))
-                ]),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: InkWell(
+                                  child: Icon(Icons.autorenew),
+                                  onTap: () {
+                                    setState(() {
+                                      loadingText(3);
+                                    });
+                                    initnewsAsynkALl3();
+                                  },
+                                ))
+                          ]))
+                    ]),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
 
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // bottom: BorderSide(
-                      //   color : Colors.grey,
-                      // ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      dinner + "(${(originalFood3![0]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey,
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          // bottom: BorderSide(
+                          //   color : Colors.grey,
+                          // ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          dinner + "(${(originalFood3![0]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      child: InkWell(
-                        child: Text(' + '),
-                        onTap: () {
-                          _navigateAndDisplaySelection_dinner(context);
-                          /* Navigator.of(context).push(MaterialPageRoute<void>(
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              _navigateAndDisplaySelection(context, "dinner1");
+                              /* Navigator.of(context).push(MaterialPageRoute<void>(
                                   fullscreenDialog: true,
                                   builder: (BuildContext context) {
                                     return MainFoodMenu.setDayMeal(
                                         dinner); //220823 홍석준 아침 전달
                                   }));*/
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      // bottom: BorderSide(
-                      //   color : Colors.grey,
-                      // ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    //height: 30,
-                    child: Text(
-                      news[2][1] + "(${(originalFood3![1]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      alignment: Alignment(0.9, 0.0),
-                      height: 20,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      child: InkWell(
-                        child: Text(' + '),
-                        onTap: () {
-                          _navigateAndDisplaySelection_dinner2(context);
-                          // Navigator.of(context).push(MaterialPageRoute<void>(
-                          //     fullscreenDialog: true,
-                          //     builder: (BuildContext context) {
-                          //       return MainFoodMenu.setDayMeal(
-                          //           news[2][1]); //220823 홍석준 아침 전달
-                          //     }));
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    )),
-                child: Row(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 360,
-                    child: Text(
-                      news[2][2] + "(${(originalFood3![2]) ?? 0}g)",
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      child: InkWell(
-                        child: Text(' + '),
-                        onTap: () {
-                          _navigateAndDisplaySelection_dinner3(context);
-                          // Navigator.of(context).push(MaterialPageRoute<void>(
-                          //     fullscreenDialog: true,
-                          //     builder: (BuildContext context) {
-                          //       return MainFoodMenu.setDayMeal(
-                          //           news[2][2]); //220823 홍석준 아침 전달
-                          //     }));
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                alignment: Alignment(-0.9, 0.0),
-
-                //Spacer(),
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    )),
-                child: Row(children: [
-                  Container(
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     alignment: Alignment(-0.9, 0.0),
-                    width: 360,
-                    child: Text(
-                      '전체 칼로리 : ' +
-                          news[2][3].toString() +
-                          "\n영양소 : " +
-                          news[2][4].toString(),
-                      style: TextStyle(
-                        backgroundColor: Colors.white,
-                        fontFamily: 'RobotoSlab',
-                        //fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          // border: Border.all(
-                          //   width: 2,
-                          //   color: Colors.grey,
-                          // ),
+
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
                           ),
-                      child: InkWell(
-                        child: Icon(Icons.zoom_in),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailScreen(
+                          // bottom: BorderSide(
+                          //   color : Colors.grey,
+                          // ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        //height: 30,
+                        child: Text(
+                          news[2][1] + "(${(originalFood3![1]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          alignment: Alignment(0.9, 0.0),
+                          height: 20,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              _navigateAndDisplaySelection(context, "dinner2");
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[2][1]); //220823 홍석준 아침 전달
+                              //     }));
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 360,
+                        child: Text(
+                          news[2][2] + "(${(originalFood3![2]) ?? 0}g)",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: InkWell(
+                            child: Text(' + '),
+                            onTap: () {
+                              _navigateAndDisplaySelection(context, "dinner3");
+                              // Navigator.of(context).push(MaterialPageRoute<void>(
+                              //     fullscreenDialog: true,
+                              //     builder: (BuildContext context) {
+                              //       return MainFoodMenu.setDayMeal(
+                              //           news[2][2]); //220823 홍석준 아침 전달
+                              //     }));
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    alignment: Alignment(-0.9, 0.0),
+
+                    //Spacer(),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        )),
+                    child: Row(children: [
+                      Container(
+                        alignment: Alignment(-0.9, 0.0),
+                        width: 360,
+                        child: Text(
+                          '전체 칼로리 : ' +
+                              news[2][3].toString() +
+                              "\n영양소 : " +
+                              news[2][4].toString(),
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                            fontFamily: 'RobotoSlab',
+                            //fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   width: 2,
+                            //   color: Colors.grey,
+                            // ),
+                          ),
+                          child: InkWell(
+                            child: Icon(Icons.zoom_in),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailScreen(
                                         name1: dinner,
                                         name2: news[2][1],
                                         name3: news[2][2],
@@ -2112,17 +1725,17 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         kcal2: originalFood[7]["KCAL"],
                                         kcal3: originalFood[8]["KCAL"],
                                         servingsize1: originalFood[6]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         servingsize2: originalFood[7]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         servingsize3: originalFood[8]
-                                            ["SERVING_SIZE"],
+                                        ["SERVING_SIZE"],
                                         carbohydrate1: originalFood[6]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         carbohydrate2: originalFood[7]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         carbohydrate3: originalFood[8]
-                                            ["CARBOHYDRATE"],
+                                        ["CARBOHYDRATE"],
                                         protein1: originalFood[6]["PROTEIN"],
                                         protein2: originalFood[7]["PROTEIN"],
                                         protein3: originalFood[8]["PROTEIN"],
@@ -2136,78 +1749,78 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         sodium2: originalFood[7]["SODIUM"],
                                         sodium3: originalFood[8]["SODIUM"],
                                         cholesterol1: originalFood[6]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         cholesterol2: originalFood[7]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         cholesterol3: originalFood[8]
-                                            ["CHOLESTEROL"],
+                                        ["CHOLESTEROL"],
                                         saturatedfatty1: originalFood[6]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         saturatedfatty2: originalFood[7]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         saturatedfatty3: originalFood[8]
-                                            ["SATURATED_FATTY_ACIDS"],
+                                        ["SATURATED_FATTY_ACIDS"],
                                         transfat1: originalFood[6]["TRANS_FAT"],
                                         transfat2: originalFood[7]["TRANS_FAT"],
                                         transfat3: originalFood[8]["TRANS_FAT"],
                                       )));
-                        },
-                      ))
-                ])),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: ElevatedButton(
-                  child: Text("'" + "$dinner" + "' 새로운 조합 가져오기"),
-                  onPressed: () {
-                    setState(() {
-                      loadingText(3);
-                    });
-                    initnewsAsynk3();
-                  },
-                )),
-            Container(
-              child: ElevatedButton(
-                child: Text("수정완료"),
-                onPressed: () {
-                  double score = calcScore();
-                  String gnb;
-                  if (score <= 79)
-                    gnb = "GOOD";
-                  else if (score <= 120)
-                    gnb = "NORMAL";
-                  else
-                    gnb = "BAD";
-                  print('칼크스코어: '+gnb);
-                  /********************************************************************/
-                  Navigator.pop(
-                      context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
-                  //updateNewFood(FoodInfomation) 새로운 음식 업데이트
-                  // List<List<String>> data = [
-                  //   [
-                  //     'meal',
-                  //     '국물면류',
-                  //     '최현진',
-                  //     '600',
-                  //     '457.88',
-                  //     '59.8',
-                  //     '17.6',
-                  //     '16.5',
-                  //     '1.4',
-                  //     '1192.57',
-                  //     '3.36',
-                  //     '1.5',
-                  //     '0'
-                  //   ]
-                  // ];
-                  updateNewFoodAndProduct(originalFood);
-                  //updateNewMeal(news);// 새로운 식단 업데이트
-                  //updateDishAsync(newDishList)
-                  print("음식과,식단 업데이트 그리고 product request");
-                  //whatIsChange = [0,0,0,0,0,0,0,0,0];
-                }, /********************************************************************/
-              ),
-            )
-          ])),
+                            },
+                          ))
+                    ])),
+                Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    child: ElevatedButton(
+                      child: Text("'" + "$dinner" + "' 새로운 조합 가져오기"),
+                      onPressed: () {
+                        setState(() {
+                          loadingText(3);
+                        });
+                        initnewsAsynk3();
+                      },
+                    )),
+                Container(
+                  child: ElevatedButton(
+                    child: Text("수정완료"),
+                    onPressed: () {
+                      // double score = calcScore();
+                      // String gnb;
+                      // if (score <= 79)
+                      //   gnb = "GOOD";
+                      // else if (score <= 120)
+                      //   gnb = "NORMAL";
+                      // else
+                      //   gnb = "BAD";
+                      // print('칼크스코어: '+gnb);
+                      /********************************************************************/
+                      Navigator.pop(
+                          context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
+                      //updateNewFood(FoodInfomation) 새로운 음식 업데이트
+                      // List<List<String>> data = [
+                      //   [
+                      //     'meal',
+                      //     '국물면류',
+                      //     '최현진',
+                      //     '600',
+                      //     '457.88',
+                      //     '59.8',
+                      //     '17.6',
+                      //     '16.5',
+                      //     '1.4',
+                      //     '1192.57',
+                      //     '3.36',
+                      //     '1.5',
+                      //     '0'
+                      //   ]
+                      // ];
+                      updateNewFoodAndProduct(originalFood);
+                      //updateNewMeal(news);// 새로운 식단 업데이트
+                      //updateDishAsync(newDishList)
+                      print("음식과,식단 업데이트 그리고 product request");
+                      //whatIsChange = [0,0,0,0,0,0,0,0,0];
+                    }, /********************************************************************/
+                  ),
+                )
+              ])),
 
           // SliverPadding(
           //   padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -2298,13 +1911,13 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     int n = data.length;
     for(int i=0; i<3; i++) {
 
-        uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' +
-            '/${data[i][0]}' +
-            '/${data[i][1]}' +
-            '/${data[i][2]}' +
-            '/${data[i][3]}' +
-            '/${calcScore()}');
-        updateDishAsync();
+      uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' +
+          '/${data[i][0]}' +
+          '/${data[i][1]}' +
+          '/${data[i][2]}' +
+          '/${data[i][3]}' +
+          '/${calcScore()}');
+      updateDishAsync();
 
     }
   }
