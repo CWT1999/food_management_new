@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_management/data/food.dart';
 import 'package:food_management/data/food_recommend_api/food_update.dart';
-import 'package:food_management/screens/main_home.dart';
+import 'package:pie_chart/pie_chart.dart';
 import '../data/food_recommend_api/original_food_data.dart';
 import '../data/food_recommend_api/serving_size.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart';
+import 'dart:math' as math;
+
 
 class MainHomeEdit extends StatefulWidget {
   List<dynamic>? news = null;
@@ -664,7 +665,6 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
       }
 
-
       double score = calcScore();
       String gnb;
       if (score <= 79) {
@@ -771,8 +771,14 @@ class _MainHomeEditState extends State<MainHomeEdit> {
         score_list[5];
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 240, 240, 1),
       body: CustomScrollView(
@@ -787,7 +793,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                 Text(
                   "Autokit",
                   style: TextStyle(
-                      fontFamily: 'RobotoSlab',
+                      fontFamily: 'Arial Black',
                       fontSize: 25,
                       color: Colors.black),
                 )
@@ -817,12 +823,12 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                   color: Colors.grey,
                                 ),
                               )),
-                          child: Text("MY menu",
+                          child: Text("My Menu",
                               style: TextStyle(
                                 backgroundColor: Colors.white,
-                                fontFamily: 'RobotoSlab',
+                                fontFamily: 'Arial Black',
                                 fontSize: 25,
-                                fontWeight: FontWeight.bold,
+                                // fontWeight: FontWeight.bold,
                               )))
                     ]),
               ])),
@@ -858,8 +864,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                 "아침",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
+                                  fontFamily: 'Arial Black',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -1179,8 +1185,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                 "점심",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
+                                  fontFamily: 'Arial Black',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -1494,8 +1500,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                 "저녁",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
+                                  fontFamily: 'Arial Black',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -1777,57 +1783,32 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                         });
                         initnewsAsynk3();
                       },
-                    )),
-                Container(
-                  child: ElevatedButton(
-                    child: Text("수정완료"),
-                    onPressed: () {
-                      // double score = calcScore();
-                      // String gnb;
-                      // if (score <= 79)
-                      //   gnb = "GOOD";
-                      // else if (score <= 120)
-                      //   gnb = "NORMAL";
-                      // else
-                      //   gnb = "BAD";
-                      // print('칼크스코어: '+gnb);
-                      /********************************************************************/
-                      Navigator.pop(
-                          context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
-                      //updateNewFood(FoodInfomation) 새로운 음식 업데이트
-                      // List<List<String>> data = [
-                      //   [
-                      //     'meal',
-                      //     '국물면류',
-                      //     '최현진',
-                      //     '600',
-                      //     '457.88',
-                      //     '59.8',
-                      //     '17.6',
-                      //     '16.5',
-                      //     '1.4',
-                      //     '1192.57',
-                      //     '3.36',
-                      //     '1.5',
-                      //     '0'
-                      //   ]
-                      // ];
-                      updateNewFoodAndProduct(originalFood);
-                      //updateNewMeal(news);// 새로운 식단 업데이트
-                      //updateDishAsync(newDishList)
-                      print("음식과,식단 업데이트 그리고 product request");
-                      //whatIsChange = [0,0,0,0,0,0,0,0,0];
-                    }, /********************************************************************/
-                  ),
+                    )
+                ),
+                ElevatedButton(
+                  child: Text("수정완료"),
+                  onPressed: () {
+                    // double score = calcScore();
+                    // String gnb;
+                    // if (score <= 79)
+                    //   gnb = "GOOD";
+                    // else if (score <= 120)
+                    //   gnb = "NORMAL";
+                    // else
+                    //   gnb = "BAD";
+                    // print('칼크스코어: '+gnb);
+                    /********************************************************************/
+                    Navigator.pop(
+                        context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
+                    updateNewFoodAndProduct(originalFood);
+                    //updateNewMeal(news);// 새로운 식단 업데이트
+                    //updateDishAsync(newDishList)
+                    print("음식과,식단 업데이트 그리고 product request");
+                    //whatIsChange = [0,0,0,0,0,0,0,0,0];
+                  }, /********************************************************************/
                 )
               ])),
 
-          // SliverPadding(
-          //   padding: EdgeInsets.symmetric(horizontal: 16.0),
-          //   sliver: SliverToBoxAdapter(
-          //     child: ImageCarousel(),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -1960,6 +1941,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 //     );
 //   }
 // }
+
+enum LegendShape { circle, rectangle }
+
 class DetailScreen extends StatelessWidget {
   DetailScreen({
     Key? key,
@@ -2010,8 +1994,104 @@ class DetailScreen extends StatelessWidget {
   final saturatedfatty1, saturatedfatty2, saturatedfatty3;
   final transfat1, transfat2, transfat3;
 
+  final dataMap = <String, double>{
+    "탄수화물(g)": 0,
+    "단백질(g)": 0,
+    "지방(g)": 0,
+    "당(g)": 0,
+    "나트륨(g)": 0,
+    // "콜레스테롤": 0,
+    // "트랜스지방": 0
+  };
+
+  final colorList = <Color>[
+    const Color(0xfffdcb6e),
+    const Color(0xff0984e3),
+    const Color(0xfffd79a8),
+    const Color(0xffe17055),
+    const Color(0xff6c5ce7),
+  ];
+
+  final gradientList = <List<Color>>[
+    [
+      const Color.fromRGBO(223, 250, 92, 1),
+      const Color.fromRGBO(129, 250, 112, 1),
+    ],
+    [
+      const Color.fromRGBO(129, 182, 205, 1),
+      const Color.fromRGBO(91, 253, 199, 1),
+    ],
+    [
+      const Color.fromRGBO(175, 63, 62, 1.0),
+      const Color.fromRGBO(254, 154, 92, 1),
+    ]
+  ];
+
+
+  ChartType? _chartType = ChartType.disc;
+  double? _ringStrokeWidth = 32;
+  double? _chartLegendSpacing = 32;
+
+  bool _showLegendsInRow = false;
+  bool _showLegends = true;
+
+  bool _showChartValueBackground = true;
+  bool _showChartValues = true;
+  bool _showChartValuesInPercentage = false;
+  bool _showChartValuesOutside = false;
+
+  bool _showGradientColors = false;
+
+  LegendShape? _legendShape = LegendShape.circle;
+  LegendPosition? _legendPosition = LegendPosition.right;
+
   @override
   Widget build(BuildContext context) {
+
+    dataMap["탄수화물(g)"] = carbohydrate1 + carbohydrate2 + carbohydrate3;
+    dataMap["단백질(g)"] = protein1 + protein2 + protein3;
+    dataMap["지방(g)"] = fat1 + fat2 + fat3;
+    dataMap["당(g)"] = sugars1 + sugars2 + sugars3;
+    dataMap["나트륨(g)"] = (sodium1 + sodium2 + sodium3) / 100;
+    // dataMap["콜레스테롤"] = (cholesterol1 + cholesterol2 + cholesterol3) / 100;
+    // dataMap["트랜스지방"] = transfat1 + transfat2 + transfat3;
+
+    final chart = PieChart(
+      key: ValueKey(0),
+      dataMap: dataMap,
+      animationDuration: const Duration(milliseconds: 1000),
+      chartLegendSpacing: _chartLegendSpacing!,
+      chartRadius: math.min(MediaQuery.of(context).size.width / 2, 300),
+      colorList: colorList,
+      initialAngleInDegree: 0,
+      chartType: _chartType!,
+      legendOptions: LegendOptions(
+        showLegendsInRow: _showLegendsInRow,
+        legendPosition: _legendPosition!,
+        showLegends: _showLegends,
+        legendShape: _legendShape == LegendShape.circle
+            ? BoxShape.circle
+            : BoxShape.rectangle,
+        legendTextStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      chartValuesOptions: ChartValuesOptions(
+        showChartValueBackground: _showChartValueBackground,
+        showChartValues: _showChartValues,
+        showChartValuesInPercentage: _showChartValuesInPercentage,
+        showChartValuesOutside: _showChartValuesOutside,
+      ),
+      ringStrokeWidth: _ringStrokeWidth!,
+      emptyColor: Colors.grey,
+      gradientList: _showGradientColors ? gradientList : null,
+      emptyColorGradient: const [
+        Color(0xff6c5ce7),
+        Colors.blue,
+      ],
+      baseChartColor: Colors.transparent,
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -2034,12 +2114,14 @@ class DetailScreen extends StatelessWidget {
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text(
-            "---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
-                "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
-                "---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
-            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
-          )),
+          child: chart,
+          // child: Text(
+          //   "---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
+          //       "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
+          //       "---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
+          //   style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
+          // )
+      ),
     );
   }
 }
@@ -2060,44 +2142,3 @@ class IndicatorDot extends StatelessWidget {
   }
 }
 
-// class ImageCarousel extends StatefulWidget {
-//   const ImageCarousel({Key? key}) : super(key: key);
-//
-//   @override
-//   State<ImageCarousel> createState() => _ImageCarouselState();
-// }
-//
-// class _ImageCarouselState extends State<ImageCarousel> {
-//   int _currentPage = 0;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AspectRatio(
-//         aspectRatio: 1.335,
-//         child: Stack(
-//           //fit: StackFit.expand,
-//             alignment: Alignment.bottomRight,
-//             children: [
-//               PageView.builder(
-//                 itemCount: foodImages.length,
-//                 onPageChanged: (value) {
-//                   setState(() {
-//                     _currentPage = value;
-//                   });
-//                 },
-//                 itemBuilder: (context, index) => Image.asset(foodImages[index]),
-//               ),
-//               Positioned(
-//                   bottom: 16.0,
-//                   right: 16.0,
-//                   child: Row(
-//                       children: List.generate(
-//                         foodImages.length,
-//                             (index) => Padding(
-//                           padding: const EdgeInsets.only(left: 16.0 / 4),
-//                           child: IndicatorDot(isActive: index == _currentPage),
-//                         ),
-//                       ))),
-//             ]));
-//   }
-//}

@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:food_management/screens/main_home_edit.dart';
+import 'package:pie_chart/pie_chart.dart';
 import '../data/food_recommend_api/original_food_data.dart';
 import '../data/food_recommend_api/serving_size.dart';
 import 'main_food_menu.dart';
 import 'package:food_management/data/food_recommend_api/meal_recommend.dart';
 import 'package:food_management/data/food_recommend_api/food_recommend.dart'
 ;import 'package:firebase_auth/firebase_auth.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+
 
 class MainHome extends StatefulWidget {
   MainHome({Key? key}) : super(key: key);
@@ -77,44 +80,6 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
 
 
   Uri uri8 = Uri.parse('');
-  Future<void> _navigateAndDisplaySelection_breackfast(
-      BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-
-    setState(() {
-      breakfast = foodName;
-    });
-  }
-
-
-  Future<void> _navigateAndDisplaySelection_lunch(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-
-    setState(() {
-      lunch = foodName;
-    });
-  }
-
-  Future<void> _navigateAndDisplaySelection_dinner(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainFoodMenu()));
-
-    var foodName = '${result.dESCKOR}';
-
-    setState(() {
-      dinner = foodName;
-    });
-  }
-
-
-
-
 
   //final List<String> newText = ['new', '...'];
   int idx = 0;
@@ -377,10 +342,9 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     this.dinner = sendData.dinner!;
   }
 
-  int _daycount = 0;
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 240, 240, 1),
       body: CustomScrollView(
@@ -393,9 +357,9 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
             title: Column(
               children: [
                 Text(
-                  "Autokit",
+                  "AUTO KIT",
                   style: TextStyle(
-                      fontFamily: 'RobotoSlab',
+                      fontFamily: 'Arial Black',
                       fontSize: 25,
                       color: Colors.black),
                 )
@@ -430,7 +394,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                               alignment: Alignment(-0.7,0),
                               width: 320,
                               child: Text(
-                                "${widget.user?.email}님 \n 반갑습니다",
+                                "${widget.user?.email?.substring(0,widget.user?.email?.indexOf("@")).toUpperCase()}님 \n 반갑습니다",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
                                   fontFamily: 'RobotoSlab',
@@ -492,12 +456,12 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                                 ),
                               )),
                           child: Text(
-                              "MY menu",
+                              "My Menu",
                               style: TextStyle(
                                 backgroundColor: Colors.white,
-                                fontFamily: 'RobotoSlab',
+                                fontFamily: 'Arial Black',
                                 fontSize: 25,
-                                fontWeight: FontWeight.bold,
+                                // fontWeight: FontWeight.bold,
                               )))
                     ]),
               ])),
@@ -533,8 +497,8 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                                 "아침",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
+                                  fontFamily: 'Arial Black',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -746,8 +710,8 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                                 "점심",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
+                                  fontFamily: 'Arial Black',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -952,8 +916,8 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                                 "저녁",
                                 style: TextStyle(
                                   backgroundColor: Colors.white,
-                                  fontFamily: 'RobotoSlab',
-                                  //fontSize: 25,
+                                  fontFamily: 'Arial Black',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -1127,75 +1091,31 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
                       ),
 
                     ])),
-                Container(
-                  child : ElevatedButton(
-                    child: Text("식단 수정"),
-                    onPressed: () async{
-                      final SendData returnData = await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainHomeEdit(news: news, breakfast: breakfast, lunch: lunch, dinner: dinner,originalFood1: originalFood1,originalFood2: originalFood2
-                          ,originalFood3: originalFood3,)),
-                      );
-                      if( returnData != null ){
-                        print("modified: $returnData");
-                      }
-                      setState(() {
-                        responseData(returnData);
-                      });
-                    },
+                ElevatedButton(
+                  child: Text("식단 수정"),
+                  onPressed: () async{
+                    final SendData returnData = await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainHomeEdit(news: news, breakfast: breakfast, lunch: lunch, dinner: dinner,originalFood1: originalFood1,originalFood2: originalFood2
+                        ,originalFood3: originalFood3,)),
+                    );
+                    if( returnData != null ){
+                      print("modified: $returnData");
+                    }
+                    setState(() {
+                      responseData(returnData);
+                    });
+                  },
 
-                  ),
                 )
               ])),
 
-          // SliverPadding(
-          //   padding: EdgeInsets.symmetric(horizontal: 16.0),
-          //   sliver: SliverToBoxAdapter(
-          //     child: ImageCarousel(),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 }
 
-// Countn(int _daycount){
-//
-//     if(this._daycount>20){
-//       Text("브론즈");
-//     }
-//   }
-
-// class Count extends StatefulWidget {
-//   const Count({Key? key}) : super(key: key);
-//
-//   @override
-//   State<Count> createState() => _CountState();
-// }
-
-// class _CountState extends State<Count> {
-//   int _daycount=0;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: ElevatedButton(
-//           child: Text(
-//             '식단 시작 일수: d-day + $_daycount',
-//             style: TextStyle(
-//               fontFamily: 'RobotoSlab', fontSize: 25,fontWeight: FontWeight.bold
-//           ),),
-//           onPressed: () {
-//             setState(() { // setState() 추가.
-//               _daycount++;
-//             });
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class IndicatorDot extends StatelessWidget {
   const IndicatorDot({Key? key, required this.isActive}) : super(key: key);
@@ -1212,45 +1132,3 @@ class IndicatorDot extends StatelessWidget {
     );
   }
 }
-
-// class ImageCarousel extends StatefulWidget {
-//   const ImageCarousel({Key? key}) : super(key: key);
-//
-//   @override
-//   State<ImageCarousel> createState() => _ImageCarouselState();
-// }
-//
-// class _ImageCarouselState extends State<ImageCarousel> {
-//   int _currentPage = 0;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AspectRatio(
-//         aspectRatio: 1.335,
-//         child: Stack(
-//           //fit: StackFit.expand,
-//             alignment: Alignment.bottomRight,
-//             children: [
-//               PageView.builder(
-//                 itemCount: foodImages.length,
-//                 onPageChanged: (value) {
-//                   setState(() {
-//                     _currentPage = value;
-//                   });
-//                 },
-//                 itemBuilder: (context, index) => Image.asset(foodImages[index]),
-//               ),
-//               Positioned(
-//                   bottom: 16.0,
-//                   right: 16.0,
-//                   child: Row(
-//                       children: List.generate(
-//                         foodImages.length,
-//                             (index) => Padding(
-//                           padding: const EdgeInsets.only(left: 16.0 / 4),
-//                           child: IndicatorDot(isActive: index == _currentPage),
-//                         ),
-//                       ))),
-//             ]));
-//   }
-//}

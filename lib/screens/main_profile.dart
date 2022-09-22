@@ -35,7 +35,7 @@ class _MainProfile extends State<MainProfile> with AutomaticKeepAliveClientMixin
               Text(
                 "Autokit",
                 style: TextStyle(
-                    fontFamily: 'RobotoSlab',
+                    fontFamily: 'Arial Black',
                     fontSize: 25,
                     color: Colors.black),
               )
