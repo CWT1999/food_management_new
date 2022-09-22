@@ -258,7 +258,7 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
         });
   }
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) async{
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
     //위젯을 바로실행시키기 위해 이 함수가 필요하다.
       await _showDialog();
     });

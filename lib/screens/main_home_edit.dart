@@ -744,6 +744,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodName = '${result.dESCKOR}';
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
+
+
+
     setState(() {
       whatIsChange[3] = 1;
       originalFood2[0] = foodServing;
@@ -1971,7 +1974,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                 child: Row(children: [
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: MediaQuery.of(context).size.width * 0.92,
+                    width: 360,
                     //height: 30,
                     child: Text(
                       news[2][1] + "(${(originalFood3![1]) ?? 0}g)",
@@ -2419,7 +2422,11 @@ class DetailScreen extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-              "${name1}: ${kcal1}kcal\n탄수화물: ${carbohydrate1}\n${name2}: ${kcal2}kcal\n탄수화물: ${carbohydrate2}\n ${name3}: ${kcal3}kcal\n탄수화물: ${carbohydrate3} ")),
+            "---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
+                "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
+                "---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
+            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
+          )),
     );
   }
 }

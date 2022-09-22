@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'food_model.dart';
 
 var url =
-    'http://openapi.foodsafetykorea.go.kr/api/5e61f5af77c04c20923a/I2790/json/1/1000/DESC_KOR=';
+    'http://openapi.foodsafetykorea.go.kr/api/5e61f5af77c04c20923a/I2790/json/1/50/DESC_KOR=';
 
 Future<Food> fetchFood(String foodName) async {
   print('fetchFood()');
