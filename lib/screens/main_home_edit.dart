@@ -374,7 +374,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   void initState() {
     super.initState();
 
-    whatIsChange = [0,0,0,0,0,0,0,0,0];
+
     this.news = widget.news!;
     this.breakfast = widget.breakfast!;
     this.lunch = widget.lunch!;
@@ -602,6 +602,31 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       news[0][0] = foodName;
       news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
       whatIsChange[0] = 1;
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[0][4] = gnb;
+
     });
   }
 
@@ -618,6 +643,45 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       news[0][1] = foodName;
       news[0][3] = double.parse(foodKcal) + originalFood[0]["KCAL"] + originalFood[2]["KCAL"];
       whatIsChange[1] = 1;
+      originalFood[1]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[1]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[1]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[1]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[1]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[1]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[1]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[1]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[1]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[1]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[1]["TRANS_FAT"] = '${result.nUTRCONT9}';
+      print("*****************************");
+      print(whatIsChange);
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[0][4] = gnb;
+
+
     });
   }
 
@@ -630,9 +694,45 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[2] = 1;
       originalFood1[2] = foodServing;
       news[0][2]= foodName;
       news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[0]["KCAL"];
+      originalFood[2]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[2]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[2]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[2]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[2]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[2]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[2]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[2]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[2]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[2]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[2]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[0][4] = gnb;
 
     });
   }
@@ -645,12 +745,49 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[3] = 1;
       originalFood2[0] = foodServing;
       lunch = foodName;
       news[1][0] = foodName;
       news[1][3] = double.parse(foodKcal) +
           originalFood[4]["KCAL"] +
           originalFood[5]["KCAL"];
+      originalFood[3]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[3]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[3]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[3]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[3]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[3]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[3]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[3]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[3]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[3]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[3]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[1][4] = gnb;
+
     });
   }
 
@@ -662,12 +799,49 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[4] = 1;
       originalFood2[1] = foodServing;
       originalFood[4]["KCAL"] = double.parse(foodKcal);
       news[1][1] = foodName;
       news[1][3] = originalFood[4]["KCAL"] +
           originalFood[3]["KCAL"] +
           originalFood[5]["KCAL"];
+      originalFood[4]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[4]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[4]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[4]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[4]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[4]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[4]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[4]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[4]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[4]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[4]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[1][4] = gnb;
+
     });
   }
 
@@ -679,12 +853,49 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[5] = 1;
       originalFood2[2] = foodServing;
       news[1][2] = foodName;
       originalFood[5]["KCAL"] = double.parse(foodKcal);
       news[1][3] = originalFood[5]["KCAL"] +
           originalFood[4]["KCAL"] +
           originalFood[3]["KCAL"];
+      originalFood[5]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[5]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[5]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[5]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[5]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[5]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[5]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[5]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[5]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[5]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[5]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[1][4] = gnb;
+
     });
   }
 
@@ -696,6 +907,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[6] = 1;
       originalFood3[0] = foodServing;
       dinner = foodName;
       news[2][0] = foodName;
@@ -703,6 +915,43 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       news[2][3] = originalFood[6]["KCAL"] +
           originalFood[7]["KCAL"] +
           originalFood[8]["KCAL"];
+      originalFood[6]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[6]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[6]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[6]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[6]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[6]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[6]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[6]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[6]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[6]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[6]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[2][4] = gnb;
+
+
     });
   }
 
@@ -715,11 +964,49 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[7] = 1;
       originalFood3[1] = foodServing;
       news[2][1] = foodName;
       originalFood[7] = double.parse(foodKcal);
       news[2][3] =
           originalFood[7] + originalFood[6]["KCAL"] + originalFood[8]["KCAL"];
+      originalFood[7]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[7]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[7]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[7]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[7]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[7]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[7]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[7]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[7]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[7]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[7]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[2][4] = gnb;
+
+
     });
   }
 
@@ -732,12 +1019,50 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodKcal = '${result.nUTRCONT1}';
     var foodServing = '${result.sERVINGSIZE}';
     setState(() {
+      whatIsChange[8] = 1;
       originalFood3[2] = foodServing;
       news[2][2] = foodName;
       originalFood[8]["KCAL"] = double.parse(foodKcal);
       news[2][3] = originalFood[8]["KCAL"] +
           originalFood[7]["KCAL"] +
           originalFood[6]["KCAL"];
+      originalFood[8]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[8]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[8]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[8]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[8]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[8]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[8]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[8]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[8]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[8]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[8]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}';
+
+      double score = calcScore();
+      String gnb;
+      if (score <= 79)
+        gnb = "GOOD";
+      else if (score <= 120)
+        gnb = "NORMAL";
+      else
+        gnb = "BAD";
+      print('칼크스코어: '+gnb);
+
+      news[2][4] = gnb;
+
+
     });
   }
 
@@ -753,14 +1078,14 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     List score_list = [];
 
     for (int i = 0; i < 3; i++) {
-        kcal_total += originalFood[i]["KCAL"];
-        carb_total += originalFood[i]["CARBOHYDRATE"];
-        protein_total += originalFood[i]["PROTEIN"];
-        fat_total += originalFood[i]["FAT"];
-        sugars_total += originalFood[i]["SUGARS"];
-        sodium_total += originalFood[i]["SODIUM"];
-        sfa_total += originalFood[i]["SATURATED_FATTY_ACIDS"];
-        transFat_total += originalFood[i]["TRANS_FAT"];
+        kcal_total += double.parse((originalFood[i]["KCAL"]).toString());
+        carb_total += double.parse((originalFood[i]["CARBOHYDRATE"]).toString());
+        protein_total += double.parse((originalFood[i]["PROTEIN"]).toString());
+        fat_total += double.parse((originalFood[i]["FAT"]).toString());
+        sugars_total += double.parse((originalFood[i]["SUGARS"]).toString());
+        sodium_total += double.parse((originalFood[i]["SODIUM"]).toString());
+        sfa_total += double.parse((originalFood[i]["SATURATED_FATTY_ACIDS"]).toString());
+        transFat_total += double.parse((originalFood[i]["TRANS_FAT"]).toString());
         print("KCAL : ${originalFood[i]["SODIUM"]}");
     }
       double sugars_score = (50 / 3 - sugars_total).abs();
@@ -1841,7 +2166,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
               child: ElevatedButton(
                 child: Text("수정완료"),
                 onPressed: () {
-                  var score = calcScore();
+                  double score = calcScore();
                   String gnb;
                   if (score <= 79)
                     gnb = "GOOD";
@@ -1871,10 +2196,11 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                   //     '0'
                   //   ]
                   // ];
-                  //updateNewFoodAndProduct(originalFood);
-                  //updateNewMeal(FoodMeals) 새로운 식단 업데이트
+                  updateNewFoodAndProduct(originalFood);
+                  //updateNewMeal(news);// 새로운 식단 업데이트
                   //updateDishAsync(newDishList)
                   print("음식과,식단 업데이트 그리고 product request");
+                  //whatIsChange = [0,0,0,0,0,0,0,0,0];
                 }, /********************************************************************/
               ),
             )
@@ -1900,6 +2226,9 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   Future initNews6() async {
     UpdateProviders newsProvider6 = UpdateProviders(uri6);
+
+    newsProvider6.getNews();
+    print("식단저장!!");
   }
 
   updateNewFoodAndProductAsynk() async {
@@ -1919,53 +2248,61 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
     //       ...
     //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
-    int n = data.length;
+    int n = data.length-1;
+    print(whatIsChange);
+    print("f");
+    print(data.length);
     print("함수실행");
-    while (n-- > 0) {
-      //if(whatIsChange[n] == 1) 변경된 적이 있을 경우
-      print("uri 실행 ");
-      String category;
-      if(n == 2 || n == 4 || n == 6){
-        category = "side";
-      }else if(n == 1 || n == 3 || n == 5){
-        category = "main";
-      }else
-        category = "meal";
-
-      uri5 = Uri.parse('http://222.107.249.189:9990/save' +
-          '/${data[n][category]}' +
-          '/${data[n]['GROUP_NAME']}' +
-          '/${data[n]['DESC_KOR']}' +
-          '/${data[n]['SERVING_SIZE']}' +
-          '/${data[n][4]}' +
-          '/${data[n][5]}' +
-          '/${data[n][6]}' +
-          '/${data[n][7]}' +
-          '/${data[n][8]}' +
-          '/${data[n][9]}' +
-          '/${data[n][10]}' +
-          '/${data[n][11]}' +
-          '/${data[n][12]}');
-      updateNewFoodAndProductAsynk();
+    for(int i = 0; i< 9; i++) {
+      if (whatIsChange[i] == 1) { //변경된 적이 있을 경우
+        print("uri 실행 ");
+        print(n);
+        String category ="side";
+        if (n == 2 || n == 4 || n == 6) {
+          category = "side";
+        } else if (n == 1 || n == 3 || n == 5) {
+          category = "main";
+        } else
+          category = "meal";
+        print(category);
+        uri5 = Uri.parse('http://222.107.249.189:9990/save' +
+            '/$category' +
+            '/${data[i]['GROUP_NAME']}' +
+            '/${data[i]['DESC_KOR']}' +
+            '/${data[i]['SERVING_SIZE']}' +
+            '/${data[i]['KCAL']}' +
+            '/${data[i]['CARBOHYDRATE']}' +
+            '/${data[i]['PROTEIN']}' +
+            '/${data[i]['FAT']}' +
+            '/${data[i]['SUGARS']}' +
+            '/${data[i]['SODIUM']}' +
+            '/${data[i]['CHOLESTEROL']}' +
+            '/${data[i]['SATURATED_FATTY_ACIDS']}' +
+            '/${data[i]['TRANS_FAT']}');
+        updateNewFoodAndProductAsynk();
+        print("싱크실행");
+      }else{
+        print("0dla");
+      }
     }
   }
 
-  void updateNewMeal(List<String> data) {
+  void updateNewMeal(List<dynamic> data) {
     // data = [meal, main, side, total_kcal,score]
     //        ...
     //        [meal, main, side, total_kcal,score]
 
     int n = data.length;
-    while (n-- > 0) {
-      if(whatIsChange[n] == 1) {
+    for(int i=0; i<3; i++) {
+
         uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' +
-            '/${data[n][0]}' +
-            '/${data[n][1]}' +
-            '/${data[n][2]}' +
-            '/${data[n][3]}' +
-            '/${data[n][4]}');
+            '/${data[i][0]}' +
+            '/${data[i][1]}' +
+            '/${data[i][2]}' +
+            '/${data[i][3]}' +
+            '/${calcScore()}');
         updateDishAsync();
-      }
+
     }
   }
 /********************************************************************/
