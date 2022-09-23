@@ -267,8 +267,10 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     breakfast = 'loading..';
     uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
-    List<dynamic> result = await newsProvider4.getNews();
-
+    List<dynamic>? result = await newsProvider4.getNews();
+    if(result == null){
+      result = await newsProvider4.getNews();
+    }
     setState(() {
       news[0] = result;
       breakfast =  news[0][0];
@@ -283,7 +285,10 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     lunch = 'loading..';
     uri4 = Uri.parse('http://222.107.249.189:9990/api/updateOneDish');
     FoodRecommend newsProvider5 = FoodRecommend(uri4);
-    List<dynamic> result2 = await newsProvider5.getNews();
+    List<dynamic>? result2 = await newsProvider5.getNews();
+    if(result2 == null){
+      result2 = await newsProvider5.getNews();
+    }
     setState(() {
       news[1] = result2;
       lunch =  news[1][0];
@@ -298,7 +303,10 @@ class _MainHomeState extends State<MainHome> with AutomaticKeepAliveClientMixin<
     dinner = 'loading..';
 
     FoodRecommend newsProvider6 = FoodRecommend(uri4);
-    List<dynamic> result3 = await newsProvider6.getNews();
+    List<dynamic>? result3 = await newsProvider6.getNews();
+    if(result3 == null){
+      result3 = await newsProvider6.getNews();
+    }
     setState(() {
       news[2] = result3;
       dinner =  news[2][0];

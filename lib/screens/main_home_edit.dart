@@ -74,6 +74,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Uri uri3 = Uri.parse('');
   Uri uri4 = Uri.parse('');
   Uri uri5 = Uri.parse('');
+  Uri uri55 = Uri.parse('');
   Uri uri6 = Uri.parse('');
   Uri uri7 = Uri.parse('');
   Uri uri8 = Uri.parse('');
@@ -435,10 +436,11 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Future initOriginal0() async {
     ServingProvider orignialProvider1 = ServingProvider(uri9);
     dynamic a = await orignialProvider1.getNews();
-    print(originalFood1);
+    print(a);
 
     setState(() {
       originalFood1 = a;
+      news[0] = a;
     });
     //print(originalFood![0]['SERVING_SIZE']);
     //print(originalFood[0]['KCAL']);
@@ -471,17 +473,27 @@ class _MainHomeEditState extends State<MainHomeEdit> {
   Future initNews() async {
     uri = Uri.parse('http://222.107.249.189:9990/api/' + news[0][0]);
     FoodRecommend newsProvider = FoodRecommend(uri);
-    news[0] = await newsProvider.getNews();
-    if (news[0] == []) {
-      Map<String, String> a = originalFood[0] as Map<String, String>;
-      String u = "http://222.107.249.189:9990/save";
-      for (String b in a.values){
-        u = u+"/"+b;
-      }
-      print(u);
+    dynamic temp = await newsProvider.getNews();
+    List<dynamic> a = [];
+
+    if (temp == null)  {
+      print("news = []");
+      // Map<String, String> a = originalFood[0] as Map<String, String>;
+      // String u = "http://222.107.249.189:9990/save";
+      // for (String b in a.values){
+      //     u = u+"/"+b;
+      // }
+      // print(u);
+      //nohino
+      //loadingText(1);
+
+      await updateNewFoodAndProductNew(originalFood);
+      print("안ㄴ돼 나오면");
+    }else {
+
+      news[0] = temp;
     }
-    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+news[0][0]+'/'+news[0][1]+'/'+news[0][2]);
-    initOriginalAsynk0();
+
   }
 
   Future initNews2() async {
@@ -509,7 +521,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     //한끼 한번에 받아오기
     breakfast = 'loading..';
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
-    List<dynamic> result = await newsProvider4.getNews();
+    List<dynamic>? result = await newsProvider4.getNews();
 
     setState(() {
       news[0] = result;
@@ -540,7 +552,7 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     //한끼 한번에 받아오기
     lunch = 'loading..';
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
-    List<dynamic> result = await newsProvider4.getNews();
+    List<dynamic>? result = await newsProvider4.getNews();
 
     setState(() {
       news[1] = result;
@@ -554,12 +566,12 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     //저녁 한번에 바꾸기
     dinner = 'loading..';
     FoodRecommend newsProvider4 = FoodRecommend(uri4);
-    List<dynamic> result = await newsProvider4.getNews();
+    List<dynamic>? result = await newsProvider4.getNews();
     setState(() {
-      news[2] = result;
-      dinner =  news[2][0] ;
-      uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+breakfast+'/'+news[2][1]+'/'+news[2][2]);
-      initOriginalAsynk2();
+    news[2] = result;
+    dinner =  news[2][0] ;
+    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+breakfast+'/'+news[2][1]+'/'+news[2][2]);
+    initOriginalAsynk2();
     });
   }
 
@@ -600,8 +612,24 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodServing = '${result.sERVINGSIZE}';
 
     setState(() {
-
+      originalFood1[0] = foodServing;
+      breakfast = foodName;
+      news[0][0] = foodName;
+      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
       whatIsChange[0] = 1;
+
+      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+      originalFood[0]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+      originalFood[0]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
+
 
       if(str == "breakfast1") {
         breakfast = foodName;
@@ -694,45 +722,47 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     List score_list = [];
 
     for (int i = 0; i < 3; i++) {
-      kcal_total += double.parse((originalFood[i]["KCAL"]).toString());
-      carb_total += double.parse((originalFood[i]["CARBOHYDRATE"]).toString());
-      protein_total += double.parse((originalFood[i]["PROTEIN"]).toString());
-      fat_total += double.parse((originalFood[i]["FAT"]).toString());
-      sugars_total += double.parse((originalFood[i]["SUGARS"]).toString());
-      sodium_total += double.parse((originalFood[i]["SODIUM"]).toString());
-      sfa_total += double.parse((originalFood[i]["SATURATED_FATTY_ACIDS"]).toString());
-      transFat_total += double.parse((originalFood[i]["TRANS_FAT"]).toString());
-      print("KCAL : ${originalFood[i]["SODIUM"]}");
+        //복붙하기
+        kcal_total += double.parse((originalFood[i]['KCAL']).toString());
+        carb_total += (originalFood[i]['CARBOHYDRATE']).toString() == "" ? 0.0 : double.parse((originalFood[i]['CARBOHYDRATE']).toString());
+        protein_total += (originalFood[i]['PROTEIN']).toString()== "" ? 0.0 : double.parse(originalFood[i]['PROTEIN'].toString());
+        fat_total += (originalFood[i]['FAT']).toString()== "" ? 0.0 :double.parse((originalFood[i]['FAT']).toString());
+        sugars_total += ((originalFood[i]['SUGARS'].toString()))== "" ? 0.0 :double.parse((originalFood[i]['SUGARS']).toString());
+        sodium_total += ((originalFood[i]['SODIUM'].toString()))== "" ? 0.0 :double.parse((originalFood[i]['SODIUM']).toString());
+        sfa_total += ((originalFood[i]['SATURATED_FATTY_ACIDS']).toString())== "" ? 0.0 : double.parse((originalFood[i]['SATURATED_FATTY_ACIDS']).toString());
+        transFat_total += (originalFood[i]['TRANS_FAT']).toString()== "" ? 0.0 :double.parse((originalFood[i]['TRANS_FAT']).toString());
+        print("KCAL : ${originalFood[i]["SODIUM"]}");
+
     }
-    double sugars_score = (50 / 3 - sugars_total).abs();
-    double sodium_score = (2000 / 3 - sodium_total).abs();
-    double sfa_score = (51 / 3 - sfa_total).abs();
-    double transFat_score;
-    if (kcal_total / 100 >= transFat_total) {
-      transFat_score = 0;
-    } else {
-      transFat_score = (kcal_total / 100 - transFat_total).abs();
-    }
+      double sugars_score = (50 / 3 - sugars_total).abs();
+      double sodium_score = (2000 / 3 - sodium_total).abs();
+      double sfa_score = (51 / 3 - sfa_total).abs();
+      double transFat_score;
+      if (kcal_total / 100 >= transFat_total) {
+        transFat_score = 0;
+      } else {
+        transFat_score = (kcal_total / 100 - transFat_total).abs();
+      }
 
-    double cpf_total = carb_total + protein_total + fat_total;
-    double carb_ratio = carb_total / cpf_total * 10;
-    double protein_ratio = protein_total / cpf_total * 10;
-    double fat_ratio = fat_total / cpf_total * 10;
-    double cpf_score = (5 - carb_ratio).abs() +
-        (3 - protein_ratio).abs() +
-        (2 - fat_ratio).abs();
+      double cpf_total = carb_total + protein_total + fat_total;
+      double carb_ratio = carb_total / cpf_total * 10;
+      double protein_ratio = protein_total / cpf_total * 10;
+      double fat_ratio = fat_total / cpf_total * 10;
+      double cpf_score = (5 - carb_ratio).abs() +
+          (3 - protein_ratio).abs() +
+          (2 - fat_ratio).abs();
 
-    print("fgasdkgljs $sodium_score");
-    List scoreList = [
-      kcal_total,
-      cpf_score,
-      sugars_score,
-      sodium_score,
-      sfa_score,
-      transFat_score
-    ];
+      print("fgasdkgljs $sodium_score");
+      List scoreList = [
+        kcal_total,
+        cpf_score,
+        sugars_score,
+        sodium_score,
+        sfa_score,
+        transFat_score
+      ];
 
-    score_list.addAll(scoreList);
+      score_list.addAll(scoreList);
 
 
     print('score_list: $score_list');
@@ -1130,18 +1160,18 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         kcal2: originalFood[1]["KCAL"],
                                         kcal3: originalFood[2]["KCAL"],
                                       )));
-                            },
-                          )),
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: ElevatedButton(
-                      child: Text("'" + "$breakfast" + "' 새로운 조합 가져오기"),
-                      onPressed: () {
-                        setState(() {
-                          initnewsAsynk();
-                          loadingText(1);
-                        });
+                        },
+                      )),
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: ElevatedButton(
+                  child: Text("'" + "$breakfast" + "' 새로운 조합 가져오기"),
+                  onPressed: () {
+                    setState(() {
+                      initnewsAsynk();
+
+                    });
 
                       },
                     ))
@@ -1770,77 +1800,192 @@ class _MainHomeEditState extends State<MainHomeEdit> {
                                         transfat2: originalFood[7]["TRANS_FAT"],
                                         transfat3: originalFood[8]["TRANS_FAT"],
                                       )));
-                            },
-                          ))
-                    ])),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: ElevatedButton(
-                      child: Text("'" + "$dinner" + "' 새로운 조합 가져오기"),
-                      onPressed: () {
-                        setState(() {
-                          loadingText(3);
-                        });
-                        initnewsAsynk3();
-                      },
-                    )
-                ),
-                ElevatedButton(
-                  child: Text("수정완료"),
+                        },
+                      ))
+                ])),
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: ElevatedButton(
+                  child: Text("'" + "$dinner" + "' 새로운 조합 가져오기"),
                   onPressed: () {
-                    // double score = calcScore();
-                    // String gnb;
-                    // if (score <= 79)
-                    //   gnb = "GOOD";
-                    // else if (score <= 120)
-                    //   gnb = "NORMAL";
-                    // else
-                    //   gnb = "BAD";
-                    // print('칼크스코어: '+gnb);
-                    /********************************************************************/
-                    Navigator.pop(
-                        context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
-                    updateNewFoodAndProduct(originalFood);
-                    //updateNewMeal(news);// 새로운 식단 업데이트
-                    //updateDishAsync(newDishList)
-                    print("음식과,식단 업데이트 그리고 product request");
-                    //whatIsChange = [0,0,0,0,0,0,0,0,0];
-                  }, /********************************************************************/
-                )
-              ])),
+                    setState(() {
+                      loadingText(3);
+                    });
+                    initnewsAsynk3();
+                  },
+                )),
+            Container(
+              child: ElevatedButton(
+                child: Text("수정완료"),
+                onPressed: () {
+                  double score = calcScore();
+                  String gnb;
+                  if (score <= 79)
+                    gnb = "GOOD";
+                  else if (score <= 120)
+                    gnb = "NORMAL";
+                  else
+                    gnb = "BAD";
+                  print('칼크스코어: '+gnb);
+                  /********************************************************************/
+                  Navigator.pop(
+                      context, SendData(news, breakfast, lunch, dinner,originalFood1,originalFood2,originalFood3));
+                  //updateNewFood(FoodInfomation) 새로운 음식 업데이트
+                  // List<List<String>> data = [
+                  //   [
+                  //     'meal',
+                  //     '국물면류',
+                  //     '최현진',
+                  //     '600',
+                  //     '457.88',
+                  //     '59.8',
+                  //     '17.6',
+                  //     '16.5',
+                  //     '1.4',
+                  //     '1192.57',
+                  //     '3.36',
+                  //     '1.5',
+                  //     '0'
+                  //   ]
+                  // ];
+                  //updateNewFoodAndProduct(originalFood);
+                  updateNewMeal(news);// 새로운 식단 업데이트
+                  //updateDishAsync(newDishList)
+                  print("음식과,식단 업데이트 그리고 product request");
+                  //whatIsChange = [0,0,0,0,0,0,0,0,0];
+                }, /********************************************************************/
+              ),
+            )
+          ])),
 
         ],
       ),
     );
   }
-
+  void FlutterDialog() {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: <Widget>[
+                new Text("안내"),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "GOOD 영양소를 가진 조합이 없습니다.",
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
 /********************************************************************/
+  Future initNews5New() async {//park
+    showDialog(
+      // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        useRootNavigator: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('새로운 조합을 만드는 중입니다.')
+                ],
+              ),
+            ),
+          );
+        });
+
+    print(uri55);
+    FoodRecommend newsProvider5 = FoodRecommend(uri55);
+    dynamic a = await newsProvider5.getNews() ;
+    setState(() {
+      if(a != null)
+        news[0] = a;
+      else{
+        print(null);
+        FlutterDialog();
+      }
+    });
+    //checkpoint
+    Navigator.of(context).pop();
+  }
   Future initNews5() async {
     print(uri5);
     UpdateProviders newsProvider5 = UpdateProviders(uri5);
-    newsProvider5.getNews();
+    await newsProvider5.getNews();
+
+    //checkpoint
   }
 
   Future initNews6() async {
     UpdateProviders newsProvider6 = UpdateProviders(uri6);
 
-    newsProvider6.getNews();
+    await newsProvider6.getNews();
+
     print("식단저장!!");
   }
 
   updateNewFoodAndProductAsynk() async {
     await initNews5().then((_) {
-      setState(() {});
+      setState(() {
+        // print("여기서 퓨처");
+        // uri9 = Uri.parse(
+        //     'http://222.107.249.189:9990/api/nutrient/' + news[0][0] + '/' + news[0][1] +
+        //         '/' + news[0][2]);
+        // initOriginalAsynk0();
+      });
+    });
+  }
+  updateNewFoodAndProductAsynkNew() async {
+    await initNews5New().then((_) {
+      setState(() {
+        // print("여기서 퓨처");
+        // uri9 = Uri.parse(
+        //     'http://222.107.249.189:9990/api/nutrient/' + news[0][0] + '/' + news[0][1] +
+        //         '/' + news[0][2]);
+        // initOriginalAsynk0();
+      });
     });
   }
 
   updateDishAsync() async {
-    await initNews6().then((_) {
-      setState(() {});
-    });
+    await initNews6();
   }
 
-  void updateNewFoodAndProduct(List<dynamic> data) {
+   updateNewFoodAndProduct(List<dynamic> data) async {
     //data = [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
     //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
     //       ...
@@ -1877,30 +2022,92 @@ class _MainHomeEditState extends State<MainHomeEdit> {
             '/${data[i]['SATURATED_FATTY_ACIDS']}' +
             '/${data[i]['TRANS_FAT']}');
         updateNewFoodAndProductAsynk();
-        print("싱크실행");
+        // UpdateProviders newsProvider5 = UpdateProviders(uri5);
+        // newsProvider5.getNews();
+        print("음식저장실행");
+      }else{
+        print("0dla");
+      }
+    }
+  }
+  updateNewFoodAndProductNew(List<dynamic> data) async {
+    //data = [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
+    //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
+    //       ...
+    //       [CATEGORY,GROUP_NAME,DESC_KOR,SERVING_SIZE,KCAL,CARBOHYDRATE,PROTEIN,FAT,SUGARS,SODIUM,CHOLESTEROL,SATURATED_FATTY_ACIDS,TRANS_FAT]
+    int n = data.length-1;
+    print(whatIsChange);
+    print("f");
+    print(data.length);
+    print("함수실행");
+    for(int i = 0; i< 9; i++) {
+      if (whatIsChange[i] == 1) { //변경된 적이 있을 경우
+        print("uri 실행 ");
+        print(n);
+        String category ="side";
+        if (n == 2 || n == 4 || n == 6) {
+          category = "side";
+        } else if (n == 1 || n == 3 || n == 5) {
+          category = "main";
+        } else
+          category = "meal";
+        print(category);
+        uri55 = Uri.parse('http://222.107.249.189:9990/productAndReco' +
+            '/$category' +
+            (('/${data[i]['GROUP_NAME']}' == '/') ? '/0': '/${data[i]['GROUP_NAME']}')+
+            (('/${data[i]['DESC_KOR']}' == '/') ? '/0': '/${data[i]['DESC_KOR']}')+
+            (('/${data[i]['SERVING_SIZE']}' == '/') ? '/0':'/${data[i]['SERVING_SIZE']}') +
+            (('/${data[i]['KCAL']}' == '/') ? '/0':'/${data[i]['KCAL']}' ) +
+            (('/${data[i]['CARBOHYDRATE']}' == '/') ? '/0':'/${data[i]['CARBOHYDRATE']}') +
+            (('/${data[i]['PROTEIN']}' == '/') ? '/0': '/${data[i]['PROTEIN']}')+
+            (('/${data[i]['FAT']}' == '/') ? '/0':'/${data[i]['FAT']}') +
+            (('/${data[i]['SUGARS']}' == '/') ? '/0': '/${data[i]['SUGARS']}')+
+            (('/${data[i]['SODIUM']}' == '/') ? '/0':'/${data[i]['SODIUM']}') +
+            (('/${data[i]['CHOLESTEROL']}' == '/') ? '/0': '/${data[i]['CHOLESTEROL']}')+
+            (('/${data[i]['SATURATED_FATTY_ACIDS']}' == '/') ? '/0': '/${data[i]['SATURATED_FATTY_ACIDS']}')+
+            (('/${data[i]['TRANS_FAT']}' == '/') ? '/0':'/${data[i]['TRANS_FAT']}'));
+        print(uri55);
+        updateNewFoodAndProductAsynkNew();
+        // UpdateProviders newsProvider5 = UpdateProviders(uri5);
+        // newsProvider5.getNews();
+        print("음식저장실행");
       }else{
         print("0dla");
       }
     }
   }
 
-  void updateNewMeal(List<dynamic> data) {
+  void updateNewMeal(List<dynamic> data) async{
     // data = [meal, main, side, total_kcal,score]
     //        ...
     //        [meal, main, side, total_kcal,score]
 
     int n = data.length;
-    for(int i=0; i<3; i++) {
 
-      uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' +
-          '/${data[i][0]}' +
-          '/${data[i][1]}' +
-          '/${data[i][2]}' +
-          '/${data[i][3]}' +
-          '/${calcScore()}');
-      updateDishAsync();
 
-    }
+        uri6 = Uri.parse('http://222.107.249.189:9990/api/updateMeal' +
+            '/${data[0][0]}' +
+            '/${data[0][1]}' +
+            '/${data[0][2]}' +
+            '/${data[0][3]}' +
+            '/${calcScore()}'+
+            '/${data[1][0]}' +
+            '/${data[1][1]}' +
+            '/${data[1][2]}' +
+            '/${data[1][3]}' +
+            '/${calcScore()}'+
+            '/${data[2][0]}' +
+            '/${data[2][1]}' +
+            '/${data[2][2]}' +
+            '/${data[2][3]}' +
+            '/${calcScore()}');
+        //print(uri6);
+        await updateDishAsync();
+        updateNewFoodAndProduct(originalFood);
+
+        print("식단저장!!");
+
+
   }
 /********************************************************************/
 }
@@ -2115,12 +2322,12 @@ class DetailScreen extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: chart,
-          // child: Text(
-          //   "---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
-          //       "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
-          //       "---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
-          //   style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
-          // )
+          //child: Text(
+            //"---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
+              //  "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
+                //"---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
+            //style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
+          //)
       ),
     );
   }
