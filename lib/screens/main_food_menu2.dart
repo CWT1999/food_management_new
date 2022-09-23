@@ -272,7 +272,7 @@ class DetailScreen extends StatelessWidget {
         title: Column(
           children: [
             Text(
-              "상세 정보         ",
+              "${food?.dESCKOR}         ",
               style: TextStyle(
                 color: Colors.black,
                 fontFamily: 'Arial Black',

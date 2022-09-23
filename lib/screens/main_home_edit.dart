@@ -477,20 +477,8 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     List<dynamic> a = [];
 
     if (temp == null)  {
-      print("news = []");
-      // Map<String, String> a = originalFood[0] as Map<String, String>;
-      // String u = "http://222.107.249.189:9990/save";
-      // for (String b in a.values){
-      //     u = u+"/"+b;
-      // }
-      // print(u);
-      //nohino
-      //loadingText(1);
-
       await updateNewFoodAndProductNew(originalFood);
-      print("안ㄴ돼 나오면");
     }else {
-
       news[0] = temp;
     }
 
@@ -498,20 +486,28 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
   Future initNews2() async {
     uri2 = Uri.parse('http://222.107.249.189:9990/api/' + news[1][0]);
-    FoodRecommend newsProvider2 = FoodRecommend(uri2);
+    FoodRecommend newsProvider = FoodRecommend(uri);
+    dynamic temp = await newsProvider.getNews();
+    List<dynamic> a = [];
 
-    news[1] = await newsProvider2.getNews();
-    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+news[1][0]+'/'+news[1][1]+'/'+news[1][2]);
-    initOriginalAsynk1();
+    if (temp == null)  {
+      await updateNewFoodAndProductNew(originalFood);
+    }else {
+      news[1] = temp;
+    }
   }
 
   Future initNews3() async {
     uri3 = Uri.parse('http://222.107.249.189:9990/api/' + news[2][0]);
-    FoodRecommend newsProvider3 = FoodRecommend(uri3);
+    FoodRecommend newsProvider = FoodRecommend(uri);
+    dynamic temp = await newsProvider.getNews();
+    List<dynamic> a = [];
 
-    news[2] = await newsProvider3.getNews();
-    uri9 = Uri.parse('http://222.107.249.189:9990/api/nutrient/'+news[2][0]+'/'+news[2][1]+'/'+news[2][2]);
-    initOriginalAsynk2();
+    if (temp == null)  {
+      await updateNewFoodAndProductNew(originalFood);
+    }else {
+      news[2] = temp;
+    }
   }
 
 /********************************************************************/
@@ -612,29 +608,41 @@ class _MainHomeEditState extends State<MainHomeEdit> {
     var foodServing = '${result.sERVINGSIZE}';
 
     setState(() {
-      originalFood1[0] = foodServing;
-      breakfast = foodName;
-      news[0][0] = foodName;
-      news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
-      whatIsChange[0] = 1;
+      // originalFood1[0] = foodServing;
+      // breakfast = foodName;
+      // news[0][0] = foodName;
+      // news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
+      // whatIsChange[0] = 1;
 
-      originalFood[0]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
-      originalFood[0]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
-      originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
-      originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
-      originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
-      originalFood[0]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
-      originalFood[0]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
-      originalFood[0]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
-      originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
-      originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
-      originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
+      // originalFood[0]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+      // originalFood[0]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+      // originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+      // originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+      // originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+      // originalFood[0]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+      // originalFood[0]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+      // originalFood[0]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+      // originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+      // originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+      // originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
 
       if(str == "breakfast1") {
         breakfast = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[0] = foodServing;
+
+        originalFood[0]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[0]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[0]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[0]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[0]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[0]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[0]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[0]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[0]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[0]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[0]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
         // double b1 = calcScore();
         // print('아침1 $b1');
 
@@ -645,6 +653,17 @@ class _MainHomeEditState extends State<MainHomeEdit> {
         originalFood1[1] = foodServing;
         // double b2 = calcScore();
         // print('아침2 $b2');
+        originalFood[1]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[1]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[1]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[1]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[1]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[1]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[1]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[1]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[1]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[1]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[1]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
       }
       else if(str == "breakfast3") {
         news[0][2] = foodName;
@@ -653,43 +672,119 @@ class _MainHomeEditState extends State<MainHomeEdit> {
 
         // double b3 = calcScore();
         // print('아침3 $b3');
-
+        originalFood[2]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[2]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[2]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[2]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[2]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[2]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[2]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[2]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[2]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[2]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[2]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
       }
 
       else if(str == "lunch1") {
         lunch = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[0] = foodServing;
+        originalFood[3]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[3]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[3]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[3]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[3]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[3]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[3]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[3]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[3]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[3]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[3]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
       }
       else if(str == "lunch2") {
         news[1][1] = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[1] = foodServing;
+        originalFood[4]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[4]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[4]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[4]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[4]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[4]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[4]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[4]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[4]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[4]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[4]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
       }
       else if(str == "lunch3") {
         news[1][2] = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[2] = foodServing;
+        originalFood[5]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[5]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[5]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[5]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[5]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[5]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[5]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[5]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[5]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[5]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[5]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
       }
       else if(str == "dinner1") {
         dinner = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[0] = foodServing;
+        originalFood[6]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[6]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[6]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[6]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[6]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[6]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[6]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[6]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[6]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[6]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[6]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
       }
       else if(str == "dinner2"){
         news[2][1] = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[1] = foodServing;
+        originalFood[7]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[7]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[7]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[7]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[7]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[7]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[7]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[7]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[7]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[7]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[7]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
       }
       else if(str == "dinner3") {
         news[2][2] = foodName;
         news[0][3] = double.parse(foodKcal) + originalFood[1]["KCAL"] + originalFood[2]["KCAL"];
         originalFood1[2] = foodServing;
+        originalFood[8]["DESC_KOR"] = '${result.dESCKOR}' == '' ? '0' : '${result.dESCKOR}';
+        originalFood[8]["KCAL"] = ('${result.nUTRCONT1}'== '' )? '0' : '${result.nUTRCONT1}';
+        originalFood[8]["SERVING_SIZE"] = '${result.sERVINGSIZE}'== '' ? '0' : '${result.sERVINGSIZE}';
+        originalFood[8]["CARBOHYDRATE"] = '${result.nUTRCONT2}'== '' ? '0' : '${result.nUTRCONT2}';
+        originalFood[8]["PROTEIN"] = '${result.nUTRCONT3}'== '' ? '0' : '${result.nUTRCONT3}';
+        originalFood[8]["FAT"] = '${result.nUTRCONT4}'== '' ? '0' : '${result.nUTRCONT4}';
+        originalFood[8]["SUGARS"] = '${result.nUTRCONT5}'== '' ? '0' : '${result.nUTRCONT5}';
+        originalFood[8]["SODIUM"] = '${result.nUTRCONT6}'== '' ? '0' : '${result.nUTRCONT6}';
+        originalFood[8]["CHOLESTEROL"] = '${result.nUTRCONT7}'== '' ? '0' : '${result.nUTRCONT7}';
+        originalFood[8]["SATURATED_FATTY_ACIDS"] = '${result.nUTRCONT8}' == '' ? '0' : '${result.nUTRCONT8}';
+        originalFood[8]["TRANS_FAT"] = '${result.nUTRCONT9}'== '' ? '0' : '${result.nUTRCONT9}';
 
       }
 
@@ -763,6 +858,188 @@ class _MainHomeEditState extends State<MainHomeEdit> {
       ];
 
       score_list.addAll(scoreList);
+
+
+    print('score_list: $score_list');
+    print('score_list[1]: ${score_list[0]}');
+    // 0, 7, 14가 음식이름
+
+    // 영양소 비율
+    double sugars_max = 68.633333333333326;
+    double sodium_max = 8678.3333333333;
+    double sfa_max = 44.07;
+    double transFat_max = 0;
+    double cpf_max = 8.530292141852834;
+
+    score_list[1] = (score_list[1] / cpf_max) * 100;
+    score_list[2] = (score_list[2] / sugars_max) * 100;
+    score_list[3] = (score_list[3] / sodium_max) * 100;
+    score_list[4] = (score_list[4] / sfa_max) * 100;
+    if (transFat_max != 0) {
+      score_list[5] = (score_list[5] / transFat_max) * 100;
+    } else {
+      score_list[5] = 0;
+    }
+
+    print("cpf_score ${score_list[1]}");
+    print("sugars_score ${score_list[2]}");
+    print("sodium_score ${score_list[3]}");
+    print("sfa_score ${score_list[4]}");
+    print("transFat_score ${score_list[5]}");
+
+    print(score_list[5].runtimeType);
+
+    return score_list[1] +
+        score_list[2] +
+        score_list[3] +
+        score_list[4] +
+        score_list[5];
+  }
+
+  double calcScore2() {
+    double carb_total = 0;
+    double protein_total = 0;
+    double fat_total = 0;
+    double sugars_total = 0;
+    double sodium_total = 0;
+    double sfa_total = 0;
+    double transFat_total = 0;
+    double kcal_total = 0;
+    List score_list = [];
+
+    for (int i = 3; i < 6; i++) {
+      //복붙하기
+      kcal_total += double.parse((originalFood[i]['KCAL']).toString());
+      carb_total += (originalFood[i]['CARBOHYDRATE']).toString() == "" ? 0.0 : double.parse((originalFood[i]['CARBOHYDRATE']).toString());
+      protein_total += (originalFood[i]['PROTEIN']).toString()== "" ? 0.0 : double.parse(originalFood[i]['PROTEIN'].toString());
+      fat_total += (originalFood[i]['FAT']).toString()== "" ? 0.0 :double.parse((originalFood[i]['FAT']).toString());
+      sugars_total += ((originalFood[i]['SUGARS'].toString()))== "" ? 0.0 :double.parse((originalFood[i]['SUGARS']).toString());
+      sodium_total += ((originalFood[i]['SODIUM'].toString()))== "" ? 0.0 :double.parse((originalFood[i]['SODIUM']).toString());
+      sfa_total += ((originalFood[i]['SATURATED_FATTY_ACIDS']).toString())== "" ? 0.0 : double.parse((originalFood[i]['SATURATED_FATTY_ACIDS']).toString());
+      transFat_total += (originalFood[i]['TRANS_FAT']).toString()== "" ? 0.0 :double.parse((originalFood[i]['TRANS_FAT']).toString());
+      print("KCAL : ${originalFood[i]["SODIUM"]}");
+
+    }
+    double sugars_score = (50 / 3 - sugars_total).abs();
+    double sodium_score = (2000 / 3 - sodium_total).abs();
+    double sfa_score = (51 / 3 - sfa_total).abs();
+    double transFat_score;
+    if (kcal_total / 100 >= transFat_total) {
+      transFat_score = 0;
+    } else {
+      transFat_score = (kcal_total / 100 - transFat_total).abs();
+    }
+
+    double cpf_total = carb_total + protein_total + fat_total;
+    double carb_ratio = carb_total / cpf_total * 10;
+    double protein_ratio = protein_total / cpf_total * 10;
+    double fat_ratio = fat_total / cpf_total * 10;
+    double cpf_score = (5 - carb_ratio).abs() +
+        (3 - protein_ratio).abs() +
+        (2 - fat_ratio).abs();
+
+    print("fgasdkgljs $sodium_score");
+    List scoreList = [
+      kcal_total,
+      cpf_score,
+      sugars_score,
+      sodium_score,
+      sfa_score,
+      transFat_score
+    ];
+
+    score_list.addAll(scoreList);
+
+
+    print('score_list: $score_list');
+    print('score_list[1]: ${score_list[0]}');
+    // 0, 7, 14가 음식이름
+
+    // 영양소 비율
+    double sugars_max = 68.633333333333326;
+    double sodium_max = 8678.3333333333;
+    double sfa_max = 44.07;
+    double transFat_max = 0;
+    double cpf_max = 8.530292141852834;
+
+    score_list[1] = (score_list[1] / cpf_max) * 100;
+    score_list[2] = (score_list[2] / sugars_max) * 100;
+    score_list[3] = (score_list[3] / sodium_max) * 100;
+    score_list[4] = (score_list[4] / sfa_max) * 100;
+    if (transFat_max != 0) {
+      score_list[5] = (score_list[5] / transFat_max) * 100;
+    } else {
+      score_list[5] = 0;
+    }
+
+    print("cpf_score ${score_list[1]}");
+    print("sugars_score ${score_list[2]}");
+    print("sodium_score ${score_list[3]}");
+    print("sfa_score ${score_list[4]}");
+    print("transFat_score ${score_list[5]}");
+
+    print(score_list[5].runtimeType);
+
+    return score_list[1] +
+        score_list[2] +
+        score_list[3] +
+        score_list[4] +
+        score_list[5];
+  }
+
+  double calcScore3() {
+    double carb_total = 0;
+    double protein_total = 0;
+    double fat_total = 0;
+    double sugars_total = 0;
+    double sodium_total = 0;
+    double sfa_total = 0;
+    double transFat_total = 0;
+    double kcal_total = 0;
+    List score_list = [];
+
+    for (int i = 6; i < 9; i++) {
+      //복붙하기
+      kcal_total += double.parse((originalFood[i]['KCAL']).toString());
+      carb_total += (originalFood[i]['CARBOHYDRATE']).toString() == "" ? 0.0 : double.parse((originalFood[i]['CARBOHYDRATE']).toString());
+      protein_total += (originalFood[i]['PROTEIN']).toString()== "" ? 0.0 : double.parse(originalFood[i]['PROTEIN'].toString());
+      fat_total += (originalFood[i]['FAT']).toString()== "" ? 0.0 :double.parse((originalFood[i]['FAT']).toString());
+      sugars_total += ((originalFood[i]['SUGARS'].toString()))== "" ? 0.0 :double.parse((originalFood[i]['SUGARS']).toString());
+      sodium_total += ((originalFood[i]['SODIUM'].toString()))== "" ? 0.0 :double.parse((originalFood[i]['SODIUM']).toString());
+      sfa_total += ((originalFood[i]['SATURATED_FATTY_ACIDS']).toString())== "" ? 0.0 : double.parse((originalFood[i]['SATURATED_FATTY_ACIDS']).toString());
+      transFat_total += (originalFood[i]['TRANS_FAT']).toString()== "" ? 0.0 :double.parse((originalFood[i]['TRANS_FAT']).toString());
+      print("KCAL : ${originalFood[i]["SODIUM"]}");
+
+    }
+    double sugars_score = (50 / 3 - sugars_total).abs();
+    double sodium_score = (2000 / 3 - sodium_total).abs();
+    double sfa_score = (51 / 3 - sfa_total).abs();
+    double transFat_score;
+    if (kcal_total / 100 >= transFat_total) {
+      transFat_score = 0;
+    } else {
+      transFat_score = (kcal_total / 100 - transFat_total).abs();
+    }
+
+    double cpf_total = carb_total + protein_total + fat_total;
+    double carb_ratio = carb_total / cpf_total * 10;
+    double protein_ratio = protein_total / cpf_total * 10;
+    double fat_ratio = fat_total / cpf_total * 10;
+    double cpf_score = (5 - carb_ratio).abs() +
+        (3 - protein_ratio).abs() +
+        (2 - fat_ratio).abs();
+
+    print("fgasdkgljs $sodium_score");
+    List scoreList = [
+      kcal_total,
+      cpf_score,
+      sugars_score,
+      sodium_score,
+      sfa_score,
+      transFat_score
+    ];
+
+    score_list.addAll(scoreList);
 
 
     print('score_list: $score_list');
@@ -2095,12 +2372,12 @@ class _MainHomeEditState extends State<MainHomeEdit> {
             '/${data[1][1]}' +
             '/${data[1][2]}' +
             '/${data[1][3]}' +
-            '/${calcScore()}'+
+            '/${calcScore2()}'+
             '/${data[2][0]}' +
             '/${data[2][1]}' +
             '/${data[2][2]}' +
             '/${data[2][3]}' +
-            '/${calcScore()}');
+            '/${calcScore3()}');
         //print(uri6);
         await updateDishAsync();
         updateNewFoodAndProduct(originalFood);
@@ -2319,15 +2596,26 @@ class DetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: chart,
-          //child: Text(
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: chart,
+            //child: Text(
             //"---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
-              //  "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
-                //"---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
+            //  "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
+            //"---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
             //style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
-          //)
+            //)
+          ),
+          Padding(padding: const EdgeInsets.all(16),
+            child: Text(
+              "---------------------------------------------\n${name1}\n---------------------------------------------\n칼로리: ${kcal1}kcal\n탄수화물: ${carbohydrate1}g\n단백질: ${protein1}g\n지방: ${fat1}g\n당: ${sugars1}g\n나트륨: ${sodium1}mg\n콜레스테롤: ${cholesterol1}mg\n트랜스지방: ${transfat1}g\n"
+                  "---------------------------------------------\n${name2}\n---------------------------------------------\n칼로리: ${kcal2}kcal\n탄수화물: ${carbohydrate2}g\n단백질: ${protein2}g\n지방: ${fat2}g\n당: ${sugars2}g\n나트륨: ${sodium2}mg\n콜레스테롤: ${cholesterol2}mg\n트랜스지방: ${transfat2}g\n"
+                  "---------------------------------------------\n${name3}\n---------------------------------------------\n칼로리: ${kcal3}kcal\n탄수화물: ${carbohydrate3}g\n단백질: ${protein3}g\n지방: ${fat3}g\n당: ${sugars3}g\n나트륨: ${sodium3}mg\n콜레스테롤: ${cholesterol3}mg\n트랜스지방: ${transfat3}g\n",
+              style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,
+            ),
+          )],
       ),
     );
   }
